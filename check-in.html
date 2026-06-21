@@ -151,6 +151,15 @@ h1,h2,h3{
     font-size:16px;
 }
 
+.mensagem-individual{
+    background:#fff8e6;
+    border-left:5px solid #d97706;
+    padding:12px;
+    border-radius:8px;
+    margin-top:12px;
+    font-size:16px;
+}
+
 img.dispositivo{
     width:100%;
     max-height:520px;
@@ -297,7 +306,7 @@ img.dispositivo{
         <h1>Check-in</h1>
 
         <p class="orientacao">
-            Digite parte do seu nome e selecione para visualizar sua posição no dispositivo.
+            Prezado agraciado, parabéns pela conquista! Por gentileza, procure o seu nome na lista abaixo, registre a sua presença e siga as instruções do aplicativo.
         </p>
 
         <input id="busca" placeholder="Digite seu nome">
@@ -315,8 +324,8 @@ img.dispositivo{
         <p style="text-align:center;">Sua posição no dispositivo:</p>
         <div class="posicao" id="posicao"></div>
 
+        <div class="mensagem-individual" id="mensagemIndividual" style="display:none;"></div>
         <div id="mensagensGerais"></div>
-        <div class="mensagem" id="mensagemIndividual" style="display:none;"></div>
 
         <img id="imagem" class="dispositivo">
 
@@ -378,7 +387,7 @@ function renderLista(lista){
     .forEach(a=>{
         const item = document.createElement("button");
         item.className = "nome-btn";
-        item.innerText = "Pos " + a.Posição + " - " + a.Nome;
+        item.innerText = a.Nome;
         item.onclick = () => mostrarResultado(a);
         div.appendChild(item);
     });
@@ -403,14 +412,15 @@ function mostrarResultado(a){
     document.getElementById("nome").innerText = a.Nome;
     document.getElementById("posicao").innerText = a["Posição"];
 
-    renderMensagensGerais();
-
-    if(a["Mensagem Individual"]){
+    if(a["Mensagem Individual"] && String(a["Mensagem Individual"]).trim() !== ""){
         document.getElementById("mensagemIndividual").style.display = "block";
         document.getElementById("mensagemIndividual").innerText = a["Mensagem Individual"];
     }else{
         document.getElementById("mensagemIndividual").style.display = "none";
+        document.getElementById("mensagemIndividual").innerText = "";
     }
+
+    renderMensagensGerais();
 
     const img = document.getElementById("imagem");
     const config = dados.config || {};
