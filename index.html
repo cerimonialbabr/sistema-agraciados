@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Check-in Cerimonial</title>
+</head>
+<body>
+  <h1 id="titulo">Carregando...</h1>
+  <h3 id="subtitulo"></h3>
+
+  <input id="busca" placeholder="Digite seu nome" />
+
+  <div id="lista"></div>
+
+  <div id="resultado" style="display:none;">
+    <h2 id="nome"></h2>
+    <h1>Posição: <span id="posicao"></span></h1>
+    <p id="mensagemGeral"></p>
+    <p id="mensagemIndividual"></p>
+    <img id="imagem" style="max-width:100%; border:1px solid #ccc;" />
+    <br><br>
+    <button onclick="confirmarPresenca()">CONFIRMAR PRESENÇA</button>
+    <h2 id="confirmado"></h2>
+  </div>
+
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycby_SmcbdfXRVWjPGnwiVyPIdbzsqU8OjRXGWd4OwoWl67ao_YJAQM5lTtSP6TLSCGIV/exec";
+
+    let dados = null;
+    let selecionado = null;
+
+    async function carregarDados() {
+      const resposta = await fetch(API_URL + "?action=dados");
+      dados = await resposta.json();
+
+      document.getElementById("titulo").innerText = dados.config["Título"] || "Check-in";
+      document.getElementById("subtitulo").innerText = dados.config["Subtitulo"] || "";
+
+      renderLista(dados.agraciados);
+    }
+
+    function renderLista(lista) {
+      const div = document.getElementById("lista");
+      div.innerHTML = "";
+
+      lista.forEach(a => {
+        const item = document.createElement("button");
+        item.innerText = a.Nome;
+        item.style.display = "block";
+        item.style.width = "100%";
+        item.style.margin = "8px 0";
+        item.style.padding = "12px";
+        item.onclick = () => mostrarResultado(a);
+        div.appendChild(item);
+      });
+    }
+
+    document.getElementById("busca").addEventListener("input", function() {
+      const termo = this.value.toLowerCase();
+      const filtrados = dados.agraciados.filter(a =>
+        a.Nome.toLowerCase().includes(termo)
+      );
+      renderLista(filtrados);
+    });
+
+    function mostrarResultado(a) {
+      selecionado = a;
+
+      document.getElementById("lista").style.display = "none";
+      document.getElementById("busca").style.display = "none";
+      document.getElementById("resultado").style.display = "block";
+
+      document.getElementById("nome").innerText = a.Nome;
+      document.getElementById("posicao").innerText = a["Posição"];
+      document.getElementById("mensagemGeral").innerText = dados.config["Mensagem_Geral"] || "";
+      document.getElementById("mensagemIndividual").innerText = a["Mensagem Individual"] || "";
+
+      if (dados.imagens.length > 0) {
+        document.getElementById("imagem").src = dados.imagens[0].imagem;
+      }
+    }
+
+    async function confirmarPresenca() {
+      const resposta = await fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify({
+          action: "confirmar",
+          id: selecionado.ID
+        })
+      });
+
+      const r = await resposta.json();
+
+      if (r.ok) {
+        document.getElementById("confirmado").innerText = "✅ Presença confirmada";
+      } else {
+        document.getElementById("confirmado").innerText = "Erro: " + r.erro;
+      }
+    }
+
+    carregarDados();
+  </script>
+</body>
+</html>
