@@ -21,44 +21,83 @@ body{
     padding:16px;
 }
 
+/* HEAD PRINCIPAL */
 .topo-sistema{
     display:flex;
     align-items:center;
     justify-content:center;
+    gap:18px;
+    background:#071b33;
+    border-radius:16px;
+    padding:20px 18px;
+    margin-bottom:16px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.18);
+    text-align:left;
+}
+
+.topo-sistema img{
+    width:78px;
+    height:78px;
+    object-fit:contain;
+    flex-shrink:0;
+}
+
+.titulo-sistema{
+    font-size:22px;
+    font-weight:800;
+    color:white;
+    line-height:1.15;
+}
+
+.subtitulo-sistema{
+    font-size:14px;
+    font-weight:700;
+    color:#dbeafe;
+    margin-top:6px;
+}
+
+/* CAIXA DA FORMATURA */
+.caixa-formatura{
+    display:flex;
+    align-items:center;
     gap:16px;
     background:white;
     border-radius:16px;
     padding:14px;
     margin-bottom:16px;
     box-shadow:0 4px 12px rgba(0,0,0,0.08);
-    text-align:left;
 }
 
-.topo-sistema img{
-    width:64px;
-    height:64px;
+.caixa-formatura img{
+    width:58px;
+    height:58px;
     object-fit:contain;
     flex-shrink:0;
 }
 
-.titulo-sistema{
-    font-size:20px;
-    font-weight:800;
-    color:#0b3a75;
-    line-height:1.15;
+.info-formatura{
+    flex:1;
 }
 
-.subtitulo-sistema{
-    font-size:13px;
-    font-weight:700;
+.solenidade{
+    color:#0b3a75;
+    font-size:18px;
+    font-weight:800;
+    line-height:1.2;
+}
+
+.detalhes-formatura{
     color:#374151;
+    font-size:14px;
+    font-weight:600;
     margin-top:4px;
+    line-height:1.4;
 }
 
 .card{
     background:white;
     border-radius:14px;
-    padding:24px;
+    padding:20px;
     box-shadow:0 4px 12px rgba(0,0,0,0.08);
 }
 
@@ -67,13 +106,13 @@ body{
     color:#4b5563;
     font-size:15px;
     line-height:1.4;
-    margin-bottom:20px;
+    margin-bottom:18px;
 }
 
 .menu{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:16px;
+    gap:14px;
 }
 
 .botao-menu{
@@ -81,16 +120,16 @@ body{
     flex-direction:column;
     align-items:center;
     justify-content:center;
-    min-height:150px;
+    min-height:110px;
     border-radius:14px;
     background:#0b3a75;
     color:white;
     text-decoration:none;
     font-weight:bold;
-    font-size:18px;
+    font-size:17px;
     box-shadow:0 4px 10px rgba(0,0,0,0.12);
     transition:0.2s;
-    padding:12px;
+    padding:10px;
 }
 
 .botao-menu:hover{
@@ -99,10 +138,10 @@ body{
 }
 
 .icone-menu{
-    width:110px;
-    height:110px;
+    width:78px;
+    height:78px;
     object-fit:contain;
-    margin-bottom:8px;
+    margin-bottom:6px;
 }
 
 .rodape{
@@ -112,32 +151,45 @@ body{
     font-size:13px;
 }
 
+.erro{
+    text-align:center;
+    color:#b91c1c;
+    font-weight:bold;
+    margin:10px 0;
+}
+
 @media(max-width:700px){
 
     .menu{
-        grid-template-columns:1fr;
+        grid-template-columns:1fr 1fr;
     }
 
     .botao-menu{
-        min-height:130px;
-        font-size:18px;
+        min-height:100px;
+        font-size:16px;
     }
 
     .icone-menu{
-        width:90px;
-        height:90px;
+        width:68px;
+        height:68px;
     }
 }
 
 @media(max-width:520px){
 
+    .container{
+        padding:12px;
+    }
+
     .topo-sistema{
         justify-content:flex-start;
+        padding:16px 14px;
+        gap:14px;
     }
 
     .topo-sistema img{
-        width:52px;
-        height:52px;
+        width:64px;
+        height:64px;
     }
 
     .titulo-sistema{
@@ -146,6 +198,41 @@ body{
 
     .subtitulo-sistema{
         font-size:12px;
+    }
+
+    .caixa-formatura{
+        align-items:flex-start;
+        padding:12px;
+    }
+
+    .caixa-formatura img{
+        width:48px;
+        height:48px;
+    }
+
+    .solenidade{
+        font-size:15px;
+    }
+
+    .detalhes-formatura{
+        font-size:12px;
+    }
+
+    .menu{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .botao-menu{
+        min-height:92px;
+        font-size:14px;
+        padding:8px;
+    }
+
+    .icone-menu{
+        width:58px;
+        height:58px;
+        margin-bottom:4px;
     }
 }
 
@@ -157,7 +244,7 @@ body{
 <div class="container">
 
     <div class="topo-sistema">
-        <img src="medalha.png" alt="Medalha">
+        <img src="babr.png" alt="Logo BABR">
 
         <div>
             <div class="titulo-sistema">
@@ -170,15 +257,29 @@ body{
         </div>
     </div>
 
+    <div class="caixa-formatura">
+        <img src="medalha.png" alt="Medalha">
+
+        <div class="info-formatura">
+            <div class="solenidade" id="solenidade">Carregando solenidade...</div>
+            <div class="detalhes-formatura">
+                <div id="dataFormatura"></div>
+                <div id="localFormatura"></div>
+            </div>
+        </div>
+    </div>
+
     <div class="card">
 
         <p class="descricao">
             Selecione uma opção para iniciar o gerenciamento da cerimônia.
         </p>
 
+        <div id="erroCarregamento" class="erro"></div>
+
         <div class="menu">
 
-            <a class="botao-menu" href="check-in.html">
+            <a class="botao-menu" href="checkin.html">
                 <img src="checkin.png" class="icone-menu" alt="Check-in">
                 Check-in
             </a>
@@ -207,6 +308,34 @@ body{
     </div>
 
 </div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycby_SmcbdfXRVWjPGnwiVyPIdbzsqU8OjRXGWd4OwoWl67ao_YJAQM5lTtSP6TLSCGIV/exec";
+
+async function carregarConfig() {
+    try {
+        const resposta = await fetch(API_URL + "?action=dados&_=" + Date.now());
+        const dados = await resposta.json();
+
+        const config = dados.config || {};
+
+        document.getElementById("solenidade").innerText =
+            config["Solenidade"] || "Solenidade não informada";
+
+        document.getElementById("dataFormatura").innerText =
+            config["Data"] ? "Data: " + config["Data"] : "";
+
+        document.getElementById("localFormatura").innerText =
+            config["Local"] ? "Local: " + config["Local"] : "";
+
+    } catch (erro) {
+        document.getElementById("erroCarregamento").innerText =
+            "Não foi possível carregar os dados da formatura.";
+    }
+}
+
+carregarConfig();
+</script>
 
 </body>
 </html>
