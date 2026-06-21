@@ -4,10 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sobre | Sistema de Gerenciamento de Agraciados</title>
+<title>Check-in | Sistema de Gerenciamento de Agraciados</title>
 
 <style>
-
 body{
     font-family:Arial,sans-serif;
     background:#f3f5f8;
@@ -20,8 +19,6 @@ body{
     margin:auto;
     padding:16px;
 }
-
-/* CABEÇALHO PADRÃO */
 
 .topo-sistema{
     display:flex;
@@ -57,46 +54,146 @@ body{
     margin-top:6px;
 }
 
-/* CONTEÚDO */
+.caixa-formatura{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    background:white;
+    border-radius:16px;
+    padding:14px;
+    margin-bottom:16px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.caixa-formatura img{
+    width:58px;
+    height:58px;
+    object-fit:contain;
+    flex-shrink:0;
+}
+
+.solenidade{
+    color:#0b3a75;
+    font-size:18px;
+    font-weight:800;
+    line-height:1.2;
+}
+
+.detalhes-formatura{
+    color:#374151;
+    font-size:14px;
+    font-weight:600;
+    margin-top:4px;
+    line-height:1.4;
+}
 
 .card{
     background:white;
     border-radius:14px;
-    padding:26px 20px;
+    padding:18px;
     box-shadow:0 4px 12px rgba(0,0,0,0.08);
     margin-bottom:16px;
+}
+
+h1,h2,h3{
     text-align:center;
-}
-
-.logo-babr{
-    max-width:180px;
-    margin:10px auto 24px;
-    display:block;
-}
-
-h1{
-    color:#0b3a75;
-    font-size:24px;
-    margin:8px 0 22px;
-}
-
-p{
-    font-size:17px;
-    line-height:1.5;
     margin:8px 0;
 }
 
-.autor{
-    margin-top:26px;
-    font-weight:bold;
-    color:#0b3a75;
-    font-size:18px;
+.orientacao{
+    text-align:center;
+    color:#4b5563;
+    font-size:15px;
+    line-height:1.4;
 }
 
-.versao{
-    margin-top:26px;
-    color:#4b5563;
+#busca{
+    width:100%;
+    padding:12px;
     font-size:16px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    box-sizing:border-box;
+    margin-bottom:10px;
+}
+
+.nome-btn{
+    width:100%;
+    padding:8px 10px;
+    margin:4px 0;
+    border:none;
+    border-radius:8px;
+    background:#0b3a75;
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    text-align:left;
+}
+
+.nome-btn:hover{
+    background:#092f5f;
+}
+
+.posicao{
+    font-size:60px;
+    font-weight:bold;
+    color:#0b3a75;
+    text-align:center;
+}
+
+.mensagem{
+    background:#eef3fb;
+    border-left:5px solid #0b3a75;
+    padding:12px;
+    border-radius:8px;
+    margin-top:12px;
+    font-size:16px;
+}
+
+img.dispositivo{
+    width:100%;
+    max-height:520px;
+    object-fit:contain;
+    border-radius:10px;
+    border:1px solid #ddd;
+    margin-top:16px;
+    background:white;
+}
+
+.confirmar,
+.voltar{
+    width:100%;
+    padding:14px;
+    margin-top:12px;
+    border:none;
+    border-radius:10px;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    box-sizing:border-box;
+}
+
+.confirmar{
+    background:#15803d;
+}
+
+.confirmar:disabled{
+    background:#9ca3af;
+    cursor:not-allowed;
+}
+
+.voltar{
+    background:#6b7280;
+}
+
+.ok{
+    text-align:center;
+    color:#15803d;
+    font-size:22px;
+    font-weight:bold;
+    margin-top:16px;
 }
 
 .voltar-menu{
@@ -112,10 +209,22 @@ p{
     margin-top:20px;
 }
 
+.erro{
+    text-align:center;
+    color:#b91c1c;
+    font-weight:bold;
+    margin-top:12px;
+}
+
 @media(max-width:520px){
+
+    .container{
+        padding:12px;
+    }
 
     .topo-sistema{
         justify-content:flex-start;
+        padding:16px 14px;
     }
 
     .topo-sistema img{
@@ -131,19 +240,33 @@ p{
         font-size:12px;
     }
 
-    .logo-babr{
-        max-width:150px;
+    .caixa-formatura{
+        align-items:flex-start;
+        padding:12px;
     }
 
-    h1{
-        font-size:21px;
+    .caixa-formatura img{
+        width:48px;
+        height:48px;
     }
 
-    p{
-        font-size:16px;
+    .solenidade{
+        font-size:15px;
+    }
+
+    .detalhes-formatura{
+        font-size:12px;
+    }
+
+    .posicao{
+        font-size:52px;
+    }
+
+    .nome-btn{
+        font-size:14px;
+        padding:8px;
     }
 }
-
 </style>
 </head>
 
@@ -153,42 +276,236 @@ p{
 
     <div class="topo-sistema">
         <img src="babr.png" alt="Logo BABR">
-
         <div>
-            <div class="titulo-sistema">
-                SISTEMA DE GERENCIAMENTO DE AGRACIADOS
-            </div>
+            <div class="titulo-sistema">SISTEMA DE GERENCIAMENTO DE AGRACIADOS</div>
+            <div class="subtitulo-sistema">BASE AÉREA DE BRASÍLIA</div>
+        </div>
+    </div>
 
-            <div class="subtitulo-sistema">
-                BASE AÉREA DE BRASÍLIA
+    <div class="caixa-formatura">
+        <img src="medalha.png" alt="Medalha">
+        <div>
+            <div class="solenidade" id="solenidade">Carregando solenidade...</div>
+            <div class="detalhes-formatura">
+                <div id="dataFormatura"></div>
+                <div id="localFormatura"></div>
             </div>
         </div>
     </div>
 
-    <div class="card">
+    <div class="card" id="inicio">
+        <h1>Check-in</h1>
 
-        <img src="babr.png" alt="Logo da Base Aérea de Brasília" class="logo-babr">
+        <p class="orientacao">
+            Digite parte do seu nome e selecione para visualizar sua posição no dispositivo.
+        </p>
 
-        <h1>Sistema de Gerenciamento de Agraciados</h1>
+        <input id="busca" placeholder="Digite seu nome">
 
-        <p>Desenvolvido para a Seção de Cerimonial Militar da Base Aérea de Brasília.</p>
+        <div id="lista"></div>
+        <div id="erroCarregamento" class="erro"></div>
 
-        <div class="autor">
-            Cap Av Ives Ranyer Tavares Guimarães
-        </div>
-
-        <div class="versao">
-            Versão:<br>
-            <strong>1.0</strong>
-        </div>
-
+        <a href="index.html" class="voltar-menu">Voltar ao Menu Principal</a>
     </div>
 
-    <a href="index.html" class="voltar-menu">
-        Voltar ao Menu Principal
-    </a>
+    <div class="card" id="resultado" style="display:none;">
+
+        <h2 id="nome"></h2>
+
+        <p style="text-align:center;">Sua posição no dispositivo:</p>
+        <div class="posicao" id="posicao"></div>
+
+        <div id="mensagensGerais"></div>
+        <div class="mensagem" id="mensagemIndividual" style="display:none;"></div>
+
+        <img id="imagem" class="dispositivo">
+
+        <button id="botaoConfirmar" class="confirmar" onclick="confirmarPresenca()">
+            CONFIRMAR PRESENÇA
+        </button>
+
+        <button class="voltar" onclick="voltarLista()">
+            Voltar para a lista
+        </button>
+
+        <div class="ok" id="confirmado"></div>
+
+    </div>
 
 </div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycby_SmcbdfXRVWjPGnwiVyPIdbzsqU8OjRXGWd4OwoWl67ao_YJAQM5lTtSP6TLSCGIV/exec";
+
+let dados = null;
+let selecionado = null;
+
+async function carregarDados(){
+    try{
+        const resposta = await fetch(API_URL + "?action=dados&_=" + Date.now());
+        dados = await resposta.json();
+
+        const config = dados.config || {};
+
+        document.getElementById("solenidade").innerText =
+            config["Solenidade"] || "Solenidade não informada";
+
+        document.getElementById("dataFormatura").innerText =
+            config["Data"] ? "Data: " + config["Data"] : "";
+
+        document.getElementById("localFormatura").innerText =
+            config["Local"] ? "Local: " + config["Local"] : "";
+
+        renderLista(dados.agraciados || []);
+
+    }catch(e){
+        document.getElementById("erroCarregamento").innerText =
+            "Erro ao carregar dados. Procure a equipe de cerimonial.";
+    }
+}
+
+function renderLista(lista){
+    const div = document.getElementById("lista");
+    div.innerHTML = "";
+
+    if(!lista.length){
+        div.innerHTML = "<p class='orientacao'>Nenhum agraciado encontrado.</p>";
+        return;
+    }
+
+    lista
+    .sort((a,b)=>Number(a.Posição)-Number(b.Posição))
+    .forEach(a=>{
+        const item = document.createElement("button");
+        item.className = "nome-btn";
+        item.innerText = "Pos " + a.Posição + " - " + a.Nome;
+        item.onclick = () => mostrarResultado(a);
+        div.appendChild(item);
+    });
+}
+
+document.getElementById("busca").addEventListener("input", function(){
+    const termo = this.value.toLowerCase();
+
+    const filtrados = (dados.agraciados || []).filter(a =>
+        a.Nome.toLowerCase().includes(termo)
+    );
+
+    renderLista(filtrados);
+});
+
+function mostrarResultado(a){
+    selecionado = a;
+
+    document.getElementById("inicio").style.display = "none";
+    document.getElementById("resultado").style.display = "block";
+
+    document.getElementById("nome").innerText = a.Nome;
+    document.getElementById("posicao").innerText = a["Posição"];
+
+    renderMensagensGerais();
+
+    if(a["Mensagem Individual"]){
+        document.getElementById("mensagemIndividual").style.display = "block";
+        document.getElementById("mensagemIndividual").innerText = a["Mensagem Individual"];
+    }else{
+        document.getElementById("mensagemIndividual").style.display = "none";
+    }
+
+    const img = document.getElementById("imagem");
+    const config = dados.config || {};
+
+    if(config["Imagem_Dispositivo"]){
+        img.src = config["Imagem_Dispositivo"];
+        img.style.display = "block";
+    }else if(dados.imagens && dados.imagens.length > 0){
+        img.src = dados.imagens[0].imagem;
+        img.style.display = "block";
+    }else{
+        img.style.display = "none";
+    }
+
+    document.getElementById("botaoConfirmar").disabled = false;
+    document.getElementById("botaoConfirmar").innerText = "CONFIRMAR PRESENÇA";
+    document.getElementById("confirmado").innerText = "";
+
+    if(a.Status === "PRESENTE"){
+        document.getElementById("confirmado").innerText = "✅ PRESENÇA JÁ CONFIRMADA";
+    }
+}
+
+function renderMensagensGerais(){
+    const div = document.getElementById("mensagensGerais");
+    div.innerHTML = "";
+
+    const config = dados.config || {};
+
+    Object.keys(config)
+        .filter(k => k.startsWith("Mensagem_Geral"))
+        .sort()
+        .forEach(k => {
+            if(config[k]){
+                const msg = document.createElement("div");
+                msg.className = "mensagem";
+                msg.innerText = config[k];
+                div.appendChild(msg);
+            }
+        });
+}
+
+async function confirmarPresenca(){
+    if(!selecionado) return;
+
+    const botao = document.getElementById("botaoConfirmar");
+    const confirmado = document.getElementById("confirmado");
+
+    botao.disabled = true;
+    botao.innerText = "CONFIRMANDO...";
+
+    try{
+        const resposta = await fetch(API_URL, {
+            method:"POST",
+            body:JSON.stringify({
+                action:"confirmar",
+                id:selecionado.ID
+            })
+        });
+
+        const r = await resposta.json();
+
+        if(r.ok){
+            selecionado.Status = "PRESENTE";
+
+            confirmado.innerText =
+                r.jaConfirmado
+                ? "✅ PRESENÇA JÁ ESTAVA CONFIRMADA"
+                : "✅ PRESENÇA CONFIRMADA";
+
+            botao.disabled = false;
+            botao.innerText = "CONFIRMAR PRESENÇA";
+        }else{
+            confirmado.innerText = "Erro: " + r.erro;
+            botao.disabled = false;
+            botao.innerText = "CONFIRMAR PRESENÇA";
+        }
+
+    }catch(e){
+        confirmado.innerText =
+            "Erro ao confirmar presença. Procure a equipe de cerimonial.";
+
+        botao.disabled = false;
+        botao.innerText = "CONFIRMAR PRESENÇA";
+    }
+}
+
+function voltarLista(){
+    document.getElementById("resultado").style.display = "none";
+    document.getElementById("inicio").style.display = "block";
+    carregarDados();
+}
+
+carregarDados();
+</script>
 
 </body>
 </html>
