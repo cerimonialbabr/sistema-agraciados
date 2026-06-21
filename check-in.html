@@ -1,401 +1,511 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Check-in | Sistema de Gerenciamento de Agraciados</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f3f5f8;
-      margin: 0;
-      color: #1f2937;
+<title>Check-in | Sistema de Gerenciamento de Agraciados</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#f3f5f8;
+    margin:0;
+    color:#1f2937;
+}
+
+.container{
+    max-width:760px;
+    margin:auto;
+    padding:16px;
+}
+
+.topo-sistema{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+    background:#071b33;
+    border-radius:16px;
+    padding:20px 18px;
+    margin-bottom:16px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.18);
+    text-align:left;
+}
+
+.topo-sistema img{
+    width:78px;
+    height:78px;
+    object-fit:contain;
+    flex-shrink:0;
+}
+
+.titulo-sistema{
+    font-size:22px;
+    font-weight:800;
+    color:white;
+    line-height:1.15;
+}
+
+.subtitulo-sistema{
+    font-size:14px;
+    font-weight:700;
+    color:#dbeafe;
+    margin-top:6px;
+}
+
+.caixa-formatura{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    background:white;
+    border-radius:16px;
+    padding:14px;
+    margin-bottom:16px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.caixa-formatura img{
+    width:58px;
+    height:58px;
+    object-fit:contain;
+    flex-shrink:0;
+}
+
+.solenidade{
+    color:#0b3a75;
+    font-size:18px;
+    font-weight:800;
+    line-height:1.2;
+}
+
+.detalhes-formatura{
+    color:#374151;
+    font-size:14px;
+    font-weight:600;
+    margin-top:4px;
+    line-height:1.4;
+}
+
+.card{
+    background:white;
+    border-radius:14px;
+    padding:18px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    margin-bottom:16px;
+}
+
+h1,h2,h3{
+    text-align:center;
+    margin:8px 0;
+}
+
+.orientacao{
+    text-align:center;
+    color:#4b5563;
+    font-size:15px;
+    line-height:1.4;
+}
+
+#busca{
+    width:100%;
+    padding:12px;
+    font-size:16px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    box-sizing:border-box;
+    margin-bottom:10px;
+}
+
+.nome-btn{
+    width:100%;
+    padding:8px 10px;
+    margin:4px 0;
+    border:none;
+    border-radius:8px;
+    background:#0b3a75;
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    text-align:left;
+}
+
+.nome-btn:hover{
+    background:#092f5f;
+}
+
+.posicao{
+    font-size:60px;
+    font-weight:bold;
+    color:#0b3a75;
+    text-align:center;
+}
+
+.mensagem{
+    background:#eef3fb;
+    border-left:5px solid #0b3a75;
+    padding:12px;
+    border-radius:8px;
+    margin-top:12px;
+    font-size:16px;
+}
+
+img.dispositivo{
+    width:100%;
+    max-height:520px;
+    object-fit:contain;
+    border-radius:10px;
+    border:1px solid #ddd;
+    margin-top:16px;
+    background:white;
+}
+
+.confirmar,
+.voltar{
+    width:100%;
+    padding:14px;
+    margin-top:12px;
+    border:none;
+    border-radius:10px;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    box-sizing:border-box;
+}
+
+.confirmar{
+    background:#15803d;
+}
+
+.confirmar:disabled{
+    background:#9ca3af;
+    cursor:not-allowed;
+}
+
+.voltar{
+    background:#6b7280;
+}
+
+.ok{
+    text-align:center;
+    color:#15803d;
+    font-size:22px;
+    font-weight:bold;
+    margin-top:16px;
+}
+
+.voltar-menu{
+    display:block;
+    text-align:center;
+    background:#6b7280;
+    color:white;
+    text-decoration:none;
+    padding:12px 20px;
+    border-radius:10px;
+    font-weight:bold;
+    font-size:16px;
+    margin-top:20px;
+}
+
+.erro{
+    text-align:center;
+    color:#b91c1c;
+    font-weight:bold;
+    margin-top:12px;
+}
+
+@media(max-width:520px){
+
+    .container{
+        padding:12px;
     }
 
-    .container {
-      max-width: 760px;
-      margin: auto;
-      padding: 16px;
+    .topo-sistema{
+        justify-content:flex-start;
+        padding:16px 14px;
     }
 
-    .topo-sistema {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      background: white;
-      border-radius: 16px;
-      padding: 14px;
-      margin-bottom: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      text-align: left;
+    .topo-sistema img{
+        width:64px;
+        height:64px;
     }
 
-    .topo-sistema img {
-      width: 64px;
-      height: 64px;
-      object-fit: contain;
-      flex-shrink: 0;
+    .titulo-sistema{
+        font-size:16px;
     }
 
-    .titulo-sistema {
-      font-size: 20px;
-      font-weight: 800;
-      color: #0b3a75;
-      line-height: 1.15;
+    .subtitulo-sistema{
+        font-size:12px;
     }
 
-    .subtitulo-sistema {
-      font-size: 13px;
-      font-weight: 700;
-      color: #374151;
-      margin-top: 4px;
+    .caixa-formatura{
+        align-items:flex-start;
+        padding:12px;
     }
 
-    .card {
-      background: white;
-      border-radius: 14px;
-      padding: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      margin-bottom: 16px;
+    .caixa-formatura img{
+        width:48px;
+        height:48px;
     }
 
-    h1, h2, h3 {
-      text-align: center;
-      margin: 8px 0;
+    .solenidade{
+        font-size:15px;
     }
 
-    .orientacao {
-      text-align: center;
-      color: #4b5563;
-      font-size: 15px;
-      line-height: 1.4;
+    .detalhes-formatura{
+        font-size:12px;
     }
 
-    #busca {
-      width: 100%;
-      padding: 14px;
-      font-size: 18px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      box-sizing: border-box;
-      margin-bottom: 14px;
+    .posicao{
+        font-size:52px;
     }
 
-    .nome-btn {
-      width: 100%;
-      padding: 16px;
-      margin: 6px 0;
-      border: none;
-      border-radius: 10px;
-      background: #0b3a75;
-      color: white;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
+    .nome-btn{
+        font-size:14px;
+        padding:8px;
     }
-
-    .posicao {
-      font-size: 64px;
-      font-weight: bold;
-      color: #0b3a75;
-      text-align: center;
-    }
-
-    .mensagem {
-      background: #eef3fb;
-      border-left: 5px solid #0b3a75;
-      padding: 12px;
-      border-radius: 8px;
-      margin-top: 12px;
-      font-size: 16px;
-    }
-
-    img.dispositivo {
-      width: 100%;
-      max-height: 520px;
-      object-fit: contain;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-      margin-top: 16px;
-      background: white;
-    }
-
-    .confirmar {
-      width: 100%;
-      padding: 18px;
-      margin-top: 18px;
-      border: none;
-      border-radius: 12px;
-      background: #15803d;
-      color: white;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .confirmar:disabled {
-      background: #9ca3af;
-      cursor: not-allowed;
-    }
-
-    .ok {
-      text-align: center;
-      color: #15803d;
-      font-size: 24px;
-      font-weight: bold;
-      margin-top: 16px;
-    }
-
-    .voltar {
-      width: 100%;
-      padding: 12px;
-      margin-top: 12px;
-      border: none;
-      border-radius: 10px;
-      background: #6b7280;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .voltar-menu {
-      display: block;
-      text-align: center;
-      background: #6b7280;
-      color: white;
-      text-decoration: none;
-      padding: 12px 20px;
-      border-radius: 10px;
-      font-weight: bold;
-      font-size: 16px;
-      margin-top: 20px;
-    }
-
-    .erro {
-      text-align: center;
-      color: #b91c1c;
-      font-weight: bold;
-      margin-top: 12px;
-    }
-
-    @media (max-width: 520px) {
-      .topo-sistema {
-        justify-content: flex-start;
-      }
-
-      .topo-sistema img {
-        width: 52px;
-        height: 52px;
-      }
-
-      .titulo-sistema {
-        font-size: 16px;
-      }
-
-      .subtitulo-sistema {
-        font-size: 12px;
-      }
-
-      .posicao {
-        font-size: 54px;
-      }
-    }
-  </style>
+}
+</style>
 </head>
 
 <body>
-  <div class="container">
+
+<div class="container">
 
     <div class="topo-sistema">
-      <img src="medalha.png" alt="Medalha" />
-      <div>
-        <div class="titulo-sistema">SISTEMA DE GERENCIAMENTO DE AGRACIADOS</div>
-        <div class="subtitulo-sistema">BASE AÉREA DE BRASÍLIA</div>
-      </div>
+        <img src="babr.png" alt="Logo BABR">
+        <div>
+            <div class="titulo-sistema">SISTEMA DE GERENCIAMENTO DE AGRACIADOS</div>
+            <div class="subtitulo-sistema">BASE AÉREA DE BRASÍLIA</div>
+        </div>
+    </div>
+
+    <div class="caixa-formatura">
+        <img src="medalha.png" alt="Medalha">
+        <div>
+            <div class="solenidade" id="solenidade">Carregando solenidade...</div>
+            <div class="detalhes-formatura">
+                <div id="dataFormatura"></div>
+                <div id="localFormatura"></div>
+            </div>
+        </div>
     </div>
 
     <div class="card" id="inicio">
-      <h1 id="titulo">Carregando...</h1>
-      <h3 id="subtitulo"></h3>
+        <h1>Check-in</h1>
 
-      <p class="orientacao">
-        Digite seu nome.
-      </p>
+        <p class="orientacao">
+            Digite parte do seu nome e selecione para visualizar sua posição no dispositivo.
+        </p>
 
-      <input id="busca" placeholder="Digite seu nome" />
-      <div id="lista"></div>
-      <div id="erroCarregamento" class="erro"></div>
+        <input id="busca" placeholder="Digite seu nome">
 
-      <a href="index.html" class="voltar-menu">Voltar ao Menu Principal</a>
+        <div id="lista"></div>
+        <div id="erroCarregamento" class="erro"></div>
+
+        <a href="index.html" class="voltar-menu">Voltar ao Menu Principal</a>
     </div>
 
     <div class="card" id="resultado" style="display:none;">
-      <h2 id="nome"></h2>
 
-      <p style="text-align:center;">Sua posição no dispositivo:</p>
-      <div class="posicao" id="posicao"></div>
+        <h2 id="nome"></h2>
 
-      <div class="mensagem" id="mensagemGeral"></div>
-      <div class="mensagem" id="mensagemIndividual" style="display:none;"></div>
+        <p style="text-align:center;">Sua posição no dispositivo:</p>
+        <div class="posicao" id="posicao"></div>
 
-      <img id="imagem" class="dispositivo" />
+        <div id="mensagensGerais"></div>
+        <div class="mensagem" id="mensagemIndividual" style="display:none;"></div>
 
-      <button id="botaoConfirmar" class="confirmar" onclick="confirmarPresenca()">
-        CONFIRMAR PRESENÇA
-      </button>
+        <img id="imagem" class="dispositivo">
 
-      <div class="ok" id="confirmado"></div>
+        <button id="botaoConfirmar" class="confirmar" onclick="confirmarPresenca()">
+            CONFIRMAR PRESENÇA
+        </button>
 
-      <button class="voltar" onclick="voltarLista()">
-        Voltar para a lista
-      </button>
+        <button class="voltar" onclick="voltarLista()">
+            Voltar para a lista
+        </button>
+
+        <div class="ok" id="confirmado"></div>
+
     </div>
-  </div>
 
-  <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycby_SmcbdfXRVWjPGnwiVyPIdbzsqU8OjRXGWd4OwoWl67ao_YJAQM5lTtSP6TLSCGIV/exec";
+</div>
 
-    let dados = null;
-    let selecionado = null;
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycby_SmcbdfXRVWjPGnwiVyPIdbzsqU8OjRXGWd4OwoWl67ao_YJAQM5lTtSP6TLSCGIV/exec";
 
-    async function carregarDados() {
-      try {
+let dados = null;
+let selecionado = null;
+
+async function carregarDados(){
+    try{
         const resposta = await fetch(API_URL + "?action=dados&_=" + Date.now());
         dados = await resposta.json();
 
-        document.getElementById("titulo").innerText =
-          dados.config["Título"] || "Check-in Cerimonial";
+        const config = dados.config || {};
 
-        document.getElementById("subtitulo").innerText =
-          dados.config["Subtitulo"] || "";
+        document.getElementById("solenidade").innerText =
+            config["Solenidade"] || "Solenidade não informada";
+
+        document.getElementById("dataFormatura").innerText =
+            config["Data"] ? "Data: " + config["Data"] : "";
+
+        document.getElementById("localFormatura").innerText =
+            config["Local"] ? "Local: " + config["Local"] : "";
 
         renderLista(dados.agraciados || []);
-      } catch (erro) {
+
+    }catch(e){
         document.getElementById("erroCarregamento").innerText =
-          "Erro ao carregar dados. Procure a equipe de cerimonial.";
-      }
+            "Erro ao carregar dados. Procure a equipe de cerimonial.";
     }
+}
 
-    function renderLista(lista) {
-      const div = document.getElementById("lista");
-      div.innerHTML = "";
+function renderLista(lista){
+    const div = document.getElementById("lista");
+    div.innerHTML = "";
 
-      if (!lista.length) {
+    if(!lista.length){
         div.innerHTML = "<p class='orientacao'>Nenhum agraciado encontrado.</p>";
         return;
-      }
+    }
 
-      lista.forEach(a => {
+    lista
+    .sort((a,b)=>Number(a.Posição)-Number(b.Posição))
+    .forEach(a=>{
         const item = document.createElement("button");
         item.className = "nome-btn";
-        item.innerText = a.Nome;
+        item.innerText = "Pos " + a.Posição + " - " + a.Nome;
         item.onclick = () => mostrarResultado(a);
         div.appendChild(item);
-      });
-    }
-
-    document.getElementById("busca").addEventListener("input", function() {
-      const termo = this.value.toLowerCase();
-
-      const filtrados = (dados.agraciados || []).filter(a =>
-        a.Nome.toLowerCase().includes(termo)
-      );
-
-      renderLista(filtrados);
     });
+}
 
-    function mostrarResultado(a) {
-      selecionado = a;
+document.getElementById("busca").addEventListener("input", function(){
+    const termo = this.value.toLowerCase();
 
-      document.getElementById("inicio").style.display = "none";
-      document.getElementById("resultado").style.display = "block";
+    const filtrados = (dados.agraciados || []).filter(a =>
+        a.Nome.toLowerCase().includes(termo)
+    );
 
-      document.getElementById("nome").innerText = a.Nome;
-      document.getElementById("posicao").innerText = a["Posição"];
+    renderLista(filtrados);
+});
 
-      document.getElementById("mensagemGeral").innerText =
-        dados.config["Mensagem_Geral"] || "";
+function mostrarResultado(a){
+    selecionado = a;
 
-      if (a["Mensagem Individual"]) {
+    document.getElementById("inicio").style.display = "none";
+    document.getElementById("resultado").style.display = "block";
+
+    document.getElementById("nome").innerText = a.Nome;
+    document.getElementById("posicao").innerText = a["Posição"];
+
+    renderMensagensGerais();
+
+    if(a["Mensagem Individual"]){
         document.getElementById("mensagemIndividual").style.display = "block";
-        document.getElementById("mensagemIndividual").innerText =
-          a["Mensagem Individual"];
-      } else {
+        document.getElementById("mensagemIndividual").innerText = a["Mensagem Individual"];
+    }else{
         document.getElementById("mensagemIndividual").style.display = "none";
-      }
-
-      if (dados.imagens && dados.imagens.length > 0) {
-        document.getElementById("imagem").src = dados.imagens[0].imagem;
-        document.getElementById("imagem").style.display = "block";
-      } else {
-        document.getElementById("imagem").style.display = "none";
-      }
-
-      const botao = document.getElementById("botaoConfirmar");
-      const confirmado = document.getElementById("confirmado");
-
-      botao.disabled = false;
-      botao.innerText = "CONFIRMAR PRESENÇA";
-      confirmado.innerText = "";
-
-      if (a.Status === "PRESENTE") {
-        confirmado.innerText = "✅ PRESENÇA JÁ CONFIRMADA";
-      }
     }
 
-    async function confirmarPresenca() {
-      if (!selecionado) return;
+    const img = document.getElementById("imagem");
+    const config = dados.config || {};
 
-      const botao = document.getElementById("botaoConfirmar");
-      const confirmado = document.getElementById("confirmado");
+    if(config["Imagem_Dispositivo"]){
+        img.src = config["Imagem_Dispositivo"];
+        img.style.display = "block";
+    }else if(dados.imagens && dados.imagens.length > 0){
+        img.src = dados.imagens[0].imagem;
+        img.style.display = "block";
+    }else{
+        img.style.display = "none";
+    }
 
-      botao.disabled = true;
-      botao.innerText = "CONFIRMANDO...";
+    document.getElementById("botaoConfirmar").disabled = false;
+    document.getElementById("botaoConfirmar").innerText = "CONFIRMAR PRESENÇA";
+    document.getElementById("confirmado").innerText = "";
 
-      try {
+    if(a.Status === "PRESENTE"){
+        document.getElementById("confirmado").innerText = "✅ PRESENÇA JÁ CONFIRMADA";
+    }
+}
+
+function renderMensagensGerais(){
+    const div = document.getElementById("mensagensGerais");
+    div.innerHTML = "";
+
+    const config = dados.config || {};
+
+    Object.keys(config)
+        .filter(k => k.startsWith("Mensagem_Geral"))
+        .sort()
+        .forEach(k => {
+            if(config[k]){
+                const msg = document.createElement("div");
+                msg.className = "mensagem";
+                msg.innerText = config[k];
+                div.appendChild(msg);
+            }
+        });
+}
+
+async function confirmarPresenca(){
+    if(!selecionado) return;
+
+    const botao = document.getElementById("botaoConfirmar");
+    const confirmado = document.getElementById("confirmado");
+
+    botao.disabled = true;
+    botao.innerText = "CONFIRMANDO...";
+
+    try{
         const resposta = await fetch(API_URL, {
-          method: "POST",
-          body: JSON.stringify({
-            action: "confirmar",
-            id: selecionado.ID
-          })
+            method:"POST",
+            body:JSON.stringify({
+                action:"confirmar",
+                id:selecionado.ID
+            })
         });
 
         const r = await resposta.json();
 
-        if (r.ok) {
-          selecionado.Status = "PRESENTE";
+        if(r.ok){
+            selecionado.Status = "PRESENTE";
 
-          confirmado.innerText =
-            r.jaConfirmado
-              ? "✅ PRESENÇA JÁ ESTAVA CONFIRMADA"
-              : "✅ PRESENÇA CONFIRMADA";
+            confirmado.innerText =
+                r.jaConfirmado
+                ? "✅ PRESENÇA JÁ ESTAVA CONFIRMADA"
+                : "✅ PRESENÇA CONFIRMADA";
 
-          botao.innerText = "CONFIRMAR PRESENÇA";
-          botao.disabled = false;
-        } else {
-          confirmado.innerText = "Erro: " + r.erro;
-          botao.disabled = false;
-          botao.innerText = "CONFIRMAR PRESENÇA";
+            botao.disabled = false;
+            botao.innerText = "CONFIRMAR PRESENÇA";
+        }else{
+            confirmado.innerText = "Erro: " + r.erro;
+            botao.disabled = false;
+            botao.innerText = "CONFIRMAR PRESENÇA";
         }
-      } catch (erro) {
+
+    }catch(e){
         confirmado.innerText =
-          "Erro ao confirmar presença. Procure a equipe de cerimonial.";
+            "Erro ao confirmar presença. Procure a equipe de cerimonial.";
 
         botao.disabled = false;
         botao.innerText = "CONFIRMAR PRESENÇA";
-      }
     }
+}
 
-    function voltarLista() {
-      document.getElementById("resultado").style.display = "none";
-      document.getElementById("inicio").style.display = "block";
-      carregarDados();
-    }
-
+function voltarLista(){
+    document.getElementById("resultado").style.display = "none";
+    document.getElementById("inicio").style.display = "block";
     carregarDados();
-  </script>
+}
+
+carregarDados();
+</script>
+
 </body>
 </html>
