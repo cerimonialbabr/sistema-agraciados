@@ -67,6 +67,11 @@
       color: #f87171;
     }
 
+    .hora {
+      color: #93c5fd;
+      font-size: 14px;
+    }
+
     #imagemDispositivo {
       width: 100%;
       max-height: 520px;
@@ -105,8 +110,8 @@
     </div>
 
     <div class="painel">
-      <h2>Presentes</h2>
-      <div id="listaPresentes"></div>
+      <h2>Últimos Check-ins</h2>
+      <div id="listaCheckins"></div>
     </div>
 
     <div class="painel">
@@ -123,6 +128,8 @@
       const dados = await resposta.json();
 
       const agraciados = dados.agraciados || [];
+      const checkins = dados.checkins || [];
+
       const presentes = agraciados.filter(a => a.Status === "PRESENTE");
       const pendentes = agraciados.filter(a => a.Status !== "PRESENTE");
 
@@ -136,28 +143,31 @@
       document.getElementById("presentes").innerText = presentes.length;
       document.getElementById("pendentes").innerText = pendentes.length;
 
-      if (dados.imagens && dados.imagens.length > 0 && dados.imagens[0].imagem) {
-        const img = document.getElementById("imagemDispositivo");
-        img.src = dados.imagens[0].imagem;
-        img.alt = "Imagem do dispositivo";
-      } else {
-        document.getElementById("imagemDispositivo").style.display = "none";
+      if (dados.imagens && dados.imagens.length > 0) {
+        document.getElementById("imagemDispositivo").src =
+          dados.imagens[0].imagem;
       }
 
-      renderPresentes(presentes);
+      renderCheckins(checkins);
       renderPendentes(pendentes);
     }
 
-    function renderPresentes(lista) {
-      const div = document.getElementById("listaPresentes");
+    function renderCheckins(lista) {
+      const div = document.getElementById("listaCheckins");
       div.innerHTML = "";
 
       lista
-        .sort((a, b) => Number(a.Posição) - Number(b.Posição))
-        .forEach(a => {
+        .slice()
+        .reverse()
+        .slice(0, 20)
+        .forEach(c => {
           const item = document.createElement("div");
           item.className = "linha presente";
-          item.innerHTML = `Pos ${a.Posição} - ${a.Nome}`;
+          item.innerHTML = `
+            Pos ${c["Posição"]} - ${c["Nome"]}
+            <br>
+            <span class="hora">${c["Hora"] || ""}</span>
+          `;
           div.appendChild(item);
         });
     }
