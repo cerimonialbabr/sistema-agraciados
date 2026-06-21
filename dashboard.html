@@ -136,9 +136,12 @@
       document.getElementById("presentes").innerText = presentes.length;
       document.getElementById("pendentes").innerText = pendentes.length;
 
-      if (dados.imagens && dados.imagens.length > 0) {
-        document.getElementById("imagemDispositivo").src =
-          dados.imagens[0].imagem;
+      if (dados.imagens && dados.imagens.length > 0 && dados.imagens[0].imagem) {
+        const img = document.getElementById("imagemDispositivo");
+        img.src = dados.imagens[0].imagem;
+        img.alt = "Imagem do dispositivo";
+      } else {
+        document.getElementById("imagemDispositivo").style.display = "none";
       }
 
       renderPresentes(presentes);
