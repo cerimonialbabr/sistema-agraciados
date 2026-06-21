@@ -3,20 +3,54 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Check-in Cerimonial</title>
+  <title>Sistema de Gerenciamento de Agraciados</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
       background: #f3f5f8;
       margin: 0;
-      padding: 0;
       color: #1f2937;
     }
 
     .container {
-      max-width: 720px;
+      max-width: 760px;
       margin: auto;
-      padding: 20px;
+      padding: 16px;
+    }
+
+    .topo-sistema {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: white;
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      text-align: left;
+    }
+
+    .topo-sistema img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .titulo-sistema {
+      font-size: 20px;
+      font-weight: 800;
+      color: #0b3a75;
+      line-height: 1.15;
+    }
+
+    .subtitulo-sistema {
+      font-size: 13px;
+      font-weight: 700;
+      color: #374151;
+      margin-top: 4px;
     }
 
     .card {
@@ -52,10 +86,11 @@
       color: white;
       font-size: 18px;
       font-weight: bold;
+      cursor: pointer;
     }
 
     .posicao {
-      font-size: 56px;
+      font-size: 64px;
       font-weight: bold;
       color: #0b3a75;
       text-align: center;
@@ -70,7 +105,7 @@
       font-size: 16px;
     }
 
-    img {
+    img.dispositivo {
       width: 100%;
       max-height: 520px;
       object-fit: contain;
@@ -90,6 +125,12 @@
       color: white;
       font-size: 20px;
       font-weight: bold;
+      cursor: pointer;
+    }
+
+    .confirmar:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
     }
 
     .ok {
@@ -109,12 +150,58 @@
       background: #6b7280;
       color: white;
       font-size: 16px;
+      cursor: pointer;
+    }
+
+    .links {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+
+    .links a {
+      color: #0b3a75;
+      font-weight: bold;
+      text-decoration: none;
+      margin: 0 8px;
+    }
+
+    @media (max-width: 520px) {
+      .topo-sistema {
+        justify-content: flex-start;
+      }
+
+      .topo-sistema img {
+        width: 52px;
+        height: 52px;
+      }
+
+      .titulo-sistema {
+        font-size: 16px;
+      }
+
+      .subtitulo-sistema {
+        font-size: 12px;
+      }
+
+      .posicao {
+        font-size: 54px;
+      }
     }
   </style>
 </head>
 
 <body>
   <div class="container">
+
+    <div class="topo-sistema">
+      <img src="medalha.png" alt="Medalha" />
+      <div>
+        <div class="titulo-sistema">SISTEMA DE GERENCIAMENTO DE AGRACIADOS</div>
+        <div class="subtitulo-sistema">BASE AÉREA DE BRASÍLIA</div>
+      </div>
+    </div>
+
     <div class="card" id="inicio">
       <h1 id="titulo">Carregando...</h1>
       <h3 id="subtitulo"></h3>
@@ -125,6 +212,11 @@
 
       <input id="busca" placeholder="Digite seu nome" />
       <div id="lista"></div>
+
+      <div class="links">
+        <a href="acompanhamento.html">Acompanhamento</a>
+        <a href="sobre.html">Sobre</a>
+      </div>
     </div>
 
     <div class="card" id="resultado" style="display:none;">
@@ -136,9 +228,9 @@
       <div class="mensagem" id="mensagemGeral"></div>
       <div class="mensagem" id="mensagemIndividual" style="display:none;"></div>
 
-      <img id="imagem" />
+      <img id="imagem" class="dispositivo" />
 
-      <button class="confirmar" onclick="confirmarPresenca()">
+      <button id="botaoConfirmar" class="confirmar" onclick="confirmarPresenca()">
         CONFIRMAR PRESENÇA
       </button>
 
@@ -157,7 +249,7 @@
     let selecionado = null;
 
     async function carregarDados() {
-      const resposta = await fetch(API_URL + "?action=dados");
+      const resposta = await fetch(API_URL + "?action=dados&_=" + Date.now());
       dados = await resposta.json();
 
       document.getElementById("titulo").innerText =
@@ -212,14 +304,29 @@
         document.getElementById("mensagemIndividual").style.display = "none";
       }
 
-      if (dados.imagens.length > 0) {
+      if (dados.imagens && dados.imagens.length > 0) {
         document.getElementById("imagem").src = dados.imagens[0].imagem;
       }
 
-      document.getElementById("confirmado").innerText = "";
+      const botao = document.getElementById("botaoConfirmar");
+      const confirmado = document.getElementById("confirmado");
+
+      if (a.Status === "PRESENTE") {
+        botao.disabled = true;
+        botao.innerText = "PRESENÇA JÁ CONFIRMADA";
+        confirmado.innerText = "✅ PRESENÇA CONFIRMADA";
+      } else {
+        botao.disabled = false;
+        botao.innerText = "CONFIRMAR PRESENÇA";
+        confirmado.innerText = "";
+      }
     }
 
     async function confirmarPresenca() {
+      const botao = document.getElementById("botaoConfirmar");
+      botao.disabled = true;
+      botao.innerText = "CONFIRMANDO...";
+
       const resposta = await fetch(API_URL, {
         method: "POST",
         body: JSON.stringify({
@@ -231,17 +338,24 @@
       const r = await resposta.json();
 
       if (r.ok) {
+        selecionado.Status = "PRESENTE";
         document.getElementById("confirmado").innerText =
-          "✅ PRESENÇA CONFIRMADA";
+          r.jaConfirmado ? "✅ PRESENÇA JÁ ESTAVA CONFIRMADA" : "✅ PRESENÇA CONFIRMADA";
+
+        botao.innerText = "PRESENÇA CONFIRMADA";
       } else {
         document.getElementById("confirmado").innerText =
           "Erro: " + r.erro;
+
+        botao.disabled = false;
+        botao.innerText = "CONFIRMAR PRESENÇA";
       }
     }
 
     function voltarLista() {
       document.getElementById("resultado").style.display = "none";
       document.getElementById("inicio").style.display = "block";
+      carregarDados();
     }
 
     carregarDados();
