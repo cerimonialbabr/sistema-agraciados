@@ -1,195 +1,211 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sistema de Gerenciamento de Agraciados</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f3f5f8;
-      margin: 0;
-      color: #1f2937;
+<title>Sistema de Gerenciamento de Agraciados</title>
+
+<style>
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f3f5f8;
+    margin:0;
+    color:#1f2937;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:16px;
+}
+
+.topo-sistema{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:16px;
+    background:white;
+    border-radius:16px;
+    padding:14px;
+    margin-bottom:16px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    text-align:left;
+}
+
+.topo-sistema img{
+    width:64px;
+    height:64px;
+    object-fit:contain;
+    flex-shrink:0;
+}
+
+.titulo-sistema{
+    font-size:20px;
+    font-weight:800;
+    color:#0b3a75;
+    line-height:1.15;
+}
+
+.subtitulo-sistema{
+    font-size:13px;
+    font-weight:700;
+    color:#374151;
+    margin-top:4px;
+}
+
+.card{
+    background:white;
+    border-radius:14px;
+    padding:24px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.descricao{
+    text-align:center;
+    color:#4b5563;
+    font-size:15px;
+    line-height:1.4;
+    margin-bottom:22px;
+}
+
+.menu{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.botao-menu{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:240px;
+    border-radius:16px;
+    background:#0b3a75;
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:20px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.12);
+    transition:0.2s;
+    padding:20px;
+}
+
+.botao-menu:hover{
+    background:#092f5f;
+    transform:translateY(-3px);
+}
+
+.icone-menu{
+    width:140px;
+    height:140px;
+    object-fit:contain;
+    margin-bottom:14px;
+}
+
+.rodape{
+    text-align:center;
+    margin-top:18px;
+    color:#6b7280;
+    font-size:13px;
+}
+
+@media(max-width:700px){
+
+    .menu{
+        grid-template-columns:1fr;
     }
 
-    .container {
-      max-width: 760px;
-      margin: auto;
-      padding: 16px;
+    .botao-menu{
+        min-height:200px;
+        font-size:18px;
     }
 
-    .topo-sistema {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      background: white;
-      border-radius: 16px;
-      padding: 14px;
-      margin-bottom: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      text-align: left;
+    .icone-menu{
+        width:110px;
+        height:110px;
+    }
+}
+
+@media(max-width:520px){
+
+    .topo-sistema{
+        justify-content:flex-start;
     }
 
-    .topo-sistema img {
-      width: 64px;
-      height: 64px;
-      object-fit: contain;
-      flex-shrink: 0;
+    .topo-sistema img{
+        width:52px;
+        height:52px;
     }
 
-    .titulo-sistema {
-      font-size: 20px;
-      font-weight: 800;
-      color: #0b3a75;
-      line-height: 1.15;
+    .titulo-sistema{
+        font-size:16px;
     }
 
-    .subtitulo-sistema {
-      font-size: 13px;
-      font-weight: 700;
-      color: #374151;
-      margin-top: 4px;
+    .subtitulo-sistema{
+        font-size:12px;
     }
+}
 
-    .card {
-      background: white;
-      border-radius: 14px;
-      padding: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      margin-bottom: 16px;
-    }
-
-    .descricao {
-      text-align: center;
-      color: #4b5563;
-      font-size: 15px;
-      line-height: 1.4;
-      margin-bottom: 18px;
-    }
-
-    .menu {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    .botao-menu {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 130px;
-      border-radius: 14px;
-      background: #0b3a75;
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 18px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-      transition: transform 0.1s ease, background 0.2s ease;
-      padding: 14px;
-      box-sizing: border-box;
-    }
-
-    .botao-menu:hover {
-      background: #092f5f;
-      transform: translateY(-2px);
-    }
-
-    .icone-menu {
-      width: 54px;
-      height: 54px;
-      object-fit: contain;
-      margin-bottom: 10px;
-    }
-
-    .rodape {
-      text-align: center;
-      margin-top: 18px;
-      color: #6b7280;
-      font-size: 13px;
-    }
-
-    @media (max-width: 520px) {
-      .menu {
-        grid-template-columns: 1fr;
-      }
-
-      .topo-sistema {
-        justify-content: flex-start;
-      }
-
-      .topo-sistema img {
-        width: 52px;
-        height: 52px;
-      }
-
-      .titulo-sistema {
-        font-size: 16px;
-      }
-
-      .subtitulo-sistema {
-        font-size: 12px;
-      }
-
-      .botao-menu {
-        min-height: 105px;
-        font-size: 17px;
-      }
-
-      .icone-menu {
-        width: 46px;
-        height: 46px;
-      }
-    }
-  </style>
+</style>
 </head>
 
 <body>
-  <div class="container">
+
+<div class="container">
 
     <div class="topo-sistema">
-      <img src="medalha.png" alt="Medalha" />
-      <div>
-        <div class="titulo-sistema">SISTEMA DE GERENCIAMENTO DE AGRACIADOS</div>
-        <div class="subtitulo-sistema">BASE AÉREA DE BRASÍLIA</div>
-      </div>
+        <img src="medalha.png" alt="Medalha">
+        <div>
+            <div class="titulo-sistema">
+                SISTEMA DE GERENCIAMENTO DE AGRACIADOS
+            </div>
+
+            <div class="subtitulo-sistema">
+                BASE AÉREA DE BRASÍLIA
+            </div>
+        </div>
     </div>
 
     <div class="card">
-      <p class="descricao">
-        Selecione uma opção para iniciar o gerenciamento da cerimônia.
-      </p>
 
-      <div class="menu">
-        <a class="botao-menu" href="checkin.html">
-          <img class="icone-menu" src="checkin.png" alt="Ícone Check-in" />
-          Check-in
-        </a>
+        <p class="descricao">
+            Selecione uma opção para iniciar o gerenciamento da cerimônia.
+        </p>
 
-        <a class="botao-menu" href="acompanhamento.html">
-          <img class="icone-menu" src="acompanhamento.png" alt="Ícone Acompanhamento" />
-          Acompanhamento
-        </a>
+        <div class="menu">
 
-        <a class="botao-menu" href="dashboard.html">
-          <img class="icone-menu" src="dashboard.png" alt="Ícone Dashboard" />
-          Dashboard
-        </a>
+            <a class="botao-menu" href="checkin.html">
+                <img src="checkin.png" class="icone-menu">
+                Check-in
+            </a>
 
-        <a class="botao-menu" href="sobre.html">
-          <img class="icone-menu" src="sobre.png" alt="Ícone Sobre" />
-          Sobre
-        </a>
-      </div>
+            <a class="botao-menu" href="acompanhamento.html">
+                <img src="acompanhamento.png" class="icone-menu">
+                Acompanhamento
+            </a>
+
+            <a class="botao-menu" href="dashboard.html">
+                <img src="dashboard.png" class="icone-menu">
+                Dashboard
+            </a>
+
+            <a class="botao-menu" href="sobre.html">
+                <img src="sobre.png" class="icone-menu">
+                Sobre
+            </a>
+
+        </div>
+
     </div>
 
     <div class="rodape">
-      Seção de Cerimonial Militar — BABR
+        Seção de Cerimonial Militar — BABR
     </div>
 
-  </div>
+</div>
+
 </body>
 </html>
