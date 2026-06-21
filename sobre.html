@@ -1,175 +1,195 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sobre | Sistema de Gerenciamento de Agraciados</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f3f5f8;
-      margin: 0;
-      color: #1f2937;
+<title>Sobre | Sistema de Gerenciamento de Agraciados</title>
+
+<style>
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f3f5f8;
+    margin:0;
+    color:#1f2937;
+}
+
+.container{
+    max-width:760px;
+    margin:auto;
+    padding:16px;
+}
+
+/* CABEÇALHO PADRÃO */
+
+.topo-sistema{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+    background:#071b33;
+    border-radius:16px;
+    padding:20px 18px;
+    margin-bottom:16px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.18);
+    text-align:left;
+}
+
+.topo-sistema img{
+    width:78px;
+    height:78px;
+    object-fit:contain;
+    flex-shrink:0;
+}
+
+.titulo-sistema{
+    font-size:22px;
+    font-weight:800;
+    color:white;
+    line-height:1.15;
+}
+
+.subtitulo-sistema{
+    font-size:14px;
+    font-weight:700;
+    color:#dbeafe;
+    margin-top:6px;
+}
+
+/* CONTEÚDO */
+
+.card{
+    background:white;
+    border-radius:14px;
+    padding:26px 20px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    margin-bottom:16px;
+    text-align:center;
+}
+
+.logo-babr{
+    max-width:180px;
+    margin:10px auto 24px;
+    display:block;
+}
+
+h1{
+    color:#0b3a75;
+    font-size:24px;
+    margin:8px 0 22px;
+}
+
+p{
+    font-size:17px;
+    line-height:1.5;
+    margin:8px 0;
+}
+
+.autor{
+    margin-top:26px;
+    font-weight:bold;
+    color:#0b3a75;
+    font-size:18px;
+}
+
+.versao{
+    margin-top:26px;
+    color:#4b5563;
+    font-size:16px;
+}
+
+.voltar-menu{
+    display:block;
+    text-align:center;
+    background:#6b7280;
+    color:white;
+    text-decoration:none;
+    padding:12px 20px;
+    border-radius:10px;
+    font-weight:bold;
+    font-size:16px;
+    margin-top:20px;
+}
+
+@media(max-width:520px){
+
+    .topo-sistema{
+        justify-content:flex-start;
     }
 
-    .container {
-      max-width: 760px;
-      margin: auto;
-      padding: 16px;
+    .topo-sistema img{
+        width:64px;
+        height:64px;
     }
 
-    .topo-sistema {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      background: white;
-      border-radius: 16px;
-      padding: 14px;
-      margin-bottom: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      text-align: left;
+    .titulo-sistema{
+        font-size:16px;
     }
 
-    .topo-sistema img {
-      width: 64px;
-      height: 64px;
-      object-fit: contain;
-      flex-shrink: 0;
+    .subtitulo-sistema{
+        font-size:12px;
     }
 
-    .titulo-sistema {
-      font-size: 20px;
-      font-weight: 800;
-      color: #0b3a75;
-      line-height: 1.15;
+    .logo-babr{
+        max-width:150px;
     }
 
-    .subtitulo-sistema {
-      font-size: 13px;
-      font-weight: 700;
-      color: #374151;
-      margin-top: 4px;
+    h1{
+        font-size:21px;
     }
 
-    .card {
-      background: white;
-      border-radius: 14px;
-      padding: 26px 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      margin-bottom: 16px;
-      text-align: center;
+    p{
+        font-size:16px;
     }
+}
 
-    .logo-babr {
-      max-width: 180px;
-      margin: 10px auto 24px;
-      display: block;
-    }
-
-    h1 {
-      color: #0b3a75;
-      font-size: 24px;
-      margin: 8px 0 22px;
-    }
-
-    p {
-      font-size: 17px;
-      line-height: 1.5;
-      margin: 8px 0;
-    }
-
-    .autor {
-      margin-top: 26px;
-      font-weight: bold;
-      color: #0b3a75;
-      font-size: 18px;
-    }
-
-    .versao {
-      margin-top: 26px;
-      color: #4b5563;
-      font-size: 16px;
-    }
-
-    .voltar-menu {
-      display: block;
-      text-align: center;
-      background: #6b7280;
-      color: white;
-      text-decoration: none;
-      padding: 12px 20px;
-      border-radius: 10px;
-      font-weight: bold;
-      font-size: 16px;
-      margin-top: 20px;
-    }
-
-    @media (max-width: 520px) {
-      .topo-sistema {
-        justify-content: flex-start;
-      }
-
-      .topo-sistema img {
-        width: 52px;
-        height: 52px;
-      }
-
-      .titulo-sistema {
-        font-size: 16px;
-      }
-
-      .subtitulo-sistema {
-        font-size: 12px;
-      }
-
-      .logo-babr {
-        max-width: 150px;
-      }
-
-      h1 {
-        font-size: 21px;
-      }
-
-      p {
-        font-size: 16px;
-      }
-    }
-  </style>
+</style>
 </head>
 
 <body>
-  <div class="container">
+
+<div class="container">
 
     <div class="topo-sistema">
-      <img src="medalha.png" alt="Medalha" />
-      <div>
-        <div class="titulo-sistema">SISTEMA DE GERENCIAMENTO DE AGRACIADOS</div>
-        <div class="subtitulo-sistema">BASE AÉREA DE BRASÍLIA</div>
-      </div>
+        <img src="babr.png" alt="Logo BABR">
+
+        <div>
+            <div class="titulo-sistema">
+                SISTEMA DE GERENCIAMENTO DE AGRACIADOS
+            </div>
+
+            <div class="subtitulo-sistema">
+                BASE AÉREA DE BRASÍLIA
+            </div>
+        </div>
     </div>
 
     <div class="card">
-      <img src="babr.png" alt="Logo da Base Aérea de Brasília" class="logo-babr" />
 
-      <h1>Sistema de Gerenciamento de Agraciados</h1>
+        <img src="babr.png" alt="Logo da Base Aérea de Brasília" class="logo-babr">
 
-      <p>Desenvolvido para a Seção de Cerimonial Militar</p>
-      <p>da Base Aérea de Brasília.</p>
+        <h1>Sistema de Gerenciamento de Agraciados</h1>
 
-      <div class="autor">
-        Cap Av Ives Ranyer Tavares Guimarães
-      </div>
+        <p>Desenvolvido para a Seção de Cerimonial Militar</p>
+        <p>da Base Aérea de Brasília.</p>
 
-      <div class="versao">
-        Versão:<br>
-        <strong>1.0</strong>
-      </div>
+        <div class="autor">
+            Cap Av Ives Ranyer Tavares Guimarães
+        </div>
+
+        <div class="versao">
+            Versão:<br>
+            <strong>1.0</strong>
+        </div>
+
     </div>
 
-    <a href="index.html" class="voltar-menu">Voltar ao Menu Principal</a>
+    <a href="index.html" class="voltar-menu">
+        Voltar ao Menu Principal
+    </a>
 
-  </div>
+</div>
+
 </body>
 </html>
