@@ -97,7 +97,7 @@ body{
 .card{
     background:white;
     border-radius:14px;
-    padding:20px;
+    padding:16px;
     box-shadow:0 4px 12px rgba(0,0,0,0.08);
 }
 
@@ -106,21 +106,22 @@ body{
     color:#4b5563;
     font-size:15px;
     line-height:1.4;
-    margin-bottom:18px;
+    margin:0 0 14px;
 }
 
 .menu{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:14px;
+    gap:12px;
 }
 
 .botao-menu{
     display:flex;
-    flex-direction:column;
+    flex-direction:row;
     align-items:center;
     justify-content:center;
-    min-height:85px;
+    gap:12px;
+    min-height:86px;
     border-radius:14px;
     background:#0b3a75;
     color:white;
@@ -129,7 +130,8 @@ body{
     font-size:17px;
     box-shadow:0 4px 10px rgba(0,0,0,0.12);
     transition:0.2s;
-    padding:4px;
+    padding:8px 12px;
+    box-sizing:border-box;
 }
 
 .botao-menu:hover{
@@ -138,10 +140,10 @@ body{
 }
 
 .icone-menu{
-    width:78px;
-    height:78px;
+    width:62px;
+    height:62px;
     object-fit:contain;
-    margin-bottom:6px;
+    flex-shrink:0;
 }
 
 .rodape{
@@ -162,16 +164,19 @@ body{
 
     .menu{
         grid-template-columns:1fr 1fr;
+        gap:10px;
     }
 
     .botao-menu{
-        min-height:70px;
+        min-height:78px;
         font-size:16px;
+        gap:8px;
+        padding:6px 8px;
     }
 
     .icone-menu{
-        width:68px;
-        height:68px;
+        width:54px;
+        height:54px;
     }
 }
 
@@ -219,20 +224,20 @@ body{
     }
 
     .menu{
-        grid-template-columns:1fr 1fr;
+        grid-template-columns:1fr;
         gap:10px;
     }
 
     .botao-menu{
-        min-height:68px;
-        font-size:14px;
-        padding:5px;
+        min-height:76px;
+        font-size:16px;
+        justify-content:flex-start;
+        padding:8px 16px;
     }
 
     .icone-menu{
-        width:58px;
-        height:58px;
-        margin-bottom:4px;
+        width:54px;
+        height:54px;
     }
 }
 
@@ -279,24 +284,24 @@ body{
 
         <div class="menu">
 
-            <a class="botao-menu" href="check-in.html">
+            <a class="botao-menu" href="checkin.html">
                 <img src="checkin.png" class="icone-menu" alt="Check-in">
-                Check-in
+                <span>Check-in</span>
             </a>
 
             <a class="botao-menu" href="acompanhamento.html">
                 <img src="acompanhamento.png" class="icone-menu" alt="Acompanhamento">
-                Acompanhamento
+                <span>Acompanhamento</span>
             </a>
 
             <a class="botao-menu" href="dashboard.html">
                 <img src="dashboard.png" class="icone-menu" alt="Dashboard">
-                Dashboard
+                <span>Dashboard</span>
             </a>
 
             <a class="botao-menu" href="sobre.html">
                 <img src="sobre.png" class="icone-menu" alt="Sobre">
-                Sobre
+                <span>Sobre</span>
             </a>
 
         </div>
