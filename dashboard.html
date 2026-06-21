@@ -1,193 +1,161 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard Cerimonial</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #101827;
-      color: white;
-      margin: 0;
-      padding: 20px;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard | Sistema de Gerenciamento de Agraciados</title>
+
+<style>
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f3f5f8;
+    margin:0;
+    color:#1f2937;
+}
+
+.container{
+    max-width:760px;
+    margin:auto;
+    padding:16px;
+}
+
+.topo-sistema{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:16px;
+    background:white;
+    border-radius:16px;
+    padding:14px;
+    margin-bottom:16px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    text-align:left;
+}
+
+.topo-sistema img{
+    width:64px;
+    height:64px;
+    object-fit:contain;
+    flex-shrink:0;
+}
+
+.titulo-sistema{
+    font-size:20px;
+    font-weight:800;
+    color:#0b3a75;
+    line-height:1.15;
+}
+
+.subtitulo-sistema{
+    font-size:13px;
+    font-weight:700;
+    color:#374151;
+    margin-top:4px;
+}
+
+.card{
+    background:white;
+    border-radius:14px;
+    padding:40px 20px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    text-align:center;
+}
+
+.trator{
+    font-size:120px;
+    margin-bottom:20px;
+}
+
+h1{
+    color:#0b3a75;
+    margin-bottom:10px;
+}
+
+.texto{
+    font-size:18px;
+    color:#4b5563;
+}
+
+.voltar-menu{
+    display:block;
+    text-align:center;
+    background:#6b7280;
+    color:white;
+    text-decoration:none;
+    padding:12px 20px;
+    border-radius:10px;
+    font-weight:bold;
+    font-size:16px;
+    margin-top:20px;
+}
+
+@media(max-width:520px){
+
+    .topo-sistema{
+        justify-content:flex-start;
     }
 
-    h1, h2 {
-      text-align: center;
-      margin: 6px 0;
+    .topo-sistema img{
+        width:52px;
+        height:52px;
     }
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin: 20px 0;
+    .titulo-sistema{
+        font-size:16px;
     }
 
-    .card, .painel {
-      background: #1f2937;
-      padding: 20px;
-      border-radius: 14px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    .subtitulo-sistema{
+        font-size:12px;
     }
 
-    .card {
-      text-align: center;
+    .trator{
+        font-size:90px;
     }
+}
 
-    .numero {
-      font-size: 52px;
-      font-weight: bold;
-      color: #38bdf8;
-    }
-
-    .grade {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr 1fr;
-      gap: 20px;
-    }
-
-    .painel {
-      max-height: 560px;
-      overflow-y: auto;
-    }
-
-    .linha {
-      padding: 10px;
-      border-bottom: 1px solid #374151;
-      font-size: 18px;
-    }
-
-    .presente {
-      color: #22c55e;
-    }
-
-    .faltante {
-      color: #f87171;
-    }
-
-    .hora {
-      color: #93c5fd;
-      font-size: 14px;
-    }
-
-    #imagemDispositivo {
-      width: 100%;
-      max-height: 520px;
-      object-fit: contain;
-      border-radius: 10px;
-      background: white;
-    }
-  </style>
+</style>
 </head>
 
 <body>
-  <h1 id="titulo">Dashboard Cerimonial</h1>
-  <h2 id="subtitulo"></h2>
 
-  <div class="cards">
-    <div class="card">
-      <div>Total</div>
-      <div class="numero" id="total">0</div>
+<div class="container">
+
+    <div class="topo-sistema">
+        <img src="medalha.png" alt="Medalha">
+
+        <div>
+            <div class="titulo-sistema">
+                SISTEMA DE GERENCIAMENTO DE AGRACIADOS
+            </div>
+
+            <div class="subtitulo-sistema">
+                BASE AÉREA DE BRASÍLIA
+            </div>
+        </div>
     </div>
 
     <div class="card">
-      <div>Presentes</div>
-      <div class="numero" id="presentes">0</div>
+
+        <div class="trator">🚜</div>
+
+        <h1>Dashboard</h1>
+
+        <div class="texto">
+            Página em construção.
+            <br><br>
+            Em breve estarão disponíveis gráficos, estatísticas,
+            acompanhamento em tempo real e visualização do dispositivo.
+        </div>
+
     </div>
 
-    <div class="card">
-      <div>Pendentes</div>
-      <div class="numero" id="pendentes">0</div>
-    </div>
-  </div>
+    <a href="index.html" class="voltar-menu">
+        Voltar ao Menu Principal
+    </a>
 
-  <div class="grade">
-    <div class="painel">
-      <h2>Dispositivo</h2>
-      <img id="imagemDispositivo" />
-    </div>
+</div>
 
-    <div class="painel">
-      <h2>Últimos Check-ins</h2>
-      <div id="listaCheckins"></div>
-    </div>
-
-    <div class="painel">
-      <h2>Faltantes</h2>
-      <div id="listaPendentes"></div>
-    </div>
-  </div>
-
-  <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycby_SmcbdfXRVWjPGnwiVyPIdbzsqU8OjRXGWd4OwoWl67ao_YJAQM5lTtSP6TLSCGIV/exec";
-
-    async function carregarDashboard() {
-      const resposta = await fetch(API_URL + "?action=dados&_=" + Date.now());
-      const dados = await resposta.json();
-
-      const agraciados = dados.agraciados || [];
-      const checkins = dados.checkins || [];
-
-      const presentes = agraciados.filter(a => a.Status === "PRESENTE");
-      const pendentes = agraciados.filter(a => a.Status !== "PRESENTE");
-
-      document.getElementById("titulo").innerText =
-        dados.config["Título"] || "Dashboard Cerimonial";
-
-      document.getElementById("subtitulo").innerText =
-        dados.config["Subtitulo"] || "";
-
-      document.getElementById("total").innerText = agraciados.length;
-      document.getElementById("presentes").innerText = presentes.length;
-      document.getElementById("pendentes").innerText = pendentes.length;
-
-      if (dados.imagens && dados.imagens.length > 0) {
-        document.getElementById("imagemDispositivo").src =
-          dados.imagens[0].imagem;
-      }
-
-      renderCheckins(checkins);
-      renderPendentes(pendentes);
-    }
-
-    function renderCheckins(lista) {
-      const div = document.getElementById("listaCheckins");
-      div.innerHTML = "";
-
-      lista
-        .slice()
-        .reverse()
-        .slice(0, 20)
-        .forEach(c => {
-          const item = document.createElement("div");
-          item.className = "linha presente";
-          item.innerHTML = `
-            Pos ${c["Posição"]} - ${c["Nome"]}
-            <br>
-            <span class="hora">${c["Hora"] || ""}</span>
-          `;
-          div.appendChild(item);
-        });
-    }
-
-    function renderPendentes(lista) {
-      const div = document.getElementById("listaPendentes");
-      div.innerHTML = "";
-
-      lista
-        .sort((a, b) => Number(a.Posição) - Number(b.Posição))
-        .forEach(a => {
-          const item = document.createElement("div");
-          item.className = "linha faltante";
-          item.innerHTML = `Pos ${a.Posição} - ${a.Nome}`;
-          div.appendChild(item);
-        });
-    }
-
-    carregarDashboard();
-    setInterval(carregarDashboard, 5000);
-  </script>
 </body>
 </html>
