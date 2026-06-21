@@ -96,10 +96,6 @@
       cursor: pointer;
     }
 
-    .nome-btn.presente {
-      background: #9ca3af;
-    }
-
     .posicao {
       font-size: 64px;
       font-weight: bold;
@@ -232,7 +228,7 @@
       <div id="lista"></div>
       <div id="erroCarregamento" class="erro"></div>
 
-      <a href="index.html" class="voltar-menu">⬅️ Voltar ao Menu Principal</a>
+      <a href="index.html" class="voltar-menu">Voltar ao Menu Principal</a>
     </div>
 
     <div class="card" id="resultado" style="display:none;">
@@ -253,10 +249,8 @@
       <div class="ok" id="confirmado"></div>
 
       <button class="voltar" onclick="voltarLista()">
-        ⬅️ Voltar para a lista
+        Voltar para a lista
       </button>
-
-      <a href="index.html" class="voltar-menu">⬅️ Voltar ao Menu Principal</a>
     </div>
   </div>
 
@@ -296,14 +290,7 @@
       lista.forEach(a => {
         const item = document.createElement("button");
         item.className = "nome-btn";
-
-        if (a.Status === "PRESENTE") {
-          item.classList.add("presente");
-          item.innerText = a.Nome + " — PRESENÇA JÁ CONFIRMADA";
-        } else {
-          item.innerText = a.Nome;
-        }
-
+        item.innerText = a.Nome;
         item.onclick = () => mostrarResultado(a);
         div.appendChild(item);
       });
@@ -349,14 +336,12 @@
       const botao = document.getElementById("botaoConfirmar");
       const confirmado = document.getElementById("confirmado");
 
+      botao.disabled = false;
+      botao.innerText = "CONFIRMAR PRESENÇA";
+      confirmado.innerText = "";
+
       if (a.Status === "PRESENTE") {
-        botao.disabled = true;
-        botao.innerText = "PRESENÇA JÁ CONFIRMADA";
-        confirmado.innerText = "✅ PRESENÇA CONFIRMADA";
-      } else {
-        botao.disabled = false;
-        botao.innerText = "CONFIRMAR PRESENÇA";
-        confirmado.innerText = "";
+        confirmado.innerText = "✅ PRESENÇA JÁ CONFIRMADA";
       }
     }
 
@@ -388,8 +373,8 @@
               ? "✅ PRESENÇA JÁ ESTAVA CONFIRMADA"
               : "✅ PRESENÇA CONFIRMADA";
 
-          botao.innerText = "PRESENÇA CONFIRMADA";
-          botao.disabled = true;
+          botao.innerText = "CONFIRMAR PRESENÇA";
+          botao.disabled = false;
         } else {
           confirmado.innerText = "Erro: " + r.erro;
           botao.disabled = false;
