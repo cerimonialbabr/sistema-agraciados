@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Acompanhamento Cerimonial</title>
+  <title>Acompanhamento | Sistema de Gerenciamento de Agraciados</title>
 
   <style>
     body {
@@ -14,64 +14,125 @@
     }
 
     .container {
-      max-width: 1100px;
+      max-width: 980px;
       margin: auto;
-      padding: 20px;
+      padding: 16px;
     }
 
-    .topo {
+    .topo-sistema {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 24px;
-      margin-bottom: 20px;
-      text-align: center;
+      gap: 16px;
+      background: white;
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      text-align: left;
     }
 
-    .topo img {
-      height: 90px;
+    .topo-sistema img {
+      width: 64px;
+      height: 64px;
       object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .titulo-sistema {
+      font-size: 20px;
+      font-weight: 800;
+      color: #0b3a75;
+      line-height: 1.15;
+    }
+
+    .subtitulo-sistema {
+      font-size: 13px;
+      font-weight: 700;
+      color: #374151;
+      margin-top: 4px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-bottom: 16px;
     }
 
     h1, h2, h3 {
-      margin: 6px 0;
       text-align: center;
+      margin: 8px 0;
+    }
+
+    .descricao {
+      text-align: center;
+      color: #4b5563;
+      font-size: 15px;
+      line-height: 1.4;
+      margin: 10px auto 18px;
+      max-width: 760px;
     }
 
     .cards {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin: 20px 0;
+      gap: 14px;
+      margin: 18px 0;
     }
 
-    .card, .painel {
-      background: white;
+    .contador {
+      background: #eef3fb;
       border-radius: 14px;
-      padding: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-
-    .card {
+      padding: 18px;
       text-align: center;
+      border: 1px solid #dbeafe;
     }
 
-    .numero {
-      font-size: 52px;
+    .contador .label {
+      font-size: 14px;
+      color: #374151;
       font-weight: bold;
+    }
+
+    .contador .numero {
+      font-size: 48px;
+      font-weight: 800;
       color: #0b3a75;
+      margin-top: 6px;
     }
 
     .listas {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 20px;
+      gap: 18px;
+    }
+
+    .lista-box {
+      background: white;
+      border-radius: 14px;
+      border: 1px solid #e5e7eb;
+      overflow: hidden;
+    }
+
+    .lista-titulo {
+      background: #0b3a75;
+      color: white;
+      padding: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
     }
 
     .linha {
-      padding: 10px;
+      padding: 12px;
       border-bottom: 1px solid #e5e7eb;
-      font-size: 18px;
+      font-size: 16px;
+    }
+
+    .linha:last-child {
+      border-bottom: none;
     }
 
     .presente {
@@ -84,11 +145,64 @@
       font-weight: bold;
     }
 
-    .rodape {
+    .status-atualizacao {
       text-align: center;
-      margin-top: 30px;
       font-size: 13px;
       color: #6b7280;
+      margin-top: 12px;
+    }
+
+    .voltar-menu {
+      display: block;
+      text-align: center;
+      background: #6b7280;
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
+    .erro {
+      text-align: center;
+      color: #b91c1c;
+      font-weight: bold;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 720px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .listas {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .topo-sistema {
+        justify-content: flex-start;
+      }
+
+      .topo-sistema img {
+        width: 52px;
+        height: 52px;
+      }
+
+      .titulo-sistema {
+        font-size: 16px;
+      }
+
+      .subtitulo-sistema {
+        font-size: 12px;
+      }
+
+      .contador .numero {
+        font-size: 42px;
+      }
     }
   </style>
 </head>
@@ -96,79 +210,104 @@
 <body>
   <div class="container">
 
-    <div class="topo">
-      <img src="BABR-233x300(3).png" />
+    <div class="topo-sistema">
+      <img src="medalha.png" alt="Medalha" />
       <div>
-        <h1 id="titulo">Acompanhamento Cerimonial</h1>
-        <h3 id="subtitulo"></h3>
-      </div>
-      <img src="ICONEMEDALHA.png" />
-    </div>
-
-    <div class="cards">
-      <div class="card">
-        <div>Total de Agraciados</div>
-        <div class="numero" id="total">0</div>
-      </div>
-
-      <div class="card">
-        <div>Presentes</div>
-        <div class="numero" id="presentes">0</div>
-      </div>
-
-      <div class="card">
-        <div>Ausentes/Pendentes</div>
-        <div class="numero" id="ausentes">0</div>
+        <div class="titulo-sistema">SISTEMA DE GERENCIAMENTO DE AGRACIADOS</div>
+        <div class="subtitulo-sistema">BASE AÉREA DE BRASÍLIA</div>
       </div>
     </div>
 
-    <div class="listas">
-      <div class="painel">
-        <h2>Presentes</h2>
-        <div id="listaPresentes"></div>
+    <div class="card">
+      <h1>Acompanhamento</h1>
+
+      <p class="descricao">
+        Nessa página, você poderá acompanhar em tempo real as confirmações de presença
+        dos agraciados na cerimônia.
+      </p>
+
+      <div class="cards">
+        <div class="contador">
+          <div class="label">Total de Agraciados</div>
+          <div class="numero" id="total">0</div>
+        </div>
+
+        <div class="contador">
+          <div class="label">Presentes</div>
+          <div class="numero" id="presentes">0</div>
+        </div>
+
+        <div class="contador">
+          <div class="label">Ausentes/Pendentes</div>
+          <div class="numero" id="ausentes">0</div>
+        </div>
       </div>
 
-      <div class="painel">
-        <h2>Ausentes / Pendentes</h2>
-        <div id="listaAusentes"></div>
-      </div>
-    </div>
+      <div class="listas">
+        <div class="lista-box">
+          <div class="lista-titulo">Presentes</div>
+          <div id="listaPresentes"></div>
+        </div>
 
-    <div class="rodape">
-      Sistema de Acompanhamento de Agraciados — Seção de Cerimonial Militar
+        <div class="lista-box">
+          <div class="lista-titulo">Ausentes / Pendentes</div>
+          <div id="listaAusentes"></div>
+        </div>
+      </div>
+
+      <div id="statusAtualizacao" class="status-atualizacao">
+        Atualizando dados...
+      </div>
+
+      <div id="erroCarregamento" class="erro"></div>
+
+      <a href="index.html" class="voltar-menu">Voltar ao Menu Principal</a>
     </div>
 
   </div>
 
   <script>
-    const API_URL = "COLE_AQUI_A_URL_DO_APPS_SCRIPT";
+    const API_URL = "https://script.google.com/macros/s/AKfycby_SmcbdfXRVWjPGnwiVyPIdbzsqU8OjRXGWd4OwoWl67ao_YJAQM5lTtSP6TLSCGIV/exec";
 
-    async function carregar() {
-      const resposta = await fetch(API_URL + "?action=dados&_=" + Date.now());
-      const dados = await resposta.json();
+    async function carregarAcompanhamento() {
+      try {
+        const resposta = await fetch(API_URL + "?action=dados&_=" + Date.now());
+        const dados = await resposta.json();
 
-      const agraciados = dados.agraciados || [];
+        const agraciados = dados.agraciados || [];
+        const presentes = agraciados.filter(a => a.Status === "PRESENTE");
+        const ausentes = agraciados.filter(a => a.Status !== "PRESENTE");
 
-      const presentes = agraciados.filter(a => a.Status === "PRESENTE");
-      const ausentes = agraciados.filter(a => a.Status !== "PRESENTE");
+        document.getElementById("total").innerText = agraciados.length;
+        document.getElementById("presentes").innerText = presentes.length;
+        document.getElementById("ausentes").innerText = ausentes.length;
 
-      document.getElementById("titulo").innerText =
-        dados.config["Título"] || "Acompanhamento Cerimonial";
+        renderLista("listaPresentes", presentes, "presente");
+        renderLista("listaAusentes", ausentes, "ausente");
 
-      document.getElementById("subtitulo").innerText =
-        dados.config["Subtitulo"] || "";
+        const agora = new Date();
+        document.getElementById("statusAtualizacao").innerText =
+          "Última atualização: " + agora.toLocaleTimeString("pt-BR") +
+          " | Atualização automática a cada 10 segundos.";
 
-      document.getElementById("total").innerText = agraciados.length;
-      document.getElementById("presentes").innerText = presentes.length;
-      document.getElementById("ausentes").innerText = ausentes.length;
-
-      renderLista("listaPresentes", presentes, "presente");
-      renderLista("listaAusentes", ausentes, "ausente");
+        document.getElementById("erroCarregamento").innerText = "";
+      } catch (erro) {
+        document.getElementById("erroCarregamento").innerText =
+          "Erro ao atualizar dados. Verifique a conexão ou procure a equipe responsável.";
+      }
     }
 
     function renderLista(id, lista, classe) {
       const div = document.getElementById(id);
       div.innerHTML = "";
+
+      if (!lista.length) {
+        const vazio = document.createElement("div");
+        vazio.className = "linha";
+        vazio.innerText = "Nenhum registro.";
+        div.appendChild(vazio);
+        return;
+      }
 
       lista
         .sort((a, b) => Number(a.Posição) - Number(b.Posição))
@@ -180,8 +319,8 @@
         });
     }
 
-    carregar();
-    setInterval(carregar, 5000);
+    carregarAcompanhamento();
+    setInterval(carregarAcompanhamento, 10000);
   </script>
 </body>
 </html>
