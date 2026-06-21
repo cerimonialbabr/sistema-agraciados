@@ -61,6 +61,14 @@
       margin-bottom: 16px;
     }
 
+    .descricao {
+      text-align: center;
+      color: #4b5563;
+      font-size: 15px;
+      line-height: 1.4;
+      margin-bottom: 18px;
+    }
+
     .menu {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -72,7 +80,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 120px;
+      min-height: 130px;
       border-radius: 14px;
       background: #0b3a75;
       color: white;
@@ -81,6 +89,8 @@
       font-size: 18px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.12);
       transition: transform 0.1s ease, background 0.2s ease;
+      padding: 14px;
+      box-sizing: border-box;
     }
 
     .botao-menu:hover {
@@ -88,17 +98,11 @@
       transform: translateY(-2px);
     }
 
-    .icone {
-      font-size: 34px;
+    .icone-menu {
+      width: 54px;
+      height: 54px;
+      object-fit: contain;
       margin-bottom: 10px;
-    }
-
-    .descricao {
-      text-align: center;
-      color: #4b5563;
-      font-size: 15px;
-      line-height: 1.4;
-      margin-bottom: 18px;
     }
 
     .rodape {
@@ -131,12 +135,13 @@
       }
 
       .botao-menu {
-        min-height: 90px;
+        min-height: 105px;
         font-size: 17px;
       }
 
-      .icone {
-        font-size: 30px;
+      .icone-menu {
+        width: 46px;
+        height: 46px;
       }
     }
   </style>
@@ -159,23 +164,23 @@
       </p>
 
       <div class="menu">
-        <a class="botao-menu" href="check-in.html">
-          <div class="icone">✅</div>
+        <a class="botao-menu" href="checkin.html">
+          <img class="icone-menu" src="checkin.png" alt="Ícone Check-in" />
           Check-in
         </a>
 
         <a class="botao-menu" href="acompanhamento.html">
-          <div class="icone">📋</div>
+          <img class="icone-menu" src="acompanhamento.png" alt="Ícone Acompanhamento" />
           Acompanhamento
         </a>
 
         <a class="botao-menu" href="dashboard.html">
-          <div class="icone">📊</div>
+          <img class="icone-menu" src="dashboard.png" alt="Ícone Dashboard" />
           Dashboard
         </a>
 
         <a class="botao-menu" href="sobre.html">
-          <div class="icone">ℹ️</div>
+          <img class="icone-menu" src="sobre.png" alt="Ícone Sobre" />
           Sobre
         </a>
       </div>
