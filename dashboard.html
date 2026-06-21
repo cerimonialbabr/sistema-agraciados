@@ -25,12 +25,15 @@
       margin: 20px 0;
     }
 
-    .card {
+    .card, .painel {
       background: #1f2937;
       padding: 20px;
       border-radius: 14px;
-      text-align: center;
       box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+
+    .card {
+      text-align: center;
     }
 
     .numero {
@@ -39,17 +42,14 @@
       color: #38bdf8;
     }
 
-    .listas {
+    .grade {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.2fr 1fr 1fr;
       gap: 20px;
     }
 
     .painel {
-      background: #1f2937;
-      border-radius: 14px;
-      padding: 16px;
-      max-height: 480px;
+      max-height: 560px;
       overflow-y: auto;
     }
 
@@ -67,9 +67,12 @@
       color: #f87171;
     }
 
-    .hora {
-      color: #94a3b8;
-      font-size: 14px;
+    #imagemDispositivo {
+      width: 100%;
+      max-height: 520px;
+      object-fit: contain;
+      border-radius: 10px;
+      background: white;
     }
   </style>
 </head>
@@ -95,9 +98,14 @@
     </div>
   </div>
 
-  <div class="listas">
+  <div class="grade">
     <div class="painel">
-      <h2>Últimos Check-ins</h2>
+      <h2>Dispositivo</h2>
+      <img id="imagemDispositivo" />
+    </div>
+
+    <div class="painel">
+      <h2>Presentes</h2>
       <div id="listaPresentes"></div>
     </div>
 
@@ -115,7 +123,6 @@
       const dados = await resposta.json();
 
       const agraciados = dados.agraciados || [];
-
       const presentes = agraciados.filter(a => a.Status === "PRESENTE");
       const pendentes = agraciados.filter(a => a.Status !== "PRESENTE");
 
@@ -128,6 +135,11 @@
       document.getElementById("total").innerText = agraciados.length;
       document.getElementById("presentes").innerText = presentes.length;
       document.getElementById("pendentes").innerText = pendentes.length;
+
+      if (dados.imagens && dados.imagens.length > 0) {
+        document.getElementById("imagemDispositivo").src =
+          dados.imagens[0].imagem;
+      }
 
       renderPresentes(presentes);
       renderPendentes(pendentes);
