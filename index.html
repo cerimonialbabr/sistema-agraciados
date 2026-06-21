@@ -61,112 +61,58 @@
       margin-bottom: 16px;
     }
 
-    h1, h2, h3 {
-      text-align: center;
-      margin: 8px 0;
+    .menu {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
     }
 
-    #busca {
-      width: 100%;
-      padding: 14px;
-      font-size: 18px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      box-sizing: border-box;
-      margin-bottom: 14px;
-    }
-
-    .nome-btn {
-      width: 100%;
-      padding: 16px;
-      margin: 6px 0;
-      border: none;
-      border-radius: 10px;
+    .botao-menu {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 120px;
+      border-radius: 14px;
       background: #0b3a75;
       color: white;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .posicao {
-      font-size: 64px;
-      font-weight: bold;
-      color: #0b3a75;
-      text-align: center;
-    }
-
-    .mensagem {
-      background: #eef3fb;
-      border-left: 5px solid #0b3a75;
-      padding: 12px;
-      border-radius: 8px;
-      margin-top: 12px;
-      font-size: 16px;
-    }
-
-    img.dispositivo {
-      width: 100%;
-      max-height: 520px;
-      object-fit: contain;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-      margin-top: 16px;
-      background: white;
-    }
-
-    .confirmar {
-      width: 100%;
-      padding: 18px;
-      margin-top: 18px;
-      border: none;
-      border-radius: 12px;
-      background: #15803d;
-      color: white;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .confirmar:disabled {
-      background: #9ca3af;
-      cursor: not-allowed;
-    }
-
-    .ok {
-      text-align: center;
-      color: #15803d;
-      font-size: 24px;
-      font-weight: bold;
-      margin-top: 16px;
-    }
-
-    .voltar {
-      width: 100%;
-      padding: 12px;
-      margin-top: 12px;
-      border: none;
-      border-radius: 10px;
-      background: #6b7280;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .links {
-      text-align: center;
-      font-size: 14px;
-      margin-top: 12px;
-    }
-
-    .links a {
-      color: #0b3a75;
-      font-weight: bold;
       text-decoration: none;
-      margin: 0 8px;
+      font-weight: bold;
+      font-size: 18px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+      transition: transform 0.1s ease, background 0.2s ease;
+    }
+
+    .botao-menu:hover {
+      background: #092f5f;
+      transform: translateY(-2px);
+    }
+
+    .icone {
+      font-size: 34px;
+      margin-bottom: 10px;
+    }
+
+    .descricao {
+      text-align: center;
+      color: #4b5563;
+      font-size: 15px;
+      line-height: 1.4;
+      margin-bottom: 18px;
+    }
+
+    .rodape {
+      text-align: center;
+      margin-top: 18px;
+      color: #6b7280;
+      font-size: 13px;
     }
 
     @media (max-width: 520px) {
+      .menu {
+        grid-template-columns: 1fr;
+      }
+
       .topo-sistema {
         justify-content: flex-start;
       }
@@ -184,8 +130,13 @@
         font-size: 12px;
       }
 
-      .posicao {
-        font-size: 54px;
+      .botao-menu {
+        min-height: 90px;
+        font-size: 17px;
+      }
+
+      .icone {
+        font-size: 30px;
       }
     }
   </style>
@@ -202,163 +153,38 @@
       </div>
     </div>
 
-    <div class="card" id="inicio">
-      <h1 id="titulo">Carregando...</h1>
-      <h3 id="subtitulo"></h3>
-
-      <p style="text-align:center;">
-        Digite parte do seu nome e selecione para visualizar sua posição.
+    <div class="card">
+      <p class="descricao">
+        Selecione uma opção para iniciar o gerenciamento da cerimônia.
       </p>
 
-      <input id="busca" placeholder="Digite seu nome" />
-      <div id="lista"></div>
+      <div class="menu">
+        <a class="botao-menu" href="checkin.html">
+          <div class="icone">✅</div>
+          Check-in
+        </a>
 
-      <div class="links">
-        <a href="acompanhamento.html">Acompanhamento</a>
-        <a href="sobre.html">Sobre</a>
+        <a class="botao-menu" href="acompanhamento.html">
+          <div class="icone">📋</div>
+          Acompanhamento
+        </a>
+
+        <a class="botao-menu" href="dashboard.html">
+          <div class="icone">📊</div>
+          Dashboard
+        </a>
+
+        <a class="botao-menu" href="sobre.html">
+          <div class="icone">ℹ️</div>
+          Sobre
+        </a>
       </div>
     </div>
 
-    <div class="card" id="resultado" style="display:none;">
-      <h2 id="nome"></h2>
-
-      <p style="text-align:center;">Sua posição no dispositivo:</p>
-      <div class="posicao" id="posicao"></div>
-
-      <div class="mensagem" id="mensagemGeral"></div>
-      <div class="mensagem" id="mensagemIndividual" style="display:none;"></div>
-
-      <img id="imagem" class="dispositivo" />
-
-      <button id="botaoConfirmar" class="confirmar" onclick="confirmarPresenca()">
-        CONFIRMAR PRESENÇA
-      </button>
-
-      <div class="ok" id="confirmado"></div>
-
-      <button class="voltar" onclick="voltarLista()">
-        Voltar para a lista
-      </button>
+    <div class="rodape">
+      Seção de Cerimonial Militar — BABR
     </div>
+
   </div>
-
-  <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycby_SmcbdfXRVWjPGnwiVyPIdbzsqU8OjRXGWd4OwoWl67ao_YJAQM5lTtSP6TLSCGIV/exec";
-
-    let dados = null;
-    let selecionado = null;
-
-    async function carregarDados() {
-      const resposta = await fetch(API_URL + "?action=dados&_=" + Date.now());
-      dados = await resposta.json();
-
-      document.getElementById("titulo").innerText =
-        dados.config["Título"] || "Check-in Cerimonial";
-
-      document.getElementById("subtitulo").innerText =
-        dados.config["Subtitulo"] || "";
-
-      renderLista(dados.agraciados);
-    }
-
-    function renderLista(lista) {
-      const div = document.getElementById("lista");
-      div.innerHTML = "";
-
-      lista.forEach(a => {
-        const item = document.createElement("button");
-        item.className = "nome-btn";
-        item.innerText = a.Nome;
-        item.onclick = () => mostrarResultado(a);
-        div.appendChild(item);
-      });
-    }
-
-    document.getElementById("busca").addEventListener("input", function() {
-      const termo = this.value.toLowerCase();
-
-      const filtrados = dados.agraciados.filter(a =>
-        a.Nome.toLowerCase().includes(termo)
-      );
-
-      renderLista(filtrados);
-    });
-
-    function mostrarResultado(a) {
-      selecionado = a;
-
-      document.getElementById("inicio").style.display = "none";
-      document.getElementById("resultado").style.display = "block";
-
-      document.getElementById("nome").innerText = a.Nome;
-      document.getElementById("posicao").innerText = a["Posição"];
-
-      document.getElementById("mensagemGeral").innerText =
-        dados.config["Mensagem_Geral"] || "";
-
-      if (a["Mensagem Individual"]) {
-        document.getElementById("mensagemIndividual").style.display = "block";
-        document.getElementById("mensagemIndividual").innerText =
-          a["Mensagem Individual"];
-      } else {
-        document.getElementById("mensagemIndividual").style.display = "none";
-      }
-
-      if (dados.imagens && dados.imagens.length > 0) {
-        document.getElementById("imagem").src = dados.imagens[0].imagem;
-      }
-
-      const botao = document.getElementById("botaoConfirmar");
-      const confirmado = document.getElementById("confirmado");
-
-      if (a.Status === "PRESENTE") {
-        botao.disabled = true;
-        botao.innerText = "PRESENÇA JÁ CONFIRMADA";
-        confirmado.innerText = "✅ PRESENÇA CONFIRMADA";
-      } else {
-        botao.disabled = false;
-        botao.innerText = "CONFIRMAR PRESENÇA";
-        confirmado.innerText = "";
-      }
-    }
-
-    async function confirmarPresenca() {
-      const botao = document.getElementById("botaoConfirmar");
-      botao.disabled = true;
-      botao.innerText = "CONFIRMANDO...";
-
-      const resposta = await fetch(API_URL, {
-        method: "POST",
-        body: JSON.stringify({
-          action: "confirmar",
-          id: selecionado.ID
-        })
-      });
-
-      const r = await resposta.json();
-
-      if (r.ok) {
-        selecionado.Status = "PRESENTE";
-        document.getElementById("confirmado").innerText =
-          r.jaConfirmado ? "✅ PRESENÇA JÁ ESTAVA CONFIRMADA" : "✅ PRESENÇA CONFIRMADA";
-
-        botao.innerText = "PRESENÇA CONFIRMADA";
-      } else {
-        document.getElementById("confirmado").innerText =
-          "Erro: " + r.erro;
-
-        botao.disabled = false;
-        botao.innerText = "CONFIRMAR PRESENÇA";
-      }
-    }
-
-    function voltarLista() {
-      document.getElementById("resultado").style.display = "none";
-      document.getElementById("inicio").style.display = "block";
-      carregarDados();
-    }
-
-    carregarDados();
-  </script>
 </body>
 </html>
