@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Dashboard | Sistema de Gerenciamento de Agraciados</title>
 
 <style>
@@ -15,9 +14,10 @@ body{
 }
 
 .container{
-    max-width:1700px;
+    width:96vw;
+    max-width:1800px;
     margin:auto;
-    padding:18px;
+    padding:14px;
 }
 
 .header{
@@ -27,12 +27,12 @@ body{
     align-items:center;
     background:#0b1f3a;
     border-radius:18px;
-    padding:16px 20px;
+    padding:14px 20px;
 }
 
 .header img{
-    width:86px;
-    height:86px;
+    width:80px;
+    height:80px;
     object-fit:contain;
 }
 
@@ -45,28 +45,27 @@ body{
     color:#bfdbfe;
     font-size:16px;
     font-weight:700;
-    margin-top:4px;
 }
 
 .formatura{
     text-align:right;
-    font-size:15px;
     color:#dbeafe;
-    line-height:1.45;
+    font-size:15px;
+    line-height:1.4;
 }
 
 .cards{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:14px;
-    margin:16px 0;
+    margin:14px 0;
 }
 
 .card{
     background:#10233f;
     border:1px solid #1d4ed8;
     border-radius:16px;
-    padding:14px;
+    padding:10px;
     text-align:center;
 }
 
@@ -77,80 +76,124 @@ body{
 }
 
 .numero{
-    font-size:46px;
+    font-size:42px;
     font-weight:900;
     color:#38bdf8;
 }
 
 .main{
     display:grid;
-    grid-template-columns:1fr 340px;
-    gap:16px;
+    grid-template-columns:1fr 330px;
+    gap:14px;
 }
 
 .mapa{
     background:#0f172a;
     border-radius:18px;
-    padding:18px;
+    padding:16px;
+    min-height:520px;
+    height:58vh;
+    display:flex;
+    flex-direction:column;
 }
 
-.referencia{
+.titulo-dispositivo{
+    text-align:center;
+    color:#e0f2fe;
+    font-size:24px;
+    font-weight:900;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+
+.referencia-box{
     text-align:center;
     color:#cbd5e1;
     font-weight:900;
     letter-spacing:2px;
-    margin:8px 0 14px;
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:12px;
+    padding:8px;
+    margin:8px auto;
+    width:220px;
+    background:#10233f;
+}
+
+.area-dispositivo{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
 }
 
 .blocos{
-    display:flex;
+    display:grid;
+    gap:50px;
     justify-content:center;
-    align-items:flex-start;
-    gap:55px;
-    flex-wrap:wrap;
+    align-items:center;
+    margin:14px 0;
 }
 
 .bloco{
     display:flex;
     flex-direction:column;
-    gap:12px;
+    gap:10px;
 }
 
 .fileira{
     display:flex;
-    flex-direction:row;
     justify-content:center;
-    gap:10px;
+    gap:8px;
     flex-wrap:nowrap;
 }
 
 .circulo{
-    width:54px;
-    height:54px;
+    width:var(--circle-size,54px);
+    height:var(--circle-size,54px);
     border-radius:50%;
     display:flex;
     align-items:center;
     justify-content:center;
     font-weight:900;
-    font-size:18px;
+    font-size:calc(var(--circle-size,54px) * .34);
     border:3px solid rgba(255,255,255,.25);
     box-shadow:0 3px 10px rgba(0,0,0,.4);
 }
 
-.presente{
-    background:#16a34a;
-    color:white;
+.presente{background:#16a34a;}
+.pendente{background:#dc2626;}
+
+.legenda{
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    color:#cbd5e1;
+    font-size:14px;
+    margin-top:8px;
 }
 
-.pendente{
-    background:#dc2626;
-    color:white;
+.bolinha{
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    display:inline-block;
+    margin-right:6px;
+}
+
+.verde{background:#16a34a;}
+.vermelha{background:#dc2626;}
+
+.atualizacao{
+    text-align:center;
+    color:#94a3b8;
+    font-size:13px;
+    margin-top:8px;
 }
 
 .lateral{
     display:flex;
     flex-direction:column;
-    gap:16px;
+    gap:14px;
 }
 
 .painel{
@@ -161,7 +204,6 @@ body{
 
 .painel h2{
     margin:0 0 10px;
-    font-size:20px;
     text-align:center;
     color:#bfdbfe;
 }
@@ -188,50 +230,17 @@ body{
     border-radius:8px;
     margin-bottom:8px;
     font-size:14px;
-    color:#e5e7eb;
-}
-
-.legenda{
-    display:flex;
-    justify-content:center;
-    gap:18px;
-    margin-top:16px;
-    color:#cbd5e1;
-    font-size:14px;
-}
-
-.legenda span{
-    display:flex;
-    align-items:center;
-    gap:6px;
-}
-
-.bolinha{
-    width:14px;
-    height:14px;
-    border-radius:50%;
-    display:inline-block;
-}
-
-.bolinha.verde{background:#16a34a;}
-.bolinha.vermelha{background:#dc2626;}
-
-.atualizacao{
-    text-align:center;
-    color:#94a3b8;
-    font-size:13px;
-    margin-top:12px;
 }
 
 .listas-baixo{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:16px;
-    margin-top:16px;
+    gap:14px;
+    margin-top:14px;
 }
 
 .lista-scroll{
-    max-height:230px;
+    max-height:190px;
     overflow-y:auto;
 }
 
@@ -254,7 +263,6 @@ body{
     padding:10px;
     border-radius:10px;
     font-weight:bold;
-    margin-top:12px;
 }
 
 @media(max-width:1100px){
@@ -269,6 +277,10 @@ body{
     .formatura{
         grid-column:1 / -1;
         text-align:left;
+    }
+
+    .mapa{
+        height:auto;
     }
 }
 </style>
@@ -314,15 +326,19 @@ body{
 
         <div>
             <div class="mapa">
-                <div class="referencia" id="tituloSuperior">TRIBUNA</div>
+                <div class="titulo-dispositivo">DISPOSITIVO</div>
 
-                <div class="blocos" id="blocos"></div>
+                <div class="referencia-box" id="tituloSuperior">TRIBUNA</div>
 
-                <div class="referencia" id="tituloInferior">TROPA</div>
+                <div class="area-dispositivo">
+                    <div class="blocos" id="blocos"></div>
+                </div>
+
+                <div class="referencia-box" id="tituloInferior">TROPA</div>
 
                 <div class="legenda">
-                    <span><i class="bolinha verde"></i> Presente</span>
-                    <span><i class="bolinha vermelha"></i> Pendente</span>
+                    <span><i class="bolinha verde"></i>Presente</span>
+                    <span><i class="bolinha vermelha"></i>Pendente</span>
                 </div>
 
                 <div class="atualizacao" id="atualizacao"></div>
@@ -426,12 +442,18 @@ function gerarMapa(layout, agraciados, total){
     const container = document.getElementById("blocos");
     container.innerHTML = "";
 
-    for(let blocoIndex = qtdBlocos - 1; blocoIndex >= 0; blocoIndex--){
+    container.style.gridTemplateColumns =
+        "repeat(" + qtdBlocos + ", auto)";
+
+    const tamanho = calcularTamanhoCirculo(qtdBlocos, colunas);
+    container.style.setProperty("--circle-size", tamanho + "px");
+
+    for(let blocoVisual = qtdBlocos; blocoVisual >= 1; blocoVisual--){
 
         const bloco = document.createElement("div");
         bloco.className = "bloco";
 
-        const inicioBloco = blocoIndex * capacidadeBloco + 1;
+        const inicioBloco = ((blocoVisual - 1) * capacidadeBloco) + 1;
 
         for(let linha = 0; linha < linhas; linha++){
 
@@ -463,6 +485,18 @@ function gerarMapa(layout, agraciados, total){
 
         container.appendChild(bloco);
     }
+}
+
+function calcularTamanhoCirculo(qtdBlocos, colunas){
+    const larguraDisponivel = window.innerWidth * 0.68;
+    const totalColunasVisuais = qtdBlocos * colunas;
+
+    let tamanho = Math.floor(larguraDisponivel / (totalColunasVisuais + 4));
+
+    if(tamanho > 54) tamanho = 54;
+    if(tamanho < 22) tamanho = 22;
+
+    return tamanho;
 }
 
 function gerarCheckins(checkins){
