@@ -91,8 +91,8 @@ body{
     background:#0f172a;
     border-radius:18px;
     padding:16px;
-    min-height:520px;
     height:58vh;
+    min-height:520px;
     display:flex;
     flex-direction:column;
 }
@@ -122,29 +122,27 @@ body{
 .area-dispositivo{
     flex:1;
     display:flex;
-    flex-direction:column;
+    align-items:center;
     justify-content:center;
 }
 
-.blocos{
-    display:grid;
-    gap:50px;
+.grade-dispositivo{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    align-items:center;
+}
+
+.linha-global{
+    display:flex;
+    gap:55px;
     justify-content:center;
     align-items:center;
-    margin:14px 0;
 }
 
-.bloco{
+.bloco-linha{
     display:flex;
-    flex-direction:column;
-    gap:10px;
-}
-
-.fileira{
-    display:flex;
-    justify-content:center;
     gap:8px;
-    flex-wrap:nowrap;
 }
 
 .circulo{
@@ -331,7 +329,7 @@ body{
                 <div class="referencia-box" id="tituloSuperior">TRIBUNA</div>
 
                 <div class="area-dispositivo">
-                    <div class="blocos" id="blocos"></div>
+                    <div class="grade-dispositivo" id="gradeDispositivo"></div>
                 </div>
 
                 <div class="referencia-box" id="tituloInferior">TROPA</div>
@@ -439,27 +437,23 @@ function gerarMapa(layout, agraciados, total){
         statusPorPosicao[Number(a["Posição"])] = a.Status;
     });
 
-    const container = document.getElementById("blocos");
-    container.innerHTML = "";
-
-    container.style.gridTemplateColumns =
-        "repeat(" + qtdBlocos + ", auto)";
+    const grade = document.getElementById("gradeDispositivo");
+    grade.innerHTML = "";
 
     const tamanho = calcularTamanhoCirculo(qtdBlocos, colunas);
-    container.style.setProperty("--circle-size", tamanho + "px");
+    grade.style.setProperty("--circle-size", tamanho + "px");
 
-    for(let blocoVisual = qtdBlocos; blocoVisual >= 1; blocoVisual--){
+    for(let linha = 0; linha < linhas; linha++){
 
-        const bloco = document.createElement("div");
-        bloco.className = "bloco";
+        const linhaGlobal = document.createElement("div");
+        linhaGlobal.className = "linha-global";
 
-        const inicioBloco = ((blocoVisual - 1) * capacidadeBloco) + 1;
+        for(let blocoVisual = qtdBlocos; blocoVisual >= 1; blocoVisual--){
 
-        for(let linha = 0; linha < linhas; linha++){
+            const blocoLinha = document.createElement("div");
+            blocoLinha.className = "bloco-linha";
 
-            const fileira = document.createElement("div");
-            fileira.className = "fileira";
-
+            const inicioBloco = ((blocoVisual - 1) * capacidadeBloco) + 1;
             const inicioLinha = inicioBloco + (linha * colunas);
             const fimLinha = inicioLinha + colunas - 1;
 
@@ -477,21 +471,21 @@ function gerarMapa(layout, agraciados, total){
                 }
 
                 circulo.innerText = posicao;
-                fileira.appendChild(circulo);
+                blocoLinha.appendChild(circulo);
             }
 
-            bloco.appendChild(fileira);
+            linhaGlobal.appendChild(blocoLinha);
         }
 
-        container.appendChild(bloco);
+        grade.appendChild(linhaGlobal);
     }
 }
 
 function calcularTamanhoCirculo(qtdBlocos, colunas){
-    const larguraDisponivel = window.innerWidth * 0.68;
+    const larguraDisponivel = window.innerWidth * 0.62;
     const totalColunasVisuais = qtdBlocos * colunas;
 
-    let tamanho = Math.floor(larguraDisponivel / (totalColunasVisuais + 4));
+    let tamanho = Math.floor(larguraDisponivel / (totalColunasVisuais + 5));
 
     if(tamanho > 54) tamanho = 54;
     if(tamanho < 22) tamanho = 22;
@@ -535,7 +529,7 @@ function gerarOrientacoes(layout){
     div.innerHTML = "";
 
     Object.keys(layout)
-        .filter(k => k.startsWith("Orientacao_"))
+        .filter(k => String(k).startsWith("Orientacao_"))
         .sort()
         .forEach(k => {
             if(layout[k]){
