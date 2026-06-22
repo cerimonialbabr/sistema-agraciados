@@ -11,13 +11,17 @@ body{
     background:#08111f;
     margin:0;
     color:white;
+    overflow:hidden;
 }
 
 .container{
-    width:96vw;
-    max-width:1800px;
-    margin:auto;
+    width:100vw;
+    height:100vh;
+    margin:0;
     padding:14px;
+    box-sizing:border-box;
+    display:flex;
+    flex-direction:column;
 }
 
 /* CABEÇALHO */
@@ -29,31 +33,32 @@ body{
     align-items:center;
     background:#0b1f3a;
     border-radius:18px;
-    padding:14px 20px;
+    padding:12px 20px;
+    flex-shrink:0;
 }
 
 .header img{
-    width:80px;
-    height:80px;
+    width:72px;
+    height:72px;
     object-fit:contain;
 }
 
 .titulo{
-    font-size:28px;
+    font-size:26px;
     font-weight:900;
 }
 
 .subtitulo{
     color:#bfdbfe;
-    font-size:16px;
+    font-size:15px;
     font-weight:700;
 }
 
 .formatura{
     text-align:right;
     color:#dbeafe;
-    font-size:15px;
-    line-height:1.4;
+    font-size:14px;
+    line-height:1.35;
 }
 
 /* CONTADORES */
@@ -61,26 +66,27 @@ body{
 .cards{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:14px;
-    margin:14px 0;
+    gap:12px;
+    margin:12px 0;
+    flex-shrink:0;
 }
 
 .card{
     background:#10233f;
     border:1px solid #1d4ed8;
     border-radius:16px;
-    padding:10px;
+    padding:8px;
     text-align:center;
 }
 
 .label{
     color:#cbd5e1;
     font-weight:bold;
-    font-size:14px;
+    font-size:13px;
 }
 
 .numero{
-    font-size:42px;
+    font-size:36px;
     font-weight:900;
     color:#38bdf8;
 }
@@ -90,15 +96,23 @@ body{
 .main{
     display:grid;
     grid-template-columns:1fr 330px;
-    gap:14px;
+    gap:12px;
+    flex:1;
+    min-height:0;
+}
+
+.area-esquerda{
+    display:flex;
+    flex-direction:column;
+    min-height:0;
 }
 
 .mapa{
     background:#0f172a;
     border-radius:18px;
-    padding:16px;
-    height:58vh;
-    min-height:520px;
+    padding:14px;
+    flex:1;
+    min-height:0;
     display:flex;
     flex-direction:column;
 }
@@ -106,10 +120,11 @@ body{
 .titulo-dispositivo{
     text-align:center;
     color:#e0f2fe;
-    font-size:24px;
+    font-size:22px;
     font-weight:900;
     letter-spacing:2px;
-    margin-bottom:10px;
+    margin-bottom:8px;
+    flex-shrink:0;
 }
 
 .referencia-box{
@@ -119,10 +134,11 @@ body{
     letter-spacing:2px;
     border:1px solid rgba(255,255,255,.18);
     border-radius:12px;
-    padding:8px;
-    margin:8px auto;
+    padding:6px;
+    margin:6px auto;
     width:220px;
     background:#10233f;
+    flex-shrink:0;
 }
 
 .area-dispositivo{
@@ -130,38 +146,46 @@ body{
     display:flex;
     align-items:center;
     justify-content:center;
+    overflow:hidden;
+    min-height:0;
 }
 
 .grade-dispositivo{
     display:flex;
     flex-direction:column;
-    gap:14px;
+    gap:var(--gap-linhas,10px);
     align-items:center;
+    justify-content:center;
 }
 
 .linha-global{
     display:flex;
-    gap:55px;
+    gap:var(--gap-blocos,42px);
     justify-content:center;
     align-items:center;
 }
 
 .bloco-linha{
     display:flex;
-    gap:8px;
+    gap:var(--gap-circulos,7px);
 }
 
 .circulo{
-    width:var(--circle-size,54px);
-    height:var(--circle-size,54px);
+    width:var(--circle-size,42px);
+    height:var(--circle-size,42px);
     border-radius:50%;
     display:flex;
     align-items:center;
     justify-content:center;
     font-weight:900;
-    font-size:calc(var(--circle-size,54px) * .34);
+    font-size:calc(var(--circle-size,42px) * .34);
     border:3px solid rgba(255,255,255,.25);
     box-shadow:0 3px 10px rgba(0,0,0,.4);
+    box-sizing:border-box;
+}
+
+.circulo.vazio{
+    visibility:hidden;
 }
 
 .presente{
@@ -177,13 +201,14 @@ body{
     justify-content:center;
     gap:18px;
     color:#cbd5e1;
-    font-size:14px;
-    margin-top:8px;
+    font-size:13px;
+    margin-top:6px;
+    flex-shrink:0;
 }
 
 .bolinha{
-    width:14px;
-    height:14px;
+    width:13px;
+    height:13px;
     border-radius:50%;
     display:inline-block;
     margin-right:6px;
@@ -195,34 +220,37 @@ body{
 .atualizacao{
     text-align:center;
     color:#94a3b8;
-    font-size:13px;
-    margin-top:8px;
+    font-size:12px;
+    margin-top:6px;
+    flex-shrink:0;
 }
 
-/* PAINÉIS LATERAIS E LISTAS */
+/* PAINÉIS */
 
 .lateral{
     display:flex;
     flex-direction:column;
-    gap:14px;
+    gap:12px;
+    min-height:0;
 }
 
 .painel{
     background:#10233f;
     border-radius:16px;
-    padding:14px;
+    padding:12px;
 }
 
 .painel h2{
-    margin:0 0 10px;
+    margin:0 0 8px;
     text-align:center;
     color:#bfdbfe;
+    font-size:18px;
 }
 
 .linha{
-    padding:7px 0;
+    padding:6px 0;
     border-bottom:1px solid rgba(255,255,255,.12);
-    font-size:14px;
+    font-size:13px;
 }
 
 .linha:last-child{
@@ -231,7 +259,7 @@ body{
 
 .hora{
     color:#93c5fd;
-    font-size:12px;
+    font-size:11px;
 }
 
 .orientacao{
@@ -240,18 +268,20 @@ body{
     padding:8px;
     border-radius:8px;
     margin-bottom:8px;
-    font-size:14px;
+    font-size:13px;
 }
 
 .listas-baixo{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:14px;
-    margin-top:14px;
+    gap:12px;
+    margin-top:12px;
+    height:25vh;
+    min-height:150px;
 }
 
 .lista-scroll{
-    max-height:190px;
+    max-height:100%;
     overflow-y:auto;
 }
 
@@ -274,11 +304,20 @@ body{
     padding:10px;
     border-radius:10px;
     font-weight:bold;
+    flex-shrink:0;
 }
 
 /* RESPONSIVO */
 
 @media(max-width:1100px){
+    body{
+        overflow:auto;
+    }
+
+    .container{
+        height:auto;
+    }
+
     .main{
         grid-template-columns:1fr;
     }
@@ -292,7 +331,7 @@ body{
         text-align:left;
     }
 
-    .mapa{
+    .listas-baixo{
         height:auto;
     }
 }
@@ -337,7 +376,8 @@ body{
 
     <div class="main">
 
-        <div>
+        <div class="area-esquerda">
+
             <div class="mapa">
                 <div class="titulo-dispositivo">DISPOSITIVO</div>
 
@@ -368,6 +408,7 @@ body{
                     <div class="lista-scroll" id="listaPendentes"></div>
                 </div>
             </div>
+
         </div>
 
         <div class="lateral">
@@ -460,16 +501,12 @@ function gerarMapa(layout, agraciados, total){
     const grade = document.getElementById("gradeDispositivo");
     grade.innerHTML = "";
 
-    const tamanho = calcularTamanhoCirculo(qtdBlocos, colunas);
-    grade.style.setProperty("--circle-size", tamanho + "px");
+    const tamanho = calcularTamanhoCirculo(qtdBlocos, linhas, colunas);
 
-    /*
-      Lógica correta:
-      Para cada linha global:
-      - mostra primeiro o bloco mais à esquerda visualmente, que é o bloco de maior numeração;
-      - depois o bloco anterior;
-      - dentro de cada bloco, a numeração vai da direita para a esquerda.
-    */
+    grade.style.setProperty("--circle-size", tamanho + "px");
+    grade.style.setProperty("--gap-circulos", Math.max(4, Math.floor(tamanho * 0.18)) + "px");
+    grade.style.setProperty("--gap-linhas", Math.max(5, Math.floor(tamanho * 0.22)) + "px");
+    grade.style.setProperty("--gap-blocos", Math.max(24, Math.floor(tamanho * 0.9)) + "px");
 
     for(let linha = 0; linha < linhas; linha++){
 
@@ -487,18 +524,22 @@ function gerarMapa(layout, agraciados, total){
 
             for(let posicao = fimLinha; posicao >= inicioLinha; posicao--){
 
-                if(posicao > total) continue;
-
                 const circulo = document.createElement("div");
                 circulo.className = "circulo";
 
-                if(statusPorPosicao[posicao] === "PRESENTE"){
-                    circulo.classList.add("presente");
+                if(posicao > total){
+                    circulo.classList.add("vazio");
+                    circulo.innerText = "";
                 }else{
-                    circulo.classList.add("pendente");
+                    if(statusPorPosicao[posicao] === "PRESENTE"){
+                        circulo.classList.add("presente");
+                    }else{
+                        circulo.classList.add("pendente");
+                    }
+
+                    circulo.innerText = posicao;
                 }
 
-                circulo.innerText = posicao;
                 blocoLinha.appendChild(circulo);
             }
 
@@ -509,14 +550,22 @@ function gerarMapa(layout, agraciados, total){
     }
 }
 
-function calcularTamanhoCirculo(qtdBlocos, colunas){
-    const larguraDisponivel = window.innerWidth * 0.62;
-    const totalColunasVisuais = qtdBlocos * colunas;
+function calcularTamanhoCirculo(qtdBlocos, linhas, colunas){
+    const area = document.querySelector(".area-dispositivo");
 
-    let tamanho = Math.floor(larguraDisponivel / (totalColunasVisuais + 5));
+    const largura = area.clientWidth * 0.94;
+    const altura = area.clientHeight * 0.86;
+
+    const totalColunas = qtdBlocos * colunas;
+    const folgaBlocos = qtdBlocos > 1 ? qtdBlocos * 1.2 : 1;
+
+    const tamanhoPorLargura = largura / (totalColunas + folgaBlocos);
+    const tamanhoPorAltura = altura / (linhas * 1.35);
+
+    let tamanho = Math.floor(Math.min(tamanhoPorLargura, tamanhoPorAltura));
 
     if(tamanho > 54) tamanho = 54;
-    if(tamanho < 22) tamanho = 22;
+    if(tamanho < 18) tamanho = 18;
 
     return tamanho;
 }
@@ -592,6 +641,10 @@ function renderLista(id, lista, classe){
 
 carregarDashboard();
 setInterval(carregarDashboard, 5000);
+
+window.addEventListener("resize", () => {
+    carregarDashboard();
+});
 </script>
 
 </body>
