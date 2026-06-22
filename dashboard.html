@@ -20,6 +20,8 @@ body{
     padding:14px;
 }
 
+/* CABEÇALHO */
+
 .header{
     display:grid;
     grid-template-columns:auto 1fr auto;
@@ -54,6 +56,8 @@ body{
     line-height:1.4;
 }
 
+/* CONTADORES */
+
 .cards{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -80,6 +84,8 @@ body{
     font-weight:900;
     color:#38bdf8;
 }
+
+/* ESTRUTURA PRINCIPAL */
 
 .main{
     display:grid;
@@ -129,7 +135,7 @@ body{
 .grade-dispositivo{
     display:flex;
     flex-direction:column;
-    gap:12px;
+    gap:14px;
     align-items:center;
 }
 
@@ -158,8 +164,13 @@ body{
     box-shadow:0 3px 10px rgba(0,0,0,.4);
 }
 
-.presente{background:#16a34a;}
-.pendente{background:#dc2626;}
+.presente{
+    background:#16a34a;
+}
+
+.pendente{
+    background:#dc2626;
+}
 
 .legenda{
     display:flex;
@@ -187,6 +198,8 @@ body{
     font-size:13px;
     margin-top:8px;
 }
+
+/* PAINÉIS LATERAIS E LISTAS */
 
 .lateral{
     display:flex;
@@ -262,6 +275,8 @@ body{
     border-radius:10px;
     font-weight:bold;
 }
+
+/* RESPONSIVO */
 
 @media(max-width:1100px){
     .main{
@@ -377,52 +392,57 @@ body{
 const API_URL = "https://script.google.com/macros/s/AKfycby_SmcbdfXRVWjPGnwiVyPIdbzsqU8OjRXGWd4OwoWl67ao_YJAQM5lTtSP6TLSCGIV/exec";
 
 async function carregarDashboard(){
-    const resposta = await fetch(API_URL + "?action=dados&_=" + Date.now());
-    const dados = await resposta.json();
+    try{
+        const resposta = await fetch(API_URL + "?action=dados&_=" + Date.now());
+        const dados = await resposta.json();
 
-    const config = dados.config || {};
-    const layout = dados.layout || {};
-    const agraciados = dados.agraciados || [];
-    const checkins = dados.checkins || [];
+        const config = dados.config || {};
+        const layout = dados.layout || {};
+        const agraciados = dados.agraciados || [];
+        const checkins = dados.checkins || [];
 
-    document.getElementById("solenidade").innerText =
-        config["Solenidade"] || "Solenidade não informada";
+        document.getElementById("solenidade").innerText =
+            config["Solenidade"] || "Solenidade não informada";
 
-    document.getElementById("dataFormatura").innerText =
-        config["Data"] ? "Data: " + config["Data"] : "";
+        document.getElementById("dataFormatura").innerText =
+            config["Data"] ? "Data: " + config["Data"] : "";
 
-    document.getElementById("localFormatura").innerText =
-        config["Local"] ? "Local: " + config["Local"] : "";
+        document.getElementById("localFormatura").innerText =
+            config["Local"] ? "Local: " + config["Local"] : "";
 
-    document.getElementById("tituloSuperior").innerText =
-        layout["Titulo_Superior"] || "TRIBUNA";
+        document.getElementById("tituloSuperior").innerText =
+            layout["Titulo_Superior"] || "TRIBUNA";
 
-    document.getElementById("tituloInferior").innerText =
-        layout["Titulo_Inferior"] || "TROPA";
+        document.getElementById("tituloInferior").innerText =
+            layout["Titulo_Inferior"] || "TROPA";
 
-    const total = Number(layout["Total_Agraciados"]) || agraciados.length;
+        const total = Number(layout["Total_Agraciados"]) || agraciados.length;
 
-    const presentesLista = agraciados
-        .filter(a => a.Status === "PRESENTE")
-        .sort((a,b)=>Number(a.Posição)-Number(b.Posição));
+        const presentesLista = agraciados
+            .filter(a => a.Status === "PRESENTE")
+            .sort((a,b)=>Number(a.Posição)-Number(b.Posição));
 
-    const pendentesLista = agraciados
-        .filter(a => a.Status !== "PRESENTE")
-        .sort((a,b)=>Number(a.Posição)-Number(b.Posição));
+        const pendentesLista = agraciados
+            .filter(a => a.Status !== "PRESENTE")
+            .sort((a,b)=>Number(a.Posição)-Number(b.Posição));
 
-    document.getElementById("total").innerText = total;
-    document.getElementById("presentes").innerText = presentesLista.length;
-    document.getElementById("pendentes").innerText = total - presentesLista.length;
+        document.getElementById("total").innerText = total;
+        document.getElementById("presentes").innerText = presentesLista.length;
+        document.getElementById("pendentes").innerText = total - presentesLista.length;
 
-    gerarMapa(layout, agraciados, total);
-    gerarCheckins(checkins);
-    gerarOrientacoes(layout);
-    renderLista("listaPresentes", presentesLista, "nome-presente");
-    renderLista("listaPendentes", pendentesLista, "nome-pendente");
+        gerarMapa(layout, agraciados, total);
+        gerarCheckins(checkins);
+        gerarOrientacoes(layout);
+        renderLista("listaPresentes", presentesLista, "nome-presente");
+        renderLista("listaPendentes", pendentesLista, "nome-pendente");
 
-    document.getElementById("atualizacao").innerText =
-        "Atualizado às " + new Date().toLocaleTimeString("pt-BR") +
-        " | Atualização automática a cada 5 segundos";
+        document.getElementById("atualizacao").innerText =
+            "Atualizado às " + new Date().toLocaleTimeString("pt-BR") +
+            " | Atualização automática a cada 5 segundos";
+
+    }catch(e){
+        console.error(e);
+    }
 }
 
 function gerarMapa(layout, agraciados, total){
@@ -443,17 +463,25 @@ function gerarMapa(layout, agraciados, total){
     const tamanho = calcularTamanhoCirculo(qtdBlocos, colunas);
     grade.style.setProperty("--circle-size", tamanho + "px");
 
+    /*
+      Lógica correta:
+      Para cada linha global:
+      - mostra primeiro o bloco mais à esquerda visualmente, que é o bloco de maior numeração;
+      - depois o bloco anterior;
+      - dentro de cada bloco, a numeração vai da direita para a esquerda.
+    */
+
     for(let linha = 0; linha < linhas; linha++){
 
         const linhaGlobal = document.createElement("div");
         linhaGlobal.className = "linha-global";
 
-        for(let blocoVisual = qtdBlocos; blocoVisual >= 1; blocoVisual--){
+        for(let bloco = qtdBlocos; bloco >= 1; bloco--){
 
             const blocoLinha = document.createElement("div");
             blocoLinha.className = "bloco-linha";
 
-            const inicioBloco = ((blocoVisual - 1) * capacidadeBloco) + 1;
+            const inicioBloco = ((bloco - 1) * capacidadeBloco) + 1;
             const inicioLinha = inicioBloco + (linha * colunas);
             const fimLinha = inicioLinha + colunas - 1;
 
