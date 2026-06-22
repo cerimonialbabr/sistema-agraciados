@@ -7,114 +7,283 @@
 <title>Dashboard | Sistema de Gerenciamento de Agraciados</title>
 
 <style>
-
 body{
     font-family:Arial,sans-serif;
-    background:#f3f5f8;
+    background:#08111f;
     margin:0;
-    color:#1f2937;
+    color:white;
 }
 
 .container{
-    max-width:760px;
+    max-width:1600px;
     margin:auto;
-    padding:16px;
+    padding:18px;
 }
 
-.topo-sistema{
-    display:flex;
+.header{
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    gap:18px;
     align-items:center;
-    justify-content:center;
-    gap:16px;
-    background:white;
-    border-radius:16px;
-    padding:14px;
-    margin-bottom:16px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.08);
-    text-align:left;
+    background:#0b1f3a;
+    border-radius:18px;
+    padding:16px 20px;
+    box-shadow:0 4px 18px rgba(0,0,0,0.35);
 }
 
-.topo-sistema img{
-    width:64px;
-    height:64px;
+.header img{
+    width:86px;
+    height:86px;
     object-fit:contain;
-    flex-shrink:0;
 }
 
-.titulo-sistema{
-    font-size:20px;
-    font-weight:800;
-    color:#0b3a75;
-    line-height:1.15;
+.titulo{
+    font-size:28px;
+    font-weight:900;
+    letter-spacing:.5px;
 }
 
-.subtitulo-sistema{
-    font-size:13px;
+.subtitulo{
+    color:#bfdbfe;
+    font-size:16px;
     font-weight:700;
-    color:#374151;
     margin-top:4px;
 }
 
+.formatura{
+    text-align:right;
+    font-size:15px;
+    color:#dbeafe;
+    line-height:1.45;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin:16px 0;
+}
+
 .card{
-    background:white;
-    border-radius:14px;
-    padding:40px 20px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    background:#10233f;
+    border:1px solid #1d4ed8;
+    border-radius:16px;
+    padding:14px;
     text-align:center;
 }
 
-.trator{
-    font-size:120px;
-    margin-bottom:20px;
+.label{
+    color:#cbd5e1;
+    font-weight:bold;
+    font-size:14px;
 }
 
-h1{
-    color:#0b3a75;
-    margin-bottom:10px;
+.numero{
+    font-size:46px;
+    font-weight:900;
+    color:#38bdf8;
 }
 
-.texto{
+.main{
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:16px;
+}
+
+.mapa{
+    background:#0f172a;
+    border-radius:18px;
+    padding:18px;
+    box-shadow:0 4px 18px rgba(0,0,0,0.35);
+}
+
+.referencia{
+    text-align:center;
+    color:#cbd5e1;
+    font-weight:900;
+    letter-spacing:2px;
+    margin:8px 0 14px;
+}
+
+.blocos{
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    gap:46px;
+    flex-wrap:wrap;
+}
+
+.bloco{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.fileira{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+}
+
+.circulo{
+    width:54px;
+    height:54px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:900;
     font-size:18px;
-    color:#4b5563;
+    border:3px solid rgba(255,255,255,.25);
+    box-shadow:0 3px 10px rgba(0,0,0,.4);
 }
 
-.voltar-menu{
+.presente{
+    background:#16a34a;
+    color:white;
+}
+
+.pendente{
+    background:#dc2626;
+    color:white;
+}
+
+.vazio{
+    background:#334155;
+    color:#94a3b8;
+}
+
+.lateral{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+}
+
+.painel{
+    background:#10233f;
+    border-radius:16px;
+    padding:14px;
+    box-shadow:0 4px 18px rgba(0,0,0,0.3);
+}
+
+.painel h2{
+    margin:0 0 10px;
+    font-size:20px;
+    text-align:center;
+    color:#bfdbfe;
+}
+
+.linha{
+    padding:8px 0;
+    border-bottom:1px solid rgba(255,255,255,.12);
+    font-size:14px;
+}
+
+.linha:last-child{
+    border-bottom:none;
+}
+
+.hora{
+    color:#93c5fd;
+    font-size:12px;
+}
+
+.orientacao{
+    background:#0f172a;
+    border-left:4px solid #38bdf8;
+    padding:8px;
+    border-radius:8px;
+    margin-bottom:8px;
+    font-size:14px;
+    color:#e5e7eb;
+}
+
+.legenda{
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    margin-top:16px;
+    color:#cbd5e1;
+    font-size:14px;
+}
+
+.legenda span{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.bolinha{
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    display:inline-block;
+}
+
+.bolinha.verde{background:#16a34a;}
+.bolinha.vermelha{background:#dc2626;}
+
+.atualizacao{
+    text-align:center;
+    color:#94a3b8;
+    font-size:13px;
+    margin-top:12px;
+}
+
+.voltar{
     display:block;
     text-align:center;
-    background:#6b7280;
+    background:#334155;
     color:white;
     text-decoration:none;
-    padding:12px 20px;
+    padding:10px;
     border-radius:10px;
     font-weight:bold;
-    font-size:16px;
-    margin-top:20px;
+    margin-top:12px;
 }
 
-@media(max-width:520px){
-
-    .topo-sistema{
-        justify-content:flex-start;
+@media(max-width:1000px){
+    .main{
+        grid-template-columns:1fr;
     }
 
-    .topo-sistema img{
-        width:52px;
-        height:52px;
+    .formatura{
+        text-align:left;
     }
 
-    .titulo-sistema{
-        font-size:16px;
+    .header{
+        grid-template-columns:auto 1fr;
     }
 
-    .subtitulo-sistema{
-        font-size:12px;
-    }
-
-    .trator{
-        font-size:90px;
+    .header .formatura{
+        grid-column:1 / -1;
     }
 }
 
+@media(max-width:700px){
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .circulo{
+        width:44px;
+        height:44px;
+        font-size:15px;
+    }
+
+    .blocos{
+        gap:22px;
+    }
+
+    .titulo{
+        font-size:20px;
+    }
+
+    .header img{
+        width:64px;
+        height:64px;
+    }
+}
 </style>
 </head>
 
@@ -122,40 +291,224 @@ h1{
 
 <div class="container">
 
-    <div class="topo-sistema">
-        <img src="medalha.png" alt="Medalha">
+    <div class="header">
+        <img src="babr.png" alt="Logo BABR">
 
         <div>
-            <div class="titulo-sistema">
-                SISTEMA DE GERENCIAMENTO DE AGRACIADOS
-            </div>
+            <div class="titulo">SISTEMA DE GERENCIAMENTO DE AGRACIADOS</div>
+            <div class="subtitulo">BASE AÉREA DE BRASÍLIA</div>
+        </div>
 
-            <div class="subtitulo-sistema">
-                BASE AÉREA DE BRASÍLIA
-            </div>
+        <div class="formatura">
+            <strong id="solenidade">Carregando solenidade...</strong><br>
+            <span id="dataFormatura"></span><br>
+            <span id="localFormatura"></span>
         </div>
     </div>
 
-    <div class="card">
-
-        <div class="trator">🚜</div>
-
-        <h1>Dashboard</h1>
-
-        <div class="texto">
-            Página em construção.
-            <br><br>
-            Em breve estarão disponíveis gráficos, estatísticas,
-            acompanhamento em tempo real e visualização do dispositivo.
+    <div class="cards">
+        <div class="card">
+            <div class="label">Total de Agraciados</div>
+            <div class="numero" id="total">0</div>
         </div>
 
+        <div class="card">
+            <div class="label">Presentes</div>
+            <div class="numero" id="presentes">0</div>
+        </div>
+
+        <div class="card">
+            <div class="label">Pendentes</div>
+            <div class="numero" id="pendentes">0</div>
+        </div>
     </div>
 
-    <a href="index.html" class="voltar-menu">
-        Voltar ao Menu Principal
-    </a>
+    <div class="main">
+        <div class="mapa">
+            <div class="referencia" id="tituloSuperior">TRIBUNA</div>
+
+            <div class="blocos" id="blocos"></div>
+
+            <div class="referencia" id="tituloInferior">TROPA</div>
+
+            <div class="legenda">
+                <span><i class="bolinha verde"></i> Presente</span>
+                <span><i class="bolinha vermelha"></i> Pendente</span>
+            </div>
+
+            <div class="atualizacao" id="atualizacao"></div>
+        </div>
+
+        <div class="lateral">
+            <div class="painel">
+                <h2>Últimos Check-ins</h2>
+                <div id="ultimosCheckins"></div>
+            </div>
+
+            <div class="painel">
+                <h2>Orientações</h2>
+                <div id="orientacoes"></div>
+            </div>
+
+            <a href="index.html" class="voltar">Voltar ao Menu Principal</a>
+        </div>
+    </div>
 
 </div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycby_SmcbdfXRVWjPGnwiVyPIdbzsqU8OjRXGWd4OwoWl67ao_YJAQM5lTtSP6TLSCGIV/exec";
+
+async function carregarDashboard(){
+    const resposta = await fetch(API_URL + "?action=dados&_=" + Date.now());
+    const dados = await resposta.json();
+
+    const config = dados.config || {};
+    const layout = dados.layout || {};
+    const agraciados = dados.agraciados || [];
+    const checkins = dados.checkins || [];
+
+    document.getElementById("solenidade").innerText =
+        config["Solenidade"] || "Solenidade não informada";
+
+    document.getElementById("dataFormatura").innerText =
+        config["Data"] ? "Data: " + config["Data"] : "";
+
+    document.getElementById("localFormatura").innerText =
+        config["Local"] ? "Local: " + config["Local"] : "";
+
+    document.getElementById("tituloSuperior").innerText =
+        layout["Titulo_Superior"] || "TRIBUNA";
+
+    document.getElementById("tituloInferior").innerText =
+        layout["Titulo_Inferior"] || "TROPA";
+
+    const total = Number(layout["Total_Agraciados"]) || agraciados.length;
+    const presentes = agraciados.filter(a => a.Status === "PRESENTE").length;
+    const pendentes = total - presentes;
+
+    document.getElementById("total").innerText = total;
+    document.getElementById("presentes").innerText = presentes;
+    document.getElementById("pendentes").innerText = pendentes;
+
+    gerarMapa(layout, agraciados, total);
+    gerarCheckins(checkins);
+    gerarOrientacoes(layout);
+
+    document.getElementById("atualizacao").innerText =
+        "Atualizado às " + new Date().toLocaleTimeString("pt-BR") +
+        " | Atualização automática a cada 5 segundos";
+}
+
+function gerarMapa(layout, agraciados, total){
+    const blocos = Number(layout["Quantidade_Blocos"]) || 1;
+    const linhas = Number(layout["Linhas_Por_Bloco"]) || 1;
+    const colunas = Number(layout["Colunas_Por_Bloco"]) || total;
+
+    const capacidadeBloco = linhas * colunas;
+
+    const statusPorPosicao = {};
+    agraciados.forEach(a => {
+        statusPorPosicao[Number(a["Posição"])] = a.Status;
+    });
+
+    const container = document.getElementById("blocos");
+    container.innerHTML = "";
+
+    for(let b = blocos - 1; b >= 0; b--){
+        const bloco = document.createElement("div");
+        bloco.className = "bloco";
+
+        const inicioBloco = b * capacidadeBloco + 1;
+
+        for(let l = 0; l < linhas; l++){
+            const fileira = document.createElement("div");
+            fileira.className = "fileira";
+
+            const inicioLinha = inicioBloco + (l * colunas);
+
+            for(let c = colunas - 1; c >= 0; c--){
+                const posicao = inicioLinha + c;
+
+                if(posicao > total) continue;
+
+                const circulo = document.createElement("div");
+                circulo.className = "circulo";
+
+                const status = statusPorPosicao[posicao];
+
+                if(status === "PRESENTE"){
+                    circulo.classList.add("presente");
+                }else{
+                    circulo.classList.add("pendente");
+                }
+
+                circulo.innerText = posicao;
+                fileira.appendChild(circulo);
+            }
+
+            bloco.appendChild(fileira);
+        }
+
+        container.appendChild(bloco);
+    }
+}
+
+function gerarCheckins(checkins){
+    const div = document.getElementById("ultimosCheckins");
+    div.innerHTML = "";
+
+    if(!checkins.length){
+        div.innerHTML = "<div class='linha'>Nenhum check-in registrado.</div>";
+        return;
+    }
+
+    checkins
+        .slice()
+        .reverse()
+        .slice(0,10)
+        .forEach(c => {
+            const linha = document.createElement("div");
+            linha.className = "linha";
+
+            let hora = c["Hora"];
+
+            if(hora && hora.includes("T")){
+                hora = new Date(hora).toLocaleTimeString("pt-BR");
+            }
+
+            linha.innerHTML =
+                "<strong>Pos " + c["Posição"] + " - " + c["Nome"] + "</strong><br>" +
+                "<span class='hora'>" + (hora || "") + "</span>";
+
+            div.appendChild(linha);
+        });
+}
+
+function gerarOrientacoes(layout){
+    const div = document.getElementById("orientacoes");
+    div.innerHTML = "";
+
+    Object.keys(layout)
+        .filter(k => k.startsWith("Orientacao_"))
+        .sort()
+        .forEach(k => {
+            if(layout[k]){
+                const item = document.createElement("div");
+                item.className = "orientacao";
+                item.innerText = layout[k];
+                div.appendChild(item);
+            }
+        });
+
+    if(div.innerHTML === ""){
+        div.innerHTML = "<div class='linha'>Nenhuma orientação cadastrada.</div>";
+    }
+}
+
+carregarDashboard();
+setInterval(carregarDashboard, 5000);
+</script>
 
 </body>
 </html>
