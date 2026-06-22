@@ -15,7 +15,7 @@ body{
 }
 
 .container{
-    max-width:1600px;
+    max-width:1700px;
     margin:auto;
     padding:18px;
 }
@@ -28,7 +28,6 @@ body{
     background:#0b1f3a;
     border-radius:18px;
     padding:16px 20px;
-    box-shadow:0 4px 18px rgba(0,0,0,0.35);
 }
 
 .header img{
@@ -40,7 +39,6 @@ body{
 .titulo{
     font-size:28px;
     font-weight:900;
-    letter-spacing:.5px;
 }
 
 .subtitulo{
@@ -86,7 +84,7 @@ body{
 
 .main{
     display:grid;
-    grid-template-columns:1fr 320px;
+    grid-template-columns:1fr 340px;
     gap:16px;
 }
 
@@ -94,7 +92,6 @@ body{
     background:#0f172a;
     border-radius:18px;
     padding:18px;
-    box-shadow:0 4px 18px rgba(0,0,0,0.35);
 }
 
 .referencia{
@@ -109,20 +106,22 @@ body{
     display:flex;
     justify-content:center;
     align-items:flex-start;
-    gap:46px;
+    gap:55px;
     flex-wrap:wrap;
 }
 
 .bloco{
     display:flex;
     flex-direction:column;
-    gap:10px;
+    gap:12px;
 }
 
 .fileira{
     display:flex;
+    flex-direction:row;
     justify-content:center;
     gap:10px;
+    flex-wrap:nowrap;
 }
 
 .circulo{
@@ -148,11 +147,6 @@ body{
     color:white;
 }
 
-.vazio{
-    background:#334155;
-    color:#94a3b8;
-}
-
 .lateral{
     display:flex;
     flex-direction:column;
@@ -163,7 +157,6 @@ body{
     background:#10233f;
     border-radius:16px;
     padding:14px;
-    box-shadow:0 4px 18px rgba(0,0,0,0.3);
 }
 
 .painel h2{
@@ -174,7 +167,7 @@ body{
 }
 
 .linha{
-    padding:8px 0;
+    padding:7px 0;
     border-bottom:1px solid rgba(255,255,255,.12);
     font-size:14px;
 }
@@ -230,6 +223,28 @@ body{
     margin-top:12px;
 }
 
+.listas-baixo{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-top:16px;
+}
+
+.lista-scroll{
+    max-height:230px;
+    overflow-y:auto;
+}
+
+.nome-presente{
+    color:#86efac;
+    font-weight:bold;
+}
+
+.nome-pendente{
+    color:#fca5a5;
+    font-weight:bold;
+}
+
 .voltar{
     display:block;
     text-align:center;
@@ -242,46 +257,18 @@ body{
     margin-top:12px;
 }
 
-@media(max-width:1000px){
+@media(max-width:1100px){
     .main{
         grid-template-columns:1fr;
-    }
-
-    .formatura{
-        text-align:left;
     }
 
     .header{
         grid-template-columns:auto 1fr;
     }
 
-    .header .formatura{
+    .formatura{
         grid-column:1 / -1;
-    }
-}
-
-@media(max-width:700px){
-    .cards{
-        grid-template-columns:1fr;
-    }
-
-    .circulo{
-        width:44px;
-        height:44px;
-        font-size:15px;
-    }
-
-    .blocos{
-        gap:22px;
-    }
-
-    .titulo{
-        font-size:20px;
-    }
-
-    .header img{
-        width:64px;
-        height:64px;
+        text-align:left;
     }
 }
 </style>
@@ -324,19 +311,34 @@ body{
     </div>
 
     <div class="main">
-        <div class="mapa">
-            <div class="referencia" id="tituloSuperior">TRIBUNA</div>
 
-            <div class="blocos" id="blocos"></div>
+        <div>
+            <div class="mapa">
+                <div class="referencia" id="tituloSuperior">TRIBUNA</div>
 
-            <div class="referencia" id="tituloInferior">TROPA</div>
+                <div class="blocos" id="blocos"></div>
 
-            <div class="legenda">
-                <span><i class="bolinha verde"></i> Presente</span>
-                <span><i class="bolinha vermelha"></i> Pendente</span>
+                <div class="referencia" id="tituloInferior">TROPA</div>
+
+                <div class="legenda">
+                    <span><i class="bolinha verde"></i> Presente</span>
+                    <span><i class="bolinha vermelha"></i> Pendente</span>
+                </div>
+
+                <div class="atualizacao" id="atualizacao"></div>
             </div>
 
-            <div class="atualizacao" id="atualizacao"></div>
+            <div class="listas-baixo">
+                <div class="painel">
+                    <h2>Presentes</h2>
+                    <div class="lista-scroll" id="listaPresentes"></div>
+                </div>
+
+                <div class="painel">
+                    <h2>Faltantes</h2>
+                    <div class="lista-scroll" id="listaPendentes"></div>
+                </div>
+            </div>
         </div>
 
         <div class="lateral">
@@ -352,6 +354,7 @@ body{
 
             <a href="index.html" class="voltar">Voltar ao Menu Principal</a>
         </div>
+
     </div>
 
 </div>
@@ -384,16 +387,24 @@ async function carregarDashboard(){
         layout["Titulo_Inferior"] || "TROPA";
 
     const total = Number(layout["Total_Agraciados"]) || agraciados.length;
-    const presentes = agraciados.filter(a => a.Status === "PRESENTE").length;
-    const pendentes = total - presentes;
+
+    const presentesLista = agraciados
+        .filter(a => a.Status === "PRESENTE")
+        .sort((a,b)=>Number(a.Posição)-Number(b.Posição));
+
+    const pendentesLista = agraciados
+        .filter(a => a.Status !== "PRESENTE")
+        .sort((a,b)=>Number(a.Posição)-Number(b.Posição));
 
     document.getElementById("total").innerText = total;
-    document.getElementById("presentes").innerText = presentes;
-    document.getElementById("pendentes").innerText = pendentes;
+    document.getElementById("presentes").innerText = presentesLista.length;
+    document.getElementById("pendentes").innerText = total - presentesLista.length;
 
     gerarMapa(layout, agraciados, total);
     gerarCheckins(checkins);
     gerarOrientacoes(layout);
+    renderLista("listaPresentes", presentesLista, "nome-presente");
+    renderLista("listaPendentes", pendentesLista, "nome-pendente");
 
     document.getElementById("atualizacao").innerText =
         "Atualizado às " + new Date().toLocaleTimeString("pt-BR") +
@@ -401,7 +412,7 @@ async function carregarDashboard(){
 }
 
 function gerarMapa(layout, agraciados, total){
-    const blocos = Number(layout["Quantidade_Blocos"]) || 1;
+    const qtdBlocos = Number(layout["Quantidade_Blocos"]) || 1;
     const linhas = Number(layout["Linhas_Por_Bloco"]) || 1;
     const colunas = Number(layout["Colunas_Por_Bloco"]) || total;
 
@@ -415,29 +426,29 @@ function gerarMapa(layout, agraciados, total){
     const container = document.getElementById("blocos");
     container.innerHTML = "";
 
-    for(let b = blocos - 1; b >= 0; b--){
+    for(let blocoIndex = qtdBlocos - 1; blocoIndex >= 0; blocoIndex--){
+
         const bloco = document.createElement("div");
         bloco.className = "bloco";
 
-        const inicioBloco = b * capacidadeBloco + 1;
+        const inicioBloco = blocoIndex * capacidadeBloco + 1;
 
-        for(let l = 0; l < linhas; l++){
+        for(let linha = 0; linha < linhas; linha++){
+
             const fileira = document.createElement("div");
             fileira.className = "fileira";
 
-            const inicioLinha = inicioBloco + (l * colunas);
+            const inicioLinha = inicioBloco + (linha * colunas);
+            const fimLinha = inicioLinha + colunas - 1;
 
-            for(let c = colunas - 1; c >= 0; c--){
-                const posicao = inicioLinha + c;
+            for(let posicao = fimLinha; posicao >= inicioLinha; posicao--){
 
                 if(posicao > total) continue;
 
                 const circulo = document.createElement("div");
                 circulo.className = "circulo";
 
-                const status = statusPorPosicao[posicao];
-
-                if(status === "PRESENTE"){
+                if(statusPorPosicao[posicao] === "PRESENTE"){
                     circulo.classList.add("presente");
                 }else{
                     circulo.classList.add("pendente");
@@ -473,7 +484,7 @@ function gerarCheckins(checkins){
 
             let hora = c["Hora"];
 
-            if(hora && hora.includes("T")){
+            if(hora && String(hora).includes("T")){
                 hora = new Date(hora).toLocaleTimeString("pt-BR");
             }
 
@@ -504,6 +515,23 @@ function gerarOrientacoes(layout){
     if(div.innerHTML === ""){
         div.innerHTML = "<div class='linha'>Nenhuma orientação cadastrada.</div>";
     }
+}
+
+function renderLista(id, lista, classe){
+    const div = document.getElementById(id);
+    div.innerHTML = "";
+
+    if(!lista.length){
+        div.innerHTML = "<div class='linha'>Nenhum registro.</div>";
+        return;
+    }
+
+    lista.forEach(a => {
+        const item = document.createElement("div");
+        item.className = "linha " + classe;
+        item.innerText = "Pos " + a.Posição + " - " + a.Nome;
+        div.appendChild(item);
+    });
 }
 
 carregarDashboard();
