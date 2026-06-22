@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Teste Dashboard</title>
+<style>
+body{font-family:Arial;background:#08111f;color:white;padding:20px;}
+pre{background:#10233f;padding:20px;border-radius:12px;white-space:pre-wrap;}
+</style>
+</head>
+<body>
+
+<h1>Teste da API do Dashboard</h1>
+
+<pre id="saida">Carregando...</pre>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycby_SmcbdfXRVWjPGnwiVyPIdbzsqU8OjRXGWd4OwoWl67ao_YJAQM5lTtSP6TLSCGIV/exec";
+
+async function testar(){
+  const resposta = await fetch(API_URL + "?action=dados&_=" + Date.now());
+  const dados = await resposta.json();
+
+  document.getElementById("saida").innerText =
+    "LAYOUT:\n" +
+    JSON.stringify(dados.layout, null, 2) +
+    "\n\nCHECKINS:\n" +
+    JSON.stringify(dados.checkins, null, 2);
+}
+
+testar();
+</script>
+
+</body>
+</html>
