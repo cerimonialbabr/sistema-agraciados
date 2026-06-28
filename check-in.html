@@ -160,15 +160,113 @@ h1,h2,h3{
     font-size:16px;
 }
 
-img.dispositivo{
-    width:100%;
-    max-height:520px;
-    object-fit:contain;
-    border-radius:10px;
-    border:1px solid #ddd;
+/* MINI DISPOSITIVO */
+
+.mini-dispositivo-card{
+    background:#f8fafc;
+    border:1px solid #dbeafe;
+    border-radius:14px;
+    padding:12px;
     margin-top:16px;
+}
+
+.mini-titulo{
+    text-align:center;
+    color:#0b3a75;
+    font-size:18px;
+    font-weight:800;
+    letter-spacing:1px;
+    margin-bottom:8px;
+}
+
+.mini-referencia{
+    text-align:center;
+    color:#374151;
+    font-weight:800;
+    letter-spacing:1px;
+    border:1px solid #cbd5e1;
+    border-radius:10px;
+    padding:6px;
+    margin:8px auto;
+    width:170px;
     background:white;
 }
+
+.mini-area{
+    width:100%;
+    overflow-x:auto;
+    padding:10px 0;
+}
+
+.mini-grade{
+    display:flex;
+    flex-direction:column;
+    gap:var(--mini-gap-linhas,6px);
+    align-items:center;
+    justify-content:center;
+    min-width:max-content;
+}
+
+.mini-linha-global{
+    display:flex;
+    gap:var(--mini-gap-blocos,20px);
+    justify-content:center;
+    align-items:center;
+}
+
+.mini-bloco-linha{
+    display:flex;
+    gap:var(--mini-gap-circulos,4px);
+}
+
+.mini-circulo{
+    width:var(--mini-circle-size,28px);
+    height:var(--mini-circle-size,28px);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    font-size:calc(var(--mini-circle-size,28px) * .34);
+    border:2px solid rgba(11,58,117,.25);
+    box-sizing:border-box;
+}
+
+.mini-normal{
+    background:#dbeafe;
+    color:#0b3a75;
+}
+
+.mini-destaque{
+    background:#16a34a;
+    color:white;
+    border:3px solid #15803d;
+    box-shadow:0 0 0 4px rgba(22,163,74,.18);
+}
+
+.mini-vazio{
+    visibility:hidden;
+}
+
+.mini-legenda{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    font-size:13px;
+    color:#4b5563;
+    margin-top:8px;
+}
+
+.mini-bolinha{
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    display:inline-block;
+    margin-right:5px;
+}
+
+.mini-bolinha.normal{background:#dbeafe;border:1px solid #93c5fd;}
+.mini-bolinha.destaque{background:#16a34a;}
 
 .confirmar,
 .voltar{
@@ -324,10 +422,25 @@ img.dispositivo{
         <p style="text-align:center;">Sua posição no dispositivo:</p>
         <div class="posicao" id="posicao"></div>
 
+        <div class="mini-dispositivo-card">
+            <div class="mini-titulo">DISPOSITIVO</div>
+
+            <div class="mini-referencia" id="miniTituloSuperior">TRIBUNA</div>
+
+            <div class="mini-area">
+                <div class="mini-grade" id="miniGradeDispositivo"></div>
+            </div>
+
+            <div class="mini-referencia" id="miniTituloInferior">TROPA</div>
+
+            <div class="mini-legenda">
+                <span><i class="mini-bolinha normal"></i> Demais posições</span>
+                <span><i class="mini-bolinha destaque"></i> Sua posição</span>
+            </div>
+        </div>
+
         <div class="mensagem-individual" id="mensagemIndividual" style="display:none;"></div>
         <div id="mensagensGerais"></div>
-
-        <img id="imagem" class="dispositivo">
 
         <button id="botaoConfirmar" class="confirmar" onclick="confirmarPresenca()">
             CONFIRMAR PRESENÇA
@@ -344,7 +457,7 @@ img.dispositivo{
 </div>
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycby_SmcbdfXRVWjPGnwiVyPIdbzsqU8OjRXGWd4OwoWl67ao_YJAQM5lTtSP6TLSCGIV/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbzI_OV6JrjfMqg2aevAVP_2SGGmww6vk6mEiE7COmr3dQabG3YtGfHpswEiP6f-kqk9/exec";
 
 let dados = null;
 let selecionado = null;
@@ -412,6 +525,8 @@ function mostrarResultado(a){
     document.getElementById("nome").innerText = a.Nome;
     document.getElementById("posicao").innerText = a["Posição"];
 
+    renderMiniDispositivo(a["Posição"]);
+
     if(a["Mensagem Individual"] && String(a["Mensagem Individual"]).trim() !== ""){
         document.getElementById("mensagemIndividual").style.display = "block";
         document.getElementById("mensagemIndividual").innerText = a["Mensagem Individual"];
@@ -422,19 +537,6 @@ function mostrarResultado(a){
 
     renderMensagensGerais();
 
-    const img = document.getElementById("imagem");
-    const config = dados.config || {};
-
-    if(config["Imagem_Dispositivo"]){
-        img.src = config["Imagem_Dispositivo"];
-        img.style.display = "block";
-    }else if(dados.imagens && dados.imagens.length > 0){
-        img.src = dados.imagens[0].imagem;
-        img.style.display = "block";
-    }else{
-        img.style.display = "none";
-    }
-
     document.getElementById("botaoConfirmar").disabled = false;
     document.getElementById("botaoConfirmar").innerText = "CONFIRMAR PRESENÇA";
     document.getElementById("confirmado").innerText = "";
@@ -442,6 +544,84 @@ function mostrarResultado(a){
     if(a.Status === "PRESENTE"){
         document.getElementById("confirmado").innerText = "✅ PRESENÇA JÁ CONFIRMADA";
     }
+}
+
+function renderMiniDispositivo(posicaoSelecionada){
+    const layout = dados.layout || {};
+
+    const total = Number(layout["Total_Agraciados"]) || (dados.agraciados || []).length;
+    const qtdBlocos = Number(layout["Quantidade_Blocos"]) || 1;
+    const linhas = Number(layout["Linhas_Por_Bloco"]) || 1;
+    const colunas = Number(layout["Colunas_Por_Bloco"]) || total;
+
+    const capacidadeBloco = linhas * colunas;
+
+    document.getElementById("miniTituloSuperior").innerText =
+        layout["Titulo_Superior"] || "TRIBUNA";
+
+    document.getElementById("miniTituloInferior").innerText =
+        layout["Titulo_Inferior"] || "TROPA";
+
+    const grade = document.getElementById("miniGradeDispositivo");
+    grade.innerHTML = "";
+
+    const tamanho = calcularTamanhoMiniCirculo(qtdBlocos, colunas);
+
+    grade.style.setProperty("--mini-circle-size", tamanho + "px");
+    grade.style.setProperty("--mini-gap-circulos", Math.max(3, Math.floor(tamanho * 0.15)) + "px");
+    grade.style.setProperty("--mini-gap-linhas", Math.max(4, Math.floor(tamanho * 0.18)) + "px");
+    grade.style.setProperty("--mini-gap-blocos", Math.max(16, Math.floor(tamanho * 0.75)) + "px");
+
+    for(let linha = 0; linha < linhas; linha++){
+
+        const linhaGlobal = document.createElement("div");
+        linhaGlobal.className = "mini-linha-global";
+
+        for(let bloco = qtdBlocos; bloco >= 1; bloco--){
+
+            const blocoLinha = document.createElement("div");
+            blocoLinha.className = "mini-bloco-linha";
+
+            const inicioBloco = ((bloco - 1) * capacidadeBloco) + 1;
+            const inicioLinha = inicioBloco + (linha * colunas);
+            const fimLinha = inicioLinha + colunas - 1;
+
+            for(let posicao = fimLinha; posicao >= inicioLinha; posicao--){
+
+                const circulo = document.createElement("div");
+                circulo.className = "mini-circulo";
+
+                if(posicao > total){
+                    circulo.classList.add("mini-vazio");
+                    circulo.innerText = "";
+                }else if(Number(posicao) === Number(posicaoSelecionada)){
+                    circulo.classList.add("mini-destaque");
+                    circulo.innerText = posicao;
+                }else{
+                    circulo.classList.add("mini-normal");
+                    circulo.innerText = posicao;
+                }
+
+                blocoLinha.appendChild(circulo);
+            }
+
+            linhaGlobal.appendChild(blocoLinha);
+        }
+
+        grade.appendChild(linhaGlobal);
+    }
+}
+
+function calcularTamanhoMiniCirculo(qtdBlocos, colunas){
+    const largura = document.querySelector(".mini-area").clientWidth * 0.9;
+    const totalColunas = qtdBlocos * colunas;
+
+    let tamanho = Math.floor(largura / (totalColunas + 4));
+
+    if(tamanho > 32) tamanho = 32;
+    if(tamanho < 14) tamanho = 14;
+
+    return tamanho;
 }
 
 function renderMensagensGerais(){
