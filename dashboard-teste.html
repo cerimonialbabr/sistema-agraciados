@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard | Sistema de Gerenciamento de Agraciados</title>
+<title>Dashboard Teste | Sistema de Gerenciamento de Agraciados</title>
 
 <style>
 body{
@@ -180,13 +180,8 @@ body{
     visibility:hidden;
 }
 
-.presente{
-    background:#16a34a;
-}
-
-.pendente{
-    background:#dc2626;
-}
+.presente{ background:#16a34a; }
+.pendente{ background:#dc2626; }
 
 .legenda{
     display:flex;
@@ -295,30 +290,15 @@ body{
 }
 
 @media(max-width:1100px){
-    body{
-        overflow:auto;
-    }
-
-    .container{
-        height:auto;
-    }
-
-    .main{
-        grid-template-columns:1fr;
-    }
-
-    .header{
-        grid-template-columns:auto 1fr;
-    }
-
+    body{ overflow:auto; }
+    .container{ height:auto; }
+    .main{ grid-template-columns:1fr; }
+    .header{ grid-template-columns:auto 1fr; }
     .formatura{
         grid-column:1 / -1;
         text-align:left;
     }
-
-    .listas-baixo{
-        height:auto;
-    }
+    .listas-baixo{ height:auto; }
 }
 </style>
 </head>
@@ -415,7 +395,36 @@ body{
 </div>
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbx-5Sl5GpIelcE_L8tlHl1tM_f52heRSwfQTiJVjhvGI0D3-CrJOYNmmMCJJ240w6KA/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycby_Oeki-w1mFC8VPSPuszOpsRvPVfZ1fuCyvvz1cYkXogwll6jO051eh0R9y3ibWr8A/exec";
+
+function carregarDadosJSONP() {
+    return new Promise((resolve, reject) => {
+        const callbackName = "callbackDashboard_" + Date.now();
+
+        window[callbackName] = function(dados) {
+            resolve(dados);
+            delete window[callbackName];
+            script.remove();
+        };
+
+        const script = document.createElement("script");
+
+        script.src =
+            API_URL +
+            "?action=dados&callback=" +
+            callbackName +
+            "&_=" +
+            Date.now();
+
+        script.onerror = function() {
+            reject(new Error("Erro ao carregar dados via JSONP"));
+            delete window[callbackName];
+            script.remove();
+        };
+
+        document.body.appendChild(script);
+    });
+}
 
 async function carregarDashboard(){
     try{
@@ -442,7 +451,6 @@ async function carregarDashboard(){
             config["Titulo_Inferior"] || "TRIBUNA";
 
         const modo = normalizarTexto(config["Modo_Layout"] || "AUTOMATICO");
-
         const total = Number(config["Total_Agraciados"]) || agraciados.length;
 
         const presentesLista = agraciados
@@ -475,6 +483,8 @@ async function carregarDashboard(){
 
     }catch(e){
         console.error(e);
+        document.getElementById("solenidade").innerText =
+            "Erro ao carregar dados";
     }
 }
 
@@ -486,15 +496,6 @@ function normalizarTexto(valor){
         .toUpperCase();
 }
 
-/* 
-AUTOMÁTICO:
-A numeração corre por fileira global.
-
-Exemplo:
-2 blocos, 2 linhas, 5 colunas:
-10 9 8 7 6     5 4 3 2 1
-20 19 18 17 16 15 14 13 12 11
-*/
 function gerarMapaAutomatico(config, agraciados, total){
     const qtdBlocos = Number(config["Quantidade_Blocos"]) || 1;
     const linhas = Number(config["Linhas_Por_Bloco"]) || 1;
@@ -509,18 +510,15 @@ function gerarMapaAutomatico(config, agraciados, total){
     grade.innerHTML = "";
 
     const tamanho = calcularTamanhoCirculo(qtdBlocos, linhas, colunas);
-
     aplicarTamanho(grade, tamanho);
 
     for(let linha = 0; linha < linhas; linha++){
-
         const linhaGlobal = document.createElement("div");
         linhaGlobal.className = "linha-global";
 
         const inicioLinhaGlobal = (linha * qtdBlocos * colunas) + 1;
 
         for(let bloco = qtdBlocos; bloco >= 1; bloco--){
-
             const blocoLinha = document.createElement("div");
             blocoLinha.className = "bloco-linha";
 
@@ -528,9 +526,7 @@ function gerarMapaAutomatico(config, agraciados, total){
             const fimBlocoNaLinha = inicioBlocoNaLinha + colunas - 1;
 
             for(let posicao = fimBlocoNaLinha; posicao >= inicioBlocoNaLinha; posicao--){
-
-                const circulo = criarCirculo(posicao, total, statusPorPosicao);
-                blocoLinha.appendChild(circulo);
+                blocoLinha.appendChild(criarCirculo(posicao, total, statusPorPosicao));
             }
 
             linhaGlobal.appendChild(blocoLinha);
@@ -540,16 +536,6 @@ function gerarMapaAutomatico(config, agraciados, total){
     }
 }
 
-/*
-MANUAL:
-A aba layout vem assim:
-Ordem | Bloco | Fileira | Posicoes
-
-A numeração é automática seguindo a ordem da tabela.
-O desenho é agrupado por Fileira.
-Dentro de cada fileira, os blocos aparecem da direita para a esquerda visual,
-ou seja, maior bloco à esquerda.
-*/
 function gerarMapaManual(config, layoutManual, agraciados, total){
     const statusPorPosicao = {};
     agraciados.forEach(a => {
@@ -561,7 +547,6 @@ function gerarMapaManual(config, layoutManual, agraciados, total){
 
     const linhasMap = {};
     const linhasOrdem = [];
-
     let contador = 1;
 
     layoutManual
@@ -570,7 +555,7 @@ function gerarMapaManual(config, layoutManual, agraciados, total){
         .forEach(item => {
             const fileira = String(item["Fileira"]).trim();
             const bloco = String(item["Bloco"]).trim();
-            const qtd = Number(item["Posicoes"] || item["Posições"] || item["Posições "] || 0);
+            const qtd = Number(item["Posicoes"] || item["Posições"] || 0);
 
             if(!linhasMap[fileira]){
                 linhasMap[fileira] = [];
@@ -595,10 +580,7 @@ function gerarMapaManual(config, layoutManual, agraciados, total){
         });
 
     const qtdBlocosMax = Math.max(...linhasOrdem.map(f => linhasMap[f].length), 1);
-    const colunasMax = Math.max(
-        ...linhasOrdem.flatMap(f => linhasMap[f].map(b => b.posicoes.length)),
-        1
-    );
+    const colunasMax = Math.max(...linhasOrdem.flatMap(f => linhasMap[f].map(b => b.posicoes.length)), 1);
 
     const tamanho = calcularTamanhoCirculo(qtdBlocosMax, linhasOrdem.length, colunasMax);
     aplicarTamanho(grade, tamanho);
@@ -613,11 +595,8 @@ function gerarMapaManual(config, layoutManual, agraciados, total){
             const blocoLinha = document.createElement("div");
             blocoLinha.className = "bloco-linha";
 
-            const posicoesInvertidas = blocoObj.posicoes.slice().reverse();
-
-            posicoesInvertidas.forEach(posicao => {
-                const circulo = criarCirculo(posicao, total, statusPorPosicao);
-                blocoLinha.appendChild(circulo);
+            blocoObj.posicoes.slice().reverse().forEach(posicao => {
+                blocoLinha.appendChild(criarCirculo(posicao, total, statusPorPosicao));
             });
 
             linhaGlobal.appendChild(blocoLinha);
@@ -633,7 +612,6 @@ function criarCirculo(posicao, total, statusPorPosicao){
 
     if(!posicao || posicao > total){
         circulo.classList.add("vazio");
-        circulo.innerText = "";
         return circulo;
     }
 
@@ -683,26 +661,22 @@ function gerarCheckins(checkins){
         return;
     }
 
-    checkins
-        .slice()
-        .reverse()
-        .slice(0,10)
-        .forEach(c => {
-            const linha = document.createElement("div");
-            linha.className = "linha";
+    checkins.slice().reverse().slice(0,10).forEach(c => {
+        const linha = document.createElement("div");
+        linha.className = "linha";
 
-            let hora = c["Hora"];
+        let hora = c["Hora"];
 
-            if(hora && String(hora).includes("T")){
-                hora = new Date(hora).toLocaleTimeString("pt-BR");
-            }
+        if(hora && String(hora).includes("T")){
+            hora = new Date(hora).toLocaleTimeString("pt-BR");
+        }
 
-            linha.innerHTML =
-                "<strong>Pos " + c["Posição"] + " - " + c["Nome"] + "</strong><br>" +
-                "<span class='hora'>" + (hora || "") + "</span>";
+        linha.innerHTML =
+            "<strong>Pos " + c["Posição"] + " - " + c["Nome"] + "</strong><br>" +
+            "<span class='hora'>" + (hora || "") + "</span>";
 
-            div.appendChild(linha);
-        });
+        div.appendChild(linha);
+    });
 }
 
 function gerarOrientacoes(config){
