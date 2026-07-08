@@ -419,8 +419,7 @@ const API_URL = "https://script.google.com/macros/s/AKfycbzI_OV6JrjfMqg2aevAVP_2
 
 async function carregarDashboard(){
     try{
-        const resposta = await fetch(API_URL + "?action=dados&_=" + Date.now());
-        const dados = await resposta.json();
+        const dados = await carregarDadosJSONP();
 
         const config = dados.config || {};
         const layoutManual = dados.layout || [];
