@@ -579,25 +579,72 @@ function gerarMapaManual(config, layoutManual, agraciados, total){
             });
         });
 
-    const qtdBlocosMax = Math.max(...linhasOrdem.map(f => linhasMap[f].length), 1);
-    const colunasMax = Math.max(...linhasOrdem.flatMap(f => linhasMap[f].map(b => b.posicoes.length)), 1);
+    const todosBlocos = [];
 
-    const tamanho = calcularTamanhoCirculo(qtdBlocosMax, linhasOrdem.length, colunasMax);
+    linhasOrdem.forEach(fileira => {
+        linhasMap[fileira].forEach(b => {
+            if(!todosBlocos.includes(b.bloco)){
+                todosBlocos.push(b.bloco);
+            }
+        });
+    });
+
+    todosBlocos.sort().reverse();
+
+    const maxPorBloco = {};
+
+    todosBlocos.forEach(bloco => {
+        maxPorBloco[bloco] = 0;
+    });
+
+    linhasOrdem.forEach(fileira => {
+        linhasMap[fileira].forEach(b => {
+            maxPorBloco[b.bloco] = Math.max(
+                maxPorBloco[b.bloco],
+                b.posicoes.length
+            );
+        });
+    });
+
+    const qtdBlocosMax = todosBlocos.length;
+    const colunasTotais = todosBlocos.reduce((soma, bloco) => {
+        return soma + maxPorBloco[bloco];
+    }, 0);
+
+    const colunasMedia = Math.ceil(colunasTotais / qtdBlocosMax);
+
+    const tamanho = calcularTamanhoCirculo(
+        qtdBlocosMax,
+        linhasOrdem.length,
+        colunasMedia
+    );
+
     aplicarTamanho(grade, tamanho);
 
     linhasOrdem.forEach(fileira => {
         const linhaGlobal = document.createElement("div");
         linhaGlobal.className = "linha-global";
 
-        const blocos = linhasMap[fileira].slice().reverse();
-
-        blocos.forEach(blocoObj => {
+        todosBlocos.forEach(blocoNome => {
             const blocoLinha = document.createElement("div");
             blocoLinha.className = "bloco-linha";
 
-            blocoObj.posicoes.slice().reverse().forEach(posicao => {
-                blocoLinha.appendChild(criarCirculo(posicao, total, statusPorPosicao));
-            });
+            const blocoEncontrado = linhasMap[fileira].find(b => b.bloco === blocoNome);
+
+            let posicoes = blocoEncontrado ? blocoEncontrado.posicoes.slice() : [];
+
+            while(posicoes.length < maxPorBloco[blocoNome]){
+                posicoes.push(null);
+            }
+
+            posicoes
+                .slice()
+                .reverse()
+                .forEach(posicao => {
+                    blocoLinha.appendChild(
+                        criarCirculo(posicao, total, statusPorPosicao)
+                    );
+                });
 
             linhaGlobal.appendChild(blocoLinha);
         });
@@ -605,7 +652,7 @@ function gerarMapaManual(config, layoutManual, agraciados, total){
         grade.appendChild(linhaGlobal);
     });
 }
-
+    
 function criarCirculo(posicao, total, statusPorPosicao){
     const circulo = document.createElement("div");
     circulo.className = "circulo";
