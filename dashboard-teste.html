@@ -731,7 +731,10 @@ function gerarOrientacoes(config){
     div.innerHTML = "";
 
     Object.keys(config)
-        .filter(k => String(k).startsWith("Orientacao_"))
+        .filter(k =>
+            String(k).startsWith("Orientacao_") ||
+            String(k).startsWith("Mensagem_Geral_")
+        )
         .sort()
         .forEach(k => {
             if(config[k]){
