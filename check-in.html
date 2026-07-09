@@ -574,7 +574,9 @@ function renderMiniDispositivo(posicaoSelecionada){
         desenharMiniManual(grade, layoutManual, total, posicaoSelecionada);
         return;
     }
-
+    console.log(dados.layout);
+    console.log(Array.isArray(dados.layout));
+    
     desenharMiniAutomatico(grade, config, total, posicaoSelecionada);
 }
 
