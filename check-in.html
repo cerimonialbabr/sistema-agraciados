@@ -551,7 +551,7 @@ function mostrarResultado(a){
 function renderMiniDispositivo(posicaoSelecionada){
 
     const config = dados.config || {};
-    const layoutManual = dados.layout || [];
+    const layoutManual = Array.isArray(dados.layout) ? dados.layout : [];
 
     const modo = String(config["Modo_Layout"] || "AUTOMATICO")
         .trim()
@@ -572,12 +572,9 @@ function renderMiniDispositivo(posicaoSelecionada){
 
     if(modo === "MANUAL"){
         desenharMiniManual(grade, layoutManual, total, posicaoSelecionada);
-        return;
+    }else{
+        desenharMiniAutomatico(grade, config, total, posicaoSelecionada);
     }
-    console.log(dados.layout);
-    console.log(Array.isArray(dados.layout));
-    
-    desenharMiniAutomatico(grade, config, total, posicaoSelecionada);
 }
 
 function desenharMiniAutomatico(grade, config, total, posicaoSelecionada){
@@ -588,10 +585,7 @@ function desenharMiniAutomatico(grade, config, total, posicaoSelecionada){
 
     const tamanho = calcularTamanhoMiniCirculo(qtdBlocos, colunas);
 
-    grade.style.setProperty("--mini-circle-size", tamanho + "px");
-    grade.style.setProperty("--mini-gap-circulos", Math.max(3, Math.floor(tamanho * 0.15)) + "px");
-    grade.style.setProperty("--mini-gap-linhas", Math.max(4, Math.floor(tamanho * 0.18)) + "px");
-    grade.style.setProperty("--mini-gap-blocos", Math.max(16, Math.floor(tamanho * 0.75)) + "px");
+    aplicarEstiloMiniGrade(grade, tamanho);
 
     for(let linha = 0; linha < linhas; linha++){
 
@@ -619,7 +613,7 @@ function desenharMiniAutomatico(grade, config, total, posicaoSelecionada){
     }
 }
 
-    function desenharMiniManual(grade, layoutManual, total, posicaoSelecionada){
+function desenharMiniManual(grade, layoutManual, total, posicaoSelecionada){
 
     const linhasMap = {};
     const linhasOrdem = [];
@@ -630,9 +624,11 @@ function desenharMiniAutomatico(grade, config, total, posicaoSelecionada){
         .sort((a,b)=>Number(a.Ordem)-Number(b.Ordem))
         .forEach(item=>{
 
-            const fileira = String(item["Fileira"]).trim();
-            const bloco = String(item["Bloco"]).trim();
+            const fileira = String(item["Fileira"] || "").trim();
+            const bloco = String(item["Bloco"] || "").trim();
             const qtd = Number(item["Posicoes"] || item["Posições"] || 0);
+
+            if(!fileira || !bloco || !qtd) return;
 
             if(!linhasMap[fileira]){
                 linhasMap[fileira] = [];
@@ -679,17 +675,14 @@ function desenharMiniAutomatico(grade, config, total, posicaoSelecionada){
         });
     });
 
-    const qtdBlocos = todosBlocos.length;
+    const qtdBlocos = todosBlocos.length || 1;
     const colunasMedia = Math.ceil(
         todosBlocos.reduce((s,b)=>s + maxPorBloco[b],0) / qtdBlocos
-    );
+    ) || 1;
 
     const tamanho = calcularTamanhoMiniCirculo(qtdBlocos, colunasMedia);
 
-    grade.style.setProperty("--mini-circle-size", tamanho + "px");
-    grade.style.setProperty("--mini-gap-circulos", Math.max(3, Math.floor(tamanho * 0.15)) + "px");
-    grade.style.setProperty("--mini-gap-linhas", Math.max(4, Math.floor(tamanho * 0.18)) + "px");
-    grade.style.setProperty("--mini-gap-blocos", Math.max(16, Math.floor(tamanho * 0.75)) + "px");
+    aplicarEstiloMiniGrade(grade, tamanho);
 
     linhasOrdem.forEach(fileira=>{
 
@@ -740,6 +733,14 @@ function criarMiniCirculo(posicao, total, posicaoSelecionada){
     }
 
     return circulo;
+}
+
+function aplicarEstiloMiniGrade(grade, tamanho){
+
+    grade.style.setProperty("--mini-circle-size", tamanho + "px");
+    grade.style.setProperty("--mini-gap-circulos", Math.max(3, Math.floor(tamanho * 0.15)) + "px");
+    grade.style.setProperty("--mini-gap-linhas", Math.max(4, Math.floor(tamanho * 0.18)) + "px");
+    grade.style.setProperty("--mini-gap-blocos", Math.max(16, Math.floor(tamanho * 0.75)) + "px");
 }
     
 function calcularTamanhoMiniCirculo(qtdBlocos, colunas){
