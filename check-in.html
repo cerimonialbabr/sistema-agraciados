@@ -723,7 +723,24 @@ function desenharMiniAutomatico(grade, config, total, posicaoSelecionada){
     });
 }
 
-    
+function criarMiniCirculo(posicao, total, posicaoSelecionada){
+
+    const circulo = document.createElement("div");
+    circulo.className = "mini-circulo";
+
+    if(!posicao || posicao > total){
+        circulo.classList.add("mini-vazio");
+        circulo.innerText = "";
+    }else if(Number(posicao) === Number(posicaoSelecionada)){
+        circulo.classList.add("mini-destaque");
+        circulo.innerText = posicao;
+    }else{
+        circulo.classList.add("mini-normal");
+        circulo.innerText = posicao;
+    }
+
+    return circulo;
+}
     
 function calcularTamanhoMiniCirculo(qtdBlocos, colunas){
     const largura = document.querySelector(".mini-area").clientWidth * 0.9;
