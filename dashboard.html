@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard | Sistema de Gerenciamento de Agraciados</title>
+<title>Dashboard Teste | Sistema de Gerenciamento de Agraciados</title>
 
 <style>
 body{
@@ -23,8 +23,6 @@ body{
     display:flex;
     flex-direction:column;
 }
-
-/* CABEÇALHO */
 
 .header{
     display:grid;
@@ -61,8 +59,6 @@ body{
     line-height:1.35;
 }
 
-/* CONTADORES */
-
 .cards{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -90,8 +86,6 @@ body{
     font-weight:900;
     color:#38bdf8;
 }
-
-/* ESTRUTURA PRINCIPAL */
 
 .main{
     display:grid;
@@ -124,7 +118,6 @@ body{
     font-weight:900;
     letter-spacing:2px;
     margin-bottom:8px;
-    flex-shrink:0;
 }
 
 .referencia-box{
@@ -138,7 +131,6 @@ body{
     margin:6px auto;
     width:220px;
     background:#10233f;
-    flex-shrink:0;
 }
 
 .area-dispositivo{
@@ -188,13 +180,8 @@ body{
     visibility:hidden;
 }
 
-.presente{
-    background:#16a34a;
-}
-
-.pendente{
-    background:#dc2626;
-}
+.presente{ background:#16a34a; }
+.pendente{ background:#dc2626; }
 
 .legenda{
     display:flex;
@@ -203,7 +190,6 @@ body{
     color:#cbd5e1;
     font-size:13px;
     margin-top:6px;
-    flex-shrink:0;
 }
 
 .bolinha{
@@ -222,10 +208,7 @@ body{
     color:#94a3b8;
     font-size:12px;
     margin-top:6px;
-    flex-shrink:0;
 }
-
-/* PAINÉIS */
 
 .lateral{
     display:flex;
@@ -304,36 +287,18 @@ body{
     padding:10px;
     border-radius:10px;
     font-weight:bold;
-    flex-shrink:0;
 }
 
-/* RESPONSIVO */
-
 @media(max-width:1100px){
-    body{
-        overflow:auto;
-    }
-
-    .container{
-        height:auto;
-    }
-
-    .main{
-        grid-template-columns:1fr;
-    }
-
-    .header{
-        grid-template-columns:auto 1fr;
-    }
-
+    body{ overflow:auto; }
+    .container{ height:auto; }
+    .main{ grid-template-columns:1fr; }
+    .header{ grid-template-columns:auto 1fr; }
     .formatura{
         grid-column:1 / -1;
         text-align:left;
     }
-
-    .listas-baixo{
-        height:auto;
-    }
+    .listas-baixo{ height:auto; }
 }
 </style>
 </head>
@@ -381,13 +346,13 @@ body{
             <div class="mapa">
                 <div class="titulo-dispositivo">DISPOSITIVO</div>
 
-                <div class="referencia-box" id="tituloSuperior">TRIBUNA</div>
+                <div class="referencia-box" id="tituloSuperior">TELÃO</div>
 
                 <div class="area-dispositivo">
                     <div class="grade-dispositivo" id="gradeDispositivo"></div>
                 </div>
 
-                <div class="referencia-box" id="tituloInferior">TROPA</div>
+                <div class="referencia-box" id="tituloInferior">TRIBUNA</div>
 
                 <div class="legenda">
                     <span><i class="bolinha verde"></i>Presente</span>
@@ -430,15 +395,43 @@ body{
 </div>
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbzI_OV6JrjfMqg2aevAVP_2SGGmww6vk6mEiE7COmr3dQabG3YtGfHpswEiP6f-kqk9/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycby_Oeki-w1mFC8VPSPuszOpsRvPVfZ1fuCyvvz1cYkXogwll6jO051eh0R9y3ibWr8A/exec";
+
+function carregarDadosJSONP() {
+    return new Promise((resolve, reject) => {
+        const callbackName = "callbackDashboard_" + Date.now();
+
+        window[callbackName] = function(dados) {
+            resolve(dados);
+            delete window[callbackName];
+            script.remove();
+        };
+
+        const script = document.createElement("script");
+
+        script.src =
+            API_URL +
+            "?action=dados&callback=" +
+            callbackName +
+            "&_=" +
+            Date.now();
+
+        script.onerror = function() {
+            reject(new Error("Erro ao carregar dados via JSONP"));
+            delete window[callbackName];
+            script.remove();
+        };
+
+        document.body.appendChild(script);
+    });
+}
 
 async function carregarDashboard(){
     try{
-        const resposta = await fetch(API_URL + "?action=dados&_=" + Date.now());
-        const dados = await resposta.json();
+        const dados = await carregarDadosJSONP();
 
         const config = dados.config || {};
-        const layout = dados.layout || {};
+        const layoutManual = dados.layout || [];
         const agraciados = dados.agraciados || [];
         const checkins = dados.checkins || [];
 
@@ -452,12 +445,13 @@ async function carregarDashboard(){
             config["Local"] ? "Local: " + config["Local"] : "";
 
         document.getElementById("tituloSuperior").innerText =
-            layout["Titulo_Superior"] || "TRIBUNA";
+            config["Titulo_Superior"] || "TELÃO";
 
         document.getElementById("tituloInferior").innerText =
-            layout["Titulo_Inferior"] || "TROPA";
+            config["Titulo_Inferior"] || "TRIBUNA";
 
-        const total = Number(layout["Total_Agraciados"]) || agraciados.length;
+        const modo = normalizarTexto(config["Modo_Layout"] || "AUTOMATICO");
+        const total = Number(config["Total_Agraciados"]) || agraciados.length;
 
         const presentesLista = agraciados
             .filter(a => a.Status === "PRESENTE")
@@ -471,27 +465,41 @@ async function carregarDashboard(){
         document.getElementById("presentes").innerText = presentesLista.length;
         document.getElementById("pendentes").innerText = total - presentesLista.length;
 
-        gerarMapa(layout, agraciados, total);
+        if(modo === "MANUAL"){
+            gerarMapaManual(config, layoutManual, agraciados, total);
+        }else{
+            gerarMapaAutomatico(config, agraciados, total);
+        }
+
         gerarCheckins(checkins);
-        gerarOrientacoes(layout);
+        gerarOrientacoes(config);
         renderLista("listaPresentes", presentesLista, "nome-presente");
         renderLista("listaPendentes", pendentesLista, "nome-pendente");
 
         document.getElementById("atualizacao").innerText =
             "Atualizado às " + new Date().toLocaleTimeString("pt-BR") +
+            " | Modo: " + modo +
             " | Atualização automática a cada 5 segundos";
 
     }catch(e){
         console.error(e);
+        document.getElementById("solenidade").innerText =
+            "Erro ao carregar dados";
     }
 }
 
-function gerarMapa(layout, agraciados, total){
-    const qtdBlocos = Number(layout["Quantidade_Blocos"]) || 1;
-    const linhas = Number(layout["Linhas_Por_Bloco"]) || 1;
-    const colunas = Number(layout["Colunas_Por_Bloco"]) || total;
+function normalizarTexto(valor){
+    return String(valor || "")
+        .trim()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toUpperCase();
+}
 
-    const capacidadeBloco = linhas * colunas;
+function gerarMapaAutomatico(config, agraciados, total){
+    const qtdBlocos = Number(config["Quantidade_Blocos"]) || 1;
+    const linhas = Number(config["Linhas_Por_Bloco"]) || 1;
+    const colunas = Number(config["Colunas_Por_Bloco"]) || total;
 
     const statusPorPosicao = {};
     agraciados.forEach(a => {
@@ -502,45 +510,23 @@ function gerarMapa(layout, agraciados, total){
     grade.innerHTML = "";
 
     const tamanho = calcularTamanhoCirculo(qtdBlocos, linhas, colunas);
-
-    grade.style.setProperty("--circle-size", tamanho + "px");
-    grade.style.setProperty("--gap-circulos", Math.max(4, Math.floor(tamanho * 0.18)) + "px");
-    grade.style.setProperty("--gap-linhas", Math.max(5, Math.floor(tamanho * 0.22)) + "px");
-    grade.style.setProperty("--gap-blocos", Math.max(24, Math.floor(tamanho * 0.9)) + "px");
+    aplicarTamanho(grade, tamanho);
 
     for(let linha = 0; linha < linhas; linha++){
-
         const linhaGlobal = document.createElement("div");
         linhaGlobal.className = "linha-global";
 
-        for(let bloco = qtdBlocos; bloco >= 1; bloco--){
+        const inicioLinhaGlobal = (linha * qtdBlocos * colunas) + 1;
 
+        for(let bloco = qtdBlocos; bloco >= 1; bloco--){
             const blocoLinha = document.createElement("div");
             blocoLinha.className = "bloco-linha";
 
-            const inicioBloco = ((bloco - 1) * capacidadeBloco) + 1;
-            const inicioLinha = inicioBloco + (linha * colunas);
-            const fimLinha = inicioLinha + colunas - 1;
+            const inicioBlocoNaLinha = inicioLinhaGlobal + ((bloco - 1) * colunas);
+            const fimBlocoNaLinha = inicioBlocoNaLinha + colunas - 1;
 
-            for(let posicao = fimLinha; posicao >= inicioLinha; posicao--){
-
-                const circulo = document.createElement("div");
-                circulo.className = "circulo";
-
-                if(posicao > total){
-                    circulo.classList.add("vazio");
-                    circulo.innerText = "";
-                }else{
-                    if(statusPorPosicao[posicao] === "PRESENTE"){
-                        circulo.classList.add("presente");
-                    }else{
-                        circulo.classList.add("pendente");
-                    }
-
-                    circulo.innerText = posicao;
-                }
-
-                blocoLinha.appendChild(circulo);
+            for(let posicao = fimBlocoNaLinha; posicao >= inicioBlocoNaLinha; posicao--){
+                blocoLinha.appendChild(criarCirculo(posicao, total, statusPorPosicao));
             }
 
             linhaGlobal.appendChild(blocoLinha);
@@ -548,6 +534,149 @@ function gerarMapa(layout, agraciados, total){
 
         grade.appendChild(linhaGlobal);
     }
+}
+
+function gerarMapaManual(config, layoutManual, agraciados, total){
+    const statusPorPosicao = {};
+    agraciados.forEach(a => {
+        statusPorPosicao[Number(a["Posição"])] = a.Status;
+    });
+
+    const grade = document.getElementById("gradeDispositivo");
+    grade.innerHTML = "";
+
+    const linhasMap = {};
+    const linhasOrdem = [];
+    let contador = 1;
+
+    layoutManual
+        .slice()
+        .sort((a,b)=>Number(a.Ordem)-Number(b.Ordem))
+        .forEach(item => {
+            const fileira = String(item["Fileira"]).trim();
+            const bloco = String(item["Bloco"]).trim();
+            const qtd = Number(item["Posicoes"] || item["Posições"] || 0);
+
+            if(!linhasMap[fileira]){
+                linhasMap[fileira] = [];
+                linhasOrdem.push(fileira);
+            }
+
+            const posicoes = [];
+
+            for(let i = 0; i < qtd; i++){
+                if(contador <= total){
+                    posicoes.push(contador);
+                }else{
+                    posicoes.push(null);
+                }
+                contador++;
+            }
+
+            linhasMap[fileira].push({
+                bloco: bloco,
+                posicoes: posicoes
+            });
+        });
+
+    const todosBlocos = [];
+
+    linhasOrdem.forEach(fileira => {
+        linhasMap[fileira].forEach(b => {
+            if(!todosBlocos.includes(b.bloco)){
+                todosBlocos.push(b.bloco);
+            }
+        });
+    });
+
+    todosBlocos.sort().reverse();
+
+    const maxPorBloco = {};
+
+    todosBlocos.forEach(bloco => {
+        maxPorBloco[bloco] = 0;
+    });
+
+    linhasOrdem.forEach(fileira => {
+        linhasMap[fileira].forEach(b => {
+            maxPorBloco[b.bloco] = Math.max(
+                maxPorBloco[b.bloco],
+                b.posicoes.length
+            );
+        });
+    });
+
+    const qtdBlocosMax = todosBlocos.length;
+    const colunasTotais = todosBlocos.reduce((soma, bloco) => {
+        return soma + maxPorBloco[bloco];
+    }, 0);
+
+    const colunasMedia = Math.ceil(colunasTotais / qtdBlocosMax);
+
+    const tamanho = calcularTamanhoCirculo(
+        qtdBlocosMax,
+        linhasOrdem.length,
+        colunasMedia
+    );
+
+    aplicarTamanho(grade, tamanho);
+
+    linhasOrdem.forEach(fileira => {
+        const linhaGlobal = document.createElement("div");
+        linhaGlobal.className = "linha-global";
+
+        todosBlocos.forEach(blocoNome => {
+            const blocoLinha = document.createElement("div");
+            blocoLinha.className = "bloco-linha";
+
+            const blocoEncontrado = linhasMap[fileira].find(b => b.bloco === blocoNome);
+
+            let posicoes = blocoEncontrado ? blocoEncontrado.posicoes.slice() : [];
+
+            while(posicoes.length < maxPorBloco[blocoNome]){
+                posicoes.push(null);
+            }
+
+            posicoes
+                .slice()
+                .reverse()
+                .forEach(posicao => {
+                    blocoLinha.appendChild(
+                        criarCirculo(posicao, total, statusPorPosicao)
+                    );
+                });
+
+            linhaGlobal.appendChild(blocoLinha);
+        });
+
+        grade.appendChild(linhaGlobal);
+    });
+}
+    
+function criarCirculo(posicao, total, statusPorPosicao){
+    const circulo = document.createElement("div");
+    circulo.className = "circulo";
+
+    if(!posicao || posicao > total){
+        circulo.classList.add("vazio");
+        return circulo;
+    }
+
+    if(statusPorPosicao[posicao] === "PRESENTE"){
+        circulo.classList.add("presente");
+    }else{
+        circulo.classList.add("pendente");
+    }
+
+    circulo.innerText = posicao;
+    return circulo;
+}
+
+function aplicarTamanho(grade, tamanho){
+    grade.style.setProperty("--circle-size", tamanho + "px");
+    grade.style.setProperty("--gap-circulos", Math.max(4, Math.floor(tamanho * 0.18)) + "px");
+    grade.style.setProperty("--gap-linhas", Math.max(5, Math.floor(tamanho * 0.22)) + "px");
+    grade.style.setProperty("--gap-blocos", Math.max(24, Math.floor(tamanho * 0.9)) + "px");
 }
 
 function calcularTamanhoCirculo(qtdBlocos, linhas, colunas){
@@ -565,7 +694,7 @@ function calcularTamanhoCirculo(qtdBlocos, linhas, colunas){
     let tamanho = Math.floor(Math.min(tamanhoPorLargura, tamanhoPorAltura));
 
     if(tamanho > 54) tamanho = 54;
-    if(tamanho < 18) tamanho = 18;
+    if(tamanho < 14) tamanho = 14;
 
     return tamanho;
 }
@@ -579,40 +708,39 @@ function gerarCheckins(checkins){
         return;
     }
 
-    checkins
-        .slice()
-        .reverse()
-        .slice(0,10)
-        .forEach(c => {
-            const linha = document.createElement("div");
-            linha.className = "linha";
+    checkins.slice().reverse().slice(0,10).forEach(c => {
+        const linha = document.createElement("div");
+        linha.className = "linha";
 
-            let hora = c["Hora"];
+        let hora = c["Hora"];
 
-            if(hora && String(hora).includes("T")){
-                hora = new Date(hora).toLocaleTimeString("pt-BR");
-            }
+        if(hora && String(hora).includes("T")){
+            hora = new Date(hora).toLocaleTimeString("pt-BR");
+        }
 
-            linha.innerHTML =
-                "<strong>Pos " + c["Posição"] + " - " + c["Nome"] + "</strong><br>" +
-                "<span class='hora'>" + (hora || "") + "</span>";
+        linha.innerHTML =
+            "<strong>Pos " + c["Posição"] + " - " + c["Nome"] + "</strong><br>" +
+            "<span class='hora'>" + (hora || "") + "</span>";
 
-            div.appendChild(linha);
-        });
+        div.appendChild(linha);
+    });
 }
 
-function gerarOrientacoes(layout){
+function gerarOrientacoes(config){
     const div = document.getElementById("orientacoes");
     div.innerHTML = "";
 
-    Object.keys(layout)
-        .filter(k => String(k).startsWith("Orientacao_"))
+    Object.keys(config)
+        .filter(k =>
+            String(k).startsWith("Orientacao_") ||
+            String(k).startsWith("Mensagem_Geral_")
+        )
         .sort()
         .forEach(k => {
-            if(layout[k]){
+            if(config[k]){
                 const item = document.createElement("div");
                 item.className = "orientacao";
-                item.innerText = layout[k];
+                item.innerText = config[k];
                 div.appendChild(item);
             }
         });
