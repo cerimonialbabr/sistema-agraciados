@@ -549,101 +549,78 @@ function mostrarResultado(a){
 }
 
 function renderMiniDispositivo(posicaoSelecionada){
-    const modo =
-    String(dados.config["Modo_Layout"] || "AUTOMATICO").toUpperCase();
 
-    const layout = dados.layout;
+    const config = dados.config || {};
+    const layoutManual = dados.layout || [];
 
-    const total = (dados.agraciados || []).length;
-    
-   document.getElementById("miniTituloSuperior").innerText =
-    dados.config["TITULO_SUPERIOR"] || "TRIBUNA";
+    const modo = String(config["Modo_Layout"] || "AUTOMATICO")
+        .trim()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toUpperCase();
 
-   document.getElementById("miniTituloInferior").innerText =
-    dados.config["TITULO_INFERIOR"] || "TROPA";
+    const total = Number(config["Total_Agraciados"]) || (dados.agraciados || []).length;
 
-    
+    document.getElementById("miniTituloSuperior").innerText =
+        config["Titulo_Superior"] || "TRIBUNA";
 
-const grade = document.getElementById("miniGradeDispositivo");
-grade.innerHTML = "";
+    document.getElementById("miniTituloInferior").innerText =
+        config["Titulo_Inferior"] || "TROPA";
 
-/* ======================================================
-   MODO MANUAL
-====================================================== */
+    const grade = document.getElementById("miniGradeDispositivo");
+    grade.innerHTML = "";
 
-if (modo === "MANUAL") {
-
-    desenharMiniManual(
-        grade,
-        layout,
-        total,
-        posicaoSelecionada
-    );
-
-    return;
-}
-
-/* ======================================================
-   MODO AUTOMÁTICO (código antigo)
-====================================================== */
-
-const qtdBlocos = Number(layout["Quantidade_Blocos"]) || 1;
-const linhas = Number(layout["Linhas_Por_Bloco"]) || 1;
-const colunas = Number(layout["Colunas_Por_Bloco"]) || total;
-
-const capacidadeBloco = linhas * colunas;
-
-const tamanho = calcularTamanhoMiniCirculo(qtdBlocos, colunas);
-
-grade.style.setProperty("--mini-circle-size", tamanho + "px");
-grade.style.setProperty("--mini-gap-circulos", Math.max(3, Math.floor(tamanho * 0.15)) + "px");
-grade.style.setProperty("--mini-gap-linhas", Math.max(4, Math.floor(tamanho * 0.18)) + "px");
-grade.style.setProperty("--mini-gap-blocos", Math.max(16, Math.floor(tamanho * 0.75)) + "px");
-
-for(let linha = 0; linha < linhas; linha++){
-
-    const linhaGlobal = document.createElement("div");
-    linhaGlobal.className = "mini-linha-global";
-
-    for(let bloco = qtdBlocos; bloco >= 1; bloco--){
-
-        const blocoLinha = document.createElement("div");
-        blocoLinha.className = "mini-bloco-linha";
-
-        const inicioBloco = ((bloco - 1) * capacidadeBloco) + 1;
-        const inicioLinha = inicioBloco + (linha * colunas);
-        const fimLinha = inicioLinha + colunas - 1;
-
-        for(let posicao = fimLinha; posicao >= inicioLinha; posicao--){
-
-            const circulo = document.createElement("div");
-            circulo.className = "mini-circulo";
-
-            if(posicao > total){
-                circulo.classList.add("mini-vazio");
-                circulo.innerText = "";
-            }else if(Number(posicao) === Number(posicaoSelecionada)){
-                circulo.classList.add("mini-destaque");
-                circulo.innerText = posicao;
-            }else{
-                circulo.classList.add("mini-normal");
-                circulo.innerText = posicao;
-            }
-
-            blocoLinha.appendChild(circulo);
-        }
-
-        linhaGlobal.appendChild(blocoLinha);
+    if(modo === "MANUAL"){
+        desenharMiniManual(grade, layoutManual, total, posicaoSelecionada);
+        return;
     }
 
-    grade.appendChild(linhaGlobal);
+    desenharMiniAutomatico(grade, config, total, posicaoSelecionada);
 }
 
-function desenharMiniManual(grade, layoutManual, total, posicaoSelecionada){
+function desenharMiniAutomatico(grade, config, total, posicaoSelecionada){
+
+    const qtdBlocos = Number(config["Quantidade_Blocos"]) || 1;
+    const linhas = Number(config["Linhas_Por_Bloco"]) || 1;
+    const colunas = Number(config["Colunas_Por_Bloco"]) || total;
+
+    const tamanho = calcularTamanhoMiniCirculo(qtdBlocos, colunas);
+
+    grade.style.setProperty("--mini-circle-size", tamanho + "px");
+    grade.style.setProperty("--mini-gap-circulos", Math.max(3, Math.floor(tamanho * 0.15)) + "px");
+    grade.style.setProperty("--mini-gap-linhas", Math.max(4, Math.floor(tamanho * 0.18)) + "px");
+    grade.style.setProperty("--mini-gap-blocos", Math.max(16, Math.floor(tamanho * 0.75)) + "px");
+
+    for(let linha = 0; linha < linhas; linha++){
+
+        const linhaGlobal = document.createElement("div");
+        linhaGlobal.className = "mini-linha-global";
+
+        const inicioLinhaGlobal = (linha * qtdBlocos * colunas) + 1;
+
+        for(let bloco = qtdBlocos; bloco >= 1; bloco--){
+
+            const blocoLinha = document.createElement("div");
+            blocoLinha.className = "mini-bloco-linha";
+
+            const inicioBlocoNaLinha = inicioLinhaGlobal + ((bloco - 1) * colunas);
+            const fimBlocoNaLinha = inicioBlocoNaLinha + colunas - 1;
+
+            for(let posicao = fimBlocoNaLinha; posicao >= inicioBlocoNaLinha; posicao--){
+                blocoLinha.appendChild(criarMiniCirculo(posicao, total, posicaoSelecionada));
+            }
+
+            linhaGlobal.appendChild(blocoLinha);
+        }
+
+        grade.appendChild(linhaGlobal);
+    }
+}
+
+    function desenharMiniManual(grade, layoutManual, total, posicaoSelecionada){
 
     const linhasMap = {};
     const linhasOrdem = [];
-
     let contador = 1;
 
     layoutManual
@@ -651,36 +628,29 @@ function desenharMiniManual(grade, layoutManual, total, posicaoSelecionada){
         .sort((a,b)=>Number(a.Ordem)-Number(b.Ordem))
         .forEach(item=>{
 
-            const fileira = String(item.Fileira).trim();
-            const bloco = String(item.Bloco).trim();
-            const qtd = Number(item.Posicoes || item.Posições || 0);
+            const fileira = String(item["Fileira"]).trim();
+            const bloco = String(item["Bloco"]).trim();
+            const qtd = Number(item["Posicoes"] || item["Posições"] || 0);
 
             if(!linhasMap[fileira]){
-                linhasMap[fileira]=[];
+                linhasMap[fileira] = [];
                 linhasOrdem.push(fileira);
             }
 
-            const posicoes=[];
+            const posicoes = [];
 
-            for(let i=0;i<qtd;i++){
-
-                if(contador<=total){
-                    posicoes.push(contador);
-                }else{
-                    posicoes.push(null);
-                }
-
+            for(let i = 0; i < qtd; i++){
+                posicoes.push(contador <= total ? contador : null);
                 contador++;
             }
 
             linhasMap[fileira].push({
-                bloco,
-                posicoes
+                bloco: bloco,
+                posicoes: posicoes
             });
-
         });
 
-    const todosBlocos=[];
+    const todosBlocos = [];
 
     linhasOrdem.forEach(fileira=>{
         linhasMap[fileira].forEach(b=>{
@@ -692,65 +662,48 @@ function desenharMiniManual(grade, layoutManual, total, posicaoSelecionada){
 
     todosBlocos.sort().reverse();
 
-    const maxPorBloco={};
+    const maxPorBloco = {};
 
-    todosBlocos.forEach(b=>maxPorBloco[b]=0);
+    todosBlocos.forEach(b=>{
+        maxPorBloco[b] = 0;
+    });
 
     linhasOrdem.forEach(fileira=>{
-
         linhasMap[fileira].forEach(b=>{
-
-            maxPorBloco[b.bloco]=Math.max(
+            maxPorBloco[b.bloco] = Math.max(
                 maxPorBloco[b.bloco],
                 b.posicoes.length
             );
-
         });
-
     });
 
-    const qtdBlocos=todosBlocos.length;
-
-    const colunasMedia=Math.ceil(
-
-        todosBlocos.reduce((s,b)=>s+maxPorBloco[b],0)
-
-        /
-
-        qtdBlocos
-
+    const qtdBlocos = todosBlocos.length;
+    const colunasMedia = Math.ceil(
+        todosBlocos.reduce((s,b)=>s + maxPorBloco[b],0) / qtdBlocos
     );
 
-    const tamanho=calcularTamanhoMiniCirculo(
-        qtdBlocos,
-        colunasMedia
-    );
+    const tamanho = calcularTamanhoMiniCirculo(qtdBlocos, colunasMedia);
 
-    grade.style.setProperty("--mini-circle-size",tamanho+"px");
-    grade.style.setProperty("--mini-gap-circulos",Math.max(3,Math.floor(tamanho*.15))+"px");
-    grade.style.setProperty("--mini-gap-linhas",Math.max(4,Math.floor(tamanho*.18))+"px");
-    grade.style.setProperty("--mini-gap-blocos",Math.max(16,Math.floor(tamanho*.75))+"px");
+    grade.style.setProperty("--mini-circle-size", tamanho + "px");
+    grade.style.setProperty("--mini-gap-circulos", Math.max(3, Math.floor(tamanho * 0.15)) + "px");
+    grade.style.setProperty("--mini-gap-linhas", Math.max(4, Math.floor(tamanho * 0.18)) + "px");
+    grade.style.setProperty("--mini-gap-blocos", Math.max(16, Math.floor(tamanho * 0.75)) + "px");
 
     linhasOrdem.forEach(fileira=>{
 
-        const linhaGlobal=document.createElement("div");
-        linhaGlobal.className="mini-linha-global";
+        const linhaGlobal = document.createElement("div");
+        linhaGlobal.className = "mini-linha-global";
 
         todosBlocos.forEach(blocoNome=>{
 
-            const blocoLinha=document.createElement("div");
-            blocoLinha.className="mini-bloco-linha";
+            const blocoLinha = document.createElement("div");
+            blocoLinha.className = "mini-bloco-linha";
 
-            const blocoEncontrado=
-                linhasMap[fileira].find(
-                    b=>b.bloco===blocoNome
-                );
+            const blocoEncontrado = linhasMap[fileira].find(b=>b.bloco === blocoNome);
 
-            let posicoes=blocoEncontrado
-                ? blocoEncontrado.posicoes.slice()
-                : [];
+            let posicoes = blocoEncontrado ? blocoEncontrado.posicoes.slice() : [];
 
-            while(posicoes.length<maxPorBloco[blocoNome]){
+            while(posicoes.length < maxPorBloco[blocoNome]){
                 posicoes.push(null);
             }
 
@@ -758,39 +711,17 @@ function desenharMiniManual(grade, layoutManual, total, posicaoSelecionada){
                 .slice()
                 .reverse()
                 .forEach(posicao=>{
-
-                    const circulo=document.createElement("div");
-                    circulo.className="mini-circulo";
-
-                    if(posicao===null){
-
-                        circulo.classList.add("mini-vazio");
-
-                    }else if(Number(posicao)===Number(posicaoSelecionada)){
-
-                        circulo.classList.add("mini-destaque");
-                        circulo.innerText=posicao;
-
-                    }else{
-
-                        circulo.classList.add("mini-normal");
-                        circulo.innerText=posicao;
-
-                    }
-
-                    blocoLinha.appendChild(circulo);
-
+                    blocoLinha.appendChild(criarMiniCirculo(posicao, total, posicaoSelecionada));
                 });
 
             linhaGlobal.appendChild(blocoLinha);
-
         });
 
         grade.appendChild(linhaGlobal);
-
     });
+}
 
-}    
+    
     
 function calcularTamanhoMiniCirculo(qtdBlocos, colunas){
     const largura = document.querySelector(".mini-area").clientWidth * 0.9;
