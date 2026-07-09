@@ -467,6 +467,8 @@ async function carregarDados(){
         const resposta = await fetch(API_URL + "?action=dados&_=" + Date.now());
         dados = await resposta.json();
 
+        console.log(dados);
+
         const config = dados.config || {};
 
         document.getElementById("solenidade").innerText =
