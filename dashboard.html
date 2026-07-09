@@ -731,16 +731,15 @@ function gerarOrientacoes(config){
     div.innerHTML = "";
 
     Object.keys(config)
-        .filter(k =>
-            String(k).startsWith("Orientacao_") ||
-            String(k).startsWith("Mensagem_Geral_")
-        )
+        .filter(k => String(k).startsWith("Orientacao_"))
         .sort()
         .forEach(k => {
-            if(config[k]){
+            const texto = String(config[k] || "").trim();
+
+            if(texto !== ""){
                 const item = document.createElement("div");
                 item.className = "orientacao";
-                item.innerText = config[k];
+                item.innerText = texto;
                 div.appendChild(item);
             }
         });
@@ -749,7 +748,7 @@ function gerarOrientacoes(config){
         div.innerHTML = "<div class='linha'>Nenhuma orientação cadastrada.</div>";
     }
 }
-
+    
 function renderLista(id, lista, classe){
     const div = document.getElementById(id);
     div.innerHTML = "";
