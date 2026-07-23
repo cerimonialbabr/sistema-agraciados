@@ -53,6 +53,21 @@ button{background:#0b3a75;color:#fff;border:none;border-radius:8px;padding:8px 1
 
 <script>
 
+const API_URL =
+"https://script.google.com/macros/s/AKfycby_Oeki-w1mFC8VPSPuszOpsRvPVfZ1fuCyvvz1cYkXogwll6jO051eh0R9y3ibWr8A/exec";
+
+async function carregarAgraciados(){
+
+    const r = await fetch(API_URL + "?action=dados&_=" + Date.now());
+
+    const dados = await r.json();
+
+    render(dados.agraciados);
+
+}
+
+carregarAgraciados();
+ 
 function render(lista){
  tb.innerHTML="";
  lista.forEach(a=>{
