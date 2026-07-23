@@ -1,319 +1,970 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Gerenciar Agraciados</title>
-<style>
-body{font-family:Arial,sans-serif;background:#f3f5f8;margin:0;color:#1f2937}
-.container{max-width:900px;margin:auto;padding:16px}
-.topo{background:#071b33;color:#fff;padding:18px;border-radius:16px;text-align:center;font-size:22px;font-weight:bold}
-.card{background:#fff;border-radius:14px;padding:16px;margin-top:16px;box-shadow:0 4px 12px rgba(0,0,0,.08)}
-input[type=text],input[type=number]{width:100%;padding:8px;box-sizing:border-box}
-table{width:100%;border-collapse:collapse;margin-top:16px}
-th,td{border:1px solid #ddd;padding:8px}
-button{background:#0b3a75;color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer}
-.acoes button{margin-right:4px}
-#novo{display:none}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Gerenciar Agraciados | Sistema de Gerenciamento de Agraciados</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --azul-escuro:#071b33;
+      --azul:#0b3a75;
+      --azul-hover:#082a54;
+      --fundo:#f3f5f8;
+      --branco:#ffffff;
+      --texto:#1f2937;
+      --texto-secundario:#4b5563;
+      --borda:#d7dee8;
+      --cinza:#6b7280;
+      --cinza-hover:#525a67;
+      --vermelho:#b42318;
+      --vermelho-hover:#912018;
+      --verde:#067647;
+      --sombra:0 4px 12px rgba(0,0,0,.08);
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    body{
+      min-height:100vh;
+      font-family:"Inter",Arial,sans-serif;
+      background:var(--fundo);
+      color:var(--texto);
+    }
+
+    button,
+    input{
+      font:inherit;
+    }
+
+    .container{
+      width:min(820px,calc(100% - 24px));
+      margin:0 auto;
+      padding:16px 0 28px;
+    }
+
+    .topo-sistema{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      padding:20px;
+      margin-bottom:16px;
+      border-radius:16px;
+      background:var(--azul-escuro);
+      color:var(--branco);
+      box-shadow:0 5px 14px rgba(0,0,0,.16);
+    }
+
+    .topo-sistema img{
+      width:76px;
+      height:76px;
+      flex:0 0 76px;
+      object-fit:contain;
+    }
+
+    .titulo-sistema{
+      font-size:24px;
+      font-weight:800;
+      line-height:1.15;
+    }
+
+    .subtitulo-sistema{
+      margin-top:6px;
+      color:#dbeafe;
+      font-size:14px;
+      font-weight:700;
+    }
+
+    .card{
+      margin-bottom:16px;
+      padding:18px;
+      border-radius:16px;
+      background:var(--branco);
+      box-shadow:var(--sombra);
+    }
+
+    .evento-titulo{
+      color:var(--azul);
+      font-size:20px;
+      font-weight:800;
+    }
+
+    .evento-detalhes{
+      margin-top:6px;
+      color:#374151;
+      font-size:14px;
+      font-weight:600;
+      line-height:1.55;
+    }
+
+    .titulo-pagina{
+      text-align:center;
+      font-size:32px;
+      font-weight:800;
+    }
+
+    .descricao{
+      max-width:650px;
+      margin:10px auto 22px;
+      text-align:center;
+      color:var(--texto-secundario);
+      font-size:15px;
+      line-height:1.5;
+    }
+
+    .barra-acoes{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:flex-end;
+      gap:10px;
+      margin-bottom:16px;
+    }
+
+    .campo-pesquisa{
+      flex:1 1 320px;
+    }
+
+    label{
+      display:block;
+      margin-bottom:7px;
+      color:#374151;
+      font-size:14px;
+      font-weight:700;
+    }
+
+    input[type="text"],
+    input[type="number"]{
+      width:100%;
+      min-height:46px;
+      padding:11px 12px;
+      border:1px solid var(--borda);
+      border-radius:10px;
+      background:#fff;
+      color:var(--texto);
+      outline:none;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus{
+      border-color:var(--azul);
+      box-shadow:0 0 0 3px rgba(11,58,117,.12);
+    }
+
+    .btn{
+      min-height:44px;
+      padding:10px 16px;
+      border:0;
+      border-radius:10px;
+      background:var(--azul);
+      color:#fff;
+      font-weight:800;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .btn:hover{
+      background:var(--azul-hover);
+    }
+
+    .btn:disabled{
+      opacity:.55;
+      cursor:not-allowed;
+    }
+
+    .btn-secundario{
+      background:var(--cinza);
+    }
+
+    .btn-secundario:hover{
+      background:var(--cinza-hover);
+    }
+
+    .btn-perigo{
+      background:var(--vermelho);
+    }
+
+    .btn-perigo:hover{
+      background:var(--vermelho-hover);
+    }
+
+    .btn-pequeno{
+      min-height:34px;
+      padding:7px 10px;
+      border-radius:8px;
+      font-size:13px;
+    }
+
+    .tabela-responsiva{
+      width:100%;
+      overflow-x:auto;
+      border:1px solid var(--borda);
+      border-radius:12px;
+    }
+
+    table{
+      width:100%;
+      min-width:620px;
+      border-collapse:collapse;
+      background:#fff;
+    }
+
+    thead{
+      background:var(--azul);
+      color:#fff;
+    }
+
+    th,
+    td{
+      padding:11px 10px;
+      border-bottom:1px solid #e5e7eb;
+      text-align:left;
+      vertical-align:middle;
+    }
+
+    th{
+      font-size:13px;
+      font-weight:800;
+    }
+
+    td{
+      font-size:14px;
+    }
+
+    th:first-child,
+    td:first-child{
+      width:88px;
+      text-align:center;
+    }
+
+    th:last-child,
+    td:last-child{
+      width:260px;
+      text-align:center;
+    }
+
+    tbody tr:nth-child(even){
+      background:#f8fafc;
+    }
+
+    tbody tr:hover{
+      background:#eef4fb;
+    }
+
+    .acoes{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:6px;
+    }
+
+    .vazio{
+      padding:26px 12px;
+      color:var(--texto-secundario);
+      text-align:center;
+    }
+
+    #novo{
+      display:none;
+    }
+
+    #novo.ativo{
+      display:block;
+    }
+
+    .titulo-formulario{
+      margin-bottom:16px;
+      font-size:20px;
+      font-weight:800;
+    }
+
+    .grid-formulario{
+      display:grid;
+      grid-template-columns:1fr 130px;
+      gap:14px;
+    }
+
+    .campo-mensagem{
+      grid-column:1 / -1;
+    }
+
+    .acoes-formulario{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:16px;
+    }
+
+    .estado{
+      display:none;
+      margin-top:14px;
+      padding:11px 13px;
+      border-radius:10px;
+      font-size:14px;
+      font-weight:700;
+      text-align:center;
+    }
+
+    .estado.visivel{
+      display:block;
+    }
+
+    .estado.info{
+      background:#eff6ff;
+      color:#1d4ed8;
+    }
+
+    .estado.sucesso{
+      background:#ecfdf3;
+      color:var(--verde);
+    }
+
+    .estado.erro{
+      background:#fef3f2;
+      color:var(--vermelho);
+    }
+
+    .voltar{
+      display:block;
+      width:100%;
+      min-height:46px;
+      margin-top:16px;
+      padding:12px 18px;
+      border-radius:10px;
+      background:var(--cinza);
+      color:#fff;
+      text-align:center;
+      text-decoration:none;
+      font-weight:800;
+    }
+
+    .voltar:hover{
+      background:var(--cinza-hover);
+    }
+
+    @media(max-width:680px){
+      .container{
+        width:min(100% - 16px,820px);
+        padding-top:8px;
+      }
+
+      .topo-sistema{
+        gap:12px;
+        padding:14px;
+      }
+
+      .topo-sistema img{
+        width:58px;
+        height:58px;
+        flex-basis:58px;
+      }
+
+      .titulo-sistema{
+        font-size:18px;
+      }
+
+      .subtitulo-sistema{
+        font-size:12px;
+      }
+
+      .card{
+        padding:16px;
+      }
+
+      .titulo-pagina{
+        font-size:28px;
+      }
+
+      .barra-acoes{
+        align-items:stretch;
+      }
+
+      .barra-acoes .btn{
+        width:100%;
+      }
+
+      .grid-formulario{
+        grid-template-columns:1fr;
+      }
+
+      .campo-mensagem{
+        grid-column:auto;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="container">
-<div class="topo">GERENCIAR AGRACIADOS</div>
+  <main class="container">
 
-<div class="card">
-<label>Pesquisar</label>
-<input type="text" id="pesquisa" placeholder="Digite o nome..." onkeyup="filtrar()">
-</div>
+    <header class="topo-sistema">
+      <img src="babr.png" alt="Brasão da Base Aérea de Brasília">
+      <div>
+        <div class="titulo-sistema">SISTEMA DE GERENCIAMENTO DE AGRACIADOS</div>
+        <div class="subtitulo-sistema">BASE AÉREA DE BRASÍLIA</div>
+      </div>
+    </header>
 
-<div class="card">
-<button onclick="abrirNovo()">+ Novo Agraciado</button>
+    <section class="card">
+      <div id="solenidade" class="evento-titulo">Carregando solenidade...</div>
+      <div class="evento-detalhes">
+        <div id="dataEvento"></div>
+        <div id="localEvento"></div>
+      </div>
+    </section>
 
-<table id="tabela">
-<thead>
-<tr><th>Posição</th><th>Nome</th><th>Ações</th></tr>
-</thead>
-<tbody id="tb"></tbody>
-</table>
-</div>
+    <section class="card">
+      <h1 class="titulo-pagina">Gerenciar Agraciados</h1>
+      <p class="descricao">
+        Pesquise, inclua, edite, exclua ou altere a posição dos agraciados na lista.
+      </p>
 
-<div class="card" id="novo">
-<h3>Novo Agraciado</h3>
-<label>Nome</label>
-<input id="nome" type="text">
-<label>Posição</label>
-<input id="pos" type="number">
-<label>Mensagem Individual</label>
-<input id="msg" type="text">
-<br><br>
-<button onclick="inserir()">
-Inserir
-</button>
-<button onclick="fecharNovo()">Cancelar</button>
-</div>
-</div>
+      <div class="barra-acoes">
+        <div class="campo-pesquisa">
+          <label for="pesquisa">Pesquisar</label>
+          <input
+            type="text"
+            id="pesquisa"
+            placeholder="Digite o nome..."
+            autocomplete="off"
+          >
+        </div>
 
-<script>
-    
-const API_URL =
-"https://script.google.com/macros/s/AKfycby_Oeki-w1mFC8VPSPuszOpsRvPVfZ1fuCyvvz1cYkXogwll6jO051eh0R9y3ibWr8A/exec";
+        <button id="btnNovo" class="btn" type="button">
+          Novo Agraciado
+        </button>
+      </div>
 
-let dados=[];
+      <div class="tabela-responsiva">
+        <table id="tabela">
+          <thead>
+            <tr>
+              <th>Posição</th>
+              <th>Nome</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tb"></tbody>
+        </table>
+      </div>
 
-async function carregarAgraciados(){
+      <div id="estadoLista" class="estado"></div>
+    </section>
 
-    try{
+    <section class="card" id="novo">
+      <h2 class="titulo-formulario">Novo Agraciado</h2>
 
-        const r=await fetch(API_URL+"?action=dados&_="+Date.now());
+      <div class="grid-formulario">
+        <div>
+          <label for="nome">Nome</label>
+          <input id="nome" type="text" autocomplete="off">
+        </div>
 
-        const json=await r.json();
+        <div>
+          <label for="pos">Posição</label>
+          <input id="pos" type="number" min="1" step="1">
+        </div>
 
-        dados=json.agraciados.sort((a,b)=>
-            Number(a["Posição"])-Number(b["Posição"])
+        <div class="campo-mensagem">
+          <label for="msg">Mensagem Individual</label>
+          <input id="msg" type="text" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="acoes-formulario">
+        <button id="btnInserir" class="btn" type="button">Inserir</button>
+        <button id="btnCancelar" class="btn btn-secundario" type="button">Cancelar</button>
+      </div>
+
+      <div id="estadoFormulario" class="estado"></div>
+    </section>
+
+    <a class="voltar" href="index.html">Voltar ao Menu Principal</a>
+
+  </main>
+
+  <script>
+    "use strict";
+
+    const API_URL =
+      "https://script.google.com/macros/s/AKfycby_Oeki-w1mFC8VPSPuszOpsRvPVfZ1fuCyvvz1cYkXogwll6jO051eh0R9y3ibWr8A/exec";
+
+    const elementos = {
+      solenidade: document.getElementById("solenidade"),
+      dataEvento: document.getElementById("dataEvento"),
+      localEvento: document.getElementById("localEvento"),
+      pesquisa: document.getElementById("pesquisa"),
+      tabelaBody: document.getElementById("tb"),
+      novo: document.getElementById("novo"),
+      nome: document.getElementById("nome"),
+      pos: document.getElementById("pos"),
+      msg: document.getElementById("msg"),
+      btnNovo: document.getElementById("btnNovo"),
+      btnInserir: document.getElementById("btnInserir"),
+      btnCancelar: document.getElementById("btnCancelar"),
+      estadoLista: document.getElementById("estadoLista"),
+      estadoFormulario: document.getElementById("estadoFormulario")
+    };
+
+    let dados = [];
+    let config = {};
+
+    document.addEventListener("DOMContentLoaded", iniciar);
+
+    function iniciar(){
+      registrarEventos();
+      carregarAgraciados();
+    }
+
+    function registrarEventos(){
+      elementos.pesquisa.addEventListener("input", filtrar);
+      elementos.btnNovo.addEventListener("click", abrirNovo);
+      elementos.btnInserir.addEventListener("click", inserir);
+      elementos.btnCancelar.addEventListener("click", fecharNovo);
+    }
+
+    async function carregarAgraciados(){
+      definirEstado(elementos.estadoLista, "Carregando dados...", "info");
+      bloquearAcoes(true);
+
+      try{
+        const resposta = await fetch(
+          API_URL + "?action=dados&_=" + Date.now(),
+          {
+            method:"GET",
+            cache:"no-store"
+          }
         );
 
-        render(dados);
+        if(!resposta.ok){
+          throw new Error("Falha HTTP " + resposta.status);
+        }
 
-    }catch(e){
+        const json = await resposta.json();
 
-        alert("Erro ao carregar dados.");
+        if(!json.ok){
+          throw new Error(json.erro || "Não foi possível carregar os dados.");
+        }
 
-        console.log(e);
+        config = json.config || {};
 
+        dados = Array.isArray(json.agraciados)
+          ? json.agraciados.sort(
+              (a,b) => Number(a["Posição"]) - Number(b["Posição"])
+            )
+          : [];
+
+        preencherEvento();
+        filtrar();
+        ocultarEstado(elementos.estadoLista);
+
+      }catch(erro){
+        console.error(erro);
+        definirEstado(
+          elementos.estadoLista,
+          "Erro ao carregar os dados.",
+          "erro"
+        );
+      }finally{
+        bloquearAcoes(false);
+      }
     }
 
-}
+    function preencherEvento(){
+      elementos.solenidade.textContent =
+        texto(config.Solenidade) || "Solenidade";
 
-window.onload=carregarAgraciados;
+      elementos.dataEvento.textContent =
+        config.Data ? "Data: " + texto(config.Data) : "";
 
-function render(lista){
+      elementos.localEvento.textContent =
+        config.Local ? "Local: " + texto(config.Local) : "";
+    }
 
-    const tbody=document.getElementById("tb");
+    function render(lista){
+      elementos.tabelaBody.innerHTML = "";
 
-    tbody.innerHTML="";
+      if(!lista.length){
+        const tr = document.createElement("tr");
+        const td = document.createElement("td");
 
-    lista.forEach(a=>{
+        td.colSpan = 3;
+        td.className = "vazio";
+        td.textContent = "Nenhum agraciado encontrado.";
 
-        tbody.innerHTML+=`
+        tr.appendChild(td);
+        elementos.tabelaBody.appendChild(tr);
+        return;
+      }
 
-        <tr>
+      lista.forEach(a => {
+        const tr = document.createElement("tr");
 
-        <td>${a["Posição"]}</td>
+        const tdPosicao = document.createElement("td");
+        tdPosicao.textContent = texto(a["Posição"]);
 
-        <td>${a["Nome"]}</td>
+        const tdNome = document.createElement("td");
+        tdNome.textContent = texto(a["Nome"]);
 
-        <td class="acoes">
+        const tdAcoes = document.createElement("td");
+        tdAcoes.className = "acoes";
 
-        <button onclick="subir('${a.ID}')">▲</button>
+        tdAcoes.appendChild(
+          criarBotao("Subir", "btn btn-pequeno", () => subir(a.ID))
+        );
 
-        <button onclick="descer('${a.ID}')">▼</button>
+        tdAcoes.appendChild(
+          criarBotao("Descer", "btn btn-pequeno", () => descer(a.ID))
+        );
 
-        <button onclick="editar('${a.ID}')">✎</button>
+        tdAcoes.appendChild(
+          criarBotao(
+            "Editar",
+            "btn btn-pequeno btn-secundario",
+            () => editar(a.ID)
+          )
+        );
 
-        <button onclick="excluirAgraciado('${a.ID}')">🗑</button>
+        tdAcoes.appendChild(
+          criarBotao(
+            "Excluir",
+            "btn btn-pequeno btn-perigo",
+            () => excluirAgraciado(a.ID)
+          )
+        );
 
-        </td>
+        tr.appendChild(tdPosicao);
+        tr.appendChild(tdNome);
+        tr.appendChild(tdAcoes);
 
-        </tr>
+        elementos.tabelaBody.appendChild(tr);
+      });
+    }
 
-        `;
+    function criarBotao(rotulo, classe, acao){
+      const botao = document.createElement("button");
+      botao.type = "button";
+      botao.className = classe;
+      botao.textContent = rotulo;
+      botao.addEventListener("click", acao);
+      return botao;
+    }
 
-    });
+    function filtrar(){
+      const termo = elementos.pesquisa.value
+        .trim()
+        .toLocaleLowerCase("pt-BR");
 
-}
+      const resultado = dados.filter(item =>
+        texto(item["Nome"])
+          .toLocaleLowerCase("pt-BR")
+          .includes(termo)
+      );
 
-function filtrar(){
+      render(resultado);
+    }
 
-    const texto=document
-        .getElementById("pesquisa")
-        .value
-        .toLowerCase();
+    function abrirNovo(){
+      ocultarEstado(elementos.estadoFormulario);
 
-    render(
+      elementos.nome.value = "";
+      elementos.msg.value = "";
+      elementos.pos.value = dados.length + 1;
 
-        dados.filter(x=>
+      elementos.novo.classList.add("ativo");
 
-            x["Nome"]
-            .toLowerCase()
-            .includes(texto)
+      setTimeout(() => {
+        elementos.nome.focus();
+        elementos.novo.scrollIntoView({
+          behavior:"smooth",
+          block:"center"
+        });
+      }, 50);
+    }
 
-        )
+    function fecharNovo(){
+      elementos.novo.classList.remove("ativo");
+      ocultarEstado(elementos.estadoFormulario);
+    }
 
-    );
+    async function inserir(){
+      const nome = elementos.nome.value.trim();
+      const posicao = Number(elementos.pos.value);
+      const mensagem = elementos.msg.value;
 
-}
+      if(!nome){
+        definirEstado(
+          elementos.estadoFormulario,
+          "Informe o nome.",
+          "erro"
+        );
+        elementos.nome.focus();
+        return;
+      }
 
-function abrirNovo(){
+      if(!Number.isFinite(posicao) || posicao < 1){
+        definirEstado(
+          elementos.estadoFormulario,
+          "Informe uma posição válida.",
+          "erro"
+        );
+        elementos.pos.focus();
+        return;
+      }
 
-    document.getElementById("novo").style.display="block";
+      definirEstado(
+        elementos.estadoFormulario,
+        "Inserindo agraciado...",
+        "info"
+      );
 
-    document.getElementById("nome").value="";
+      bloquearAcoes(true);
 
-    document.getElementById("msg").value="";
+      try{
+        const json = await enviarPost({
+          action:"inserirAgraciado",
+          nome:nome,
+          posicao:posicao,
+          mensagem:mensagem,
+          confirmacao:"PENDENTE"
+        });
 
-    document.getElementById("pos").value=dados.length+1;
+        if(!json.ok){
+          throw new Error(json.erro || "Não foi possível inserir.");
+        }
 
-}
+        fecharNovo();
+        await carregarAgraciados();
 
-function fecharNovo(){
+      }catch(erro){
+        console.error(erro);
+        definirEstado(
+          elementos.estadoFormulario,
+          "Erro ao inserir o agraciado.",
+          "erro"
+        );
+      }finally{
+        bloquearAcoes(false);
+      }
+    }
 
-    document.getElementById("novo").style.display="none";
+    async function excluirAgraciado(id){
+      if(!confirm("Excluir este agraciado?")){
+        return;
+      }
 
-}
+      definirEstado(
+        elementos.estadoLista,
+        "Excluindo agraciado...",
+        "info"
+      );
 
-async function inserir(){
+      bloquearAcoes(true);
 
-    const nome=document.getElementById("nome").value.trim();
+      try{
+        const json = await enviarPost({
+          action:"excluirAgraciado",
+          id:id
+        });
 
-    const pos=document.getElementById("pos").value;
+        if(!json.ok){
+          throw new Error(json.erro || "Não foi possível excluir.");
+        }
 
-    const msg=document.getElementById("msg").value;
+        await carregarAgraciados();
 
-    if(nome==""){
+      }catch(erro){
+        console.error(erro);
+        definirEstado(
+          elementos.estadoLista,
+          "Erro ao excluir o agraciado.",
+          "erro"
+        );
+      }finally{
+        bloquearAcoes(false);
+      }
+    }
 
+    async function editar(id){
+      const agraciado = dados.find(item => String(item.ID) === String(id));
+
+      if(!agraciado){
+        return;
+      }
+
+      const novoNome = prompt(
+        "Nome:",
+        texto(agraciado["Nome"])
+      );
+
+      if(novoNome === null){
+        return;
+      }
+
+      if(!novoNome.trim()){
         alert("Informe o nome.");
-
         return;
+      }
 
+      const novaMensagem = prompt(
+        "Mensagem Individual:",
+        texto(agraciado["Mensagem Individual"])
+      );
+
+      if(novaMensagem === null){
+        return;
+      }
+
+      definirEstado(
+        elementos.estadoLista,
+        "Atualizando agraciado...",
+        "info"
+      );
+
+      bloquearAcoes(true);
+
+      try{
+        const json = await enviarPost({
+          action:"editarAgraciado",
+          id:id,
+          nome:novoNome.trim(),
+          mensagem:novaMensagem
+        });
+
+        if(!json.ok){
+          throw new Error(json.erro || "Não foi possível atualizar.");
+        }
+
+        await carregarAgraciados();
+
+      }catch(erro){
+        console.error(erro);
+        definirEstado(
+          elementos.estadoLista,
+          "Erro ao editar o agraciado.",
+          "erro"
+        );
+      }finally{
+        bloquearAcoes(false);
+      }
     }
 
-    await fetch(API_URL,{
+    async function subir(id){
+      const agraciado = dados.find(item => String(item.ID) === String(id));
 
-        method:"POST",
-
-        body:JSON.stringify({
-
-            action:"inserirAgraciado",
-
-            nome:nome,
-
-            posicao:Number(pos),
-
-            mensagem:msg,
-
-            confirmacao:"PENDENTE"
-
-        })
-
-    });
-
-    fecharNovo();
-
-    carregarAgraciados();
-
-}
-
-async function excluirAgraciado(id){
-
-    if(!confirm("Excluir este agraciado?"))
-
+      if(!agraciado){
         return;
+      }
 
-    await fetch(API_URL,{
+      const posicaoAtual = Number(agraciado["Posição"]);
 
+      if(posicaoAtual <= 1){
+        return;
+      }
+
+      await mover(id, posicaoAtual - 1);
+    }
+
+    async function descer(id){
+      const agraciado = dados.find(item => String(item.ID) === String(id));
+
+      if(!agraciado){
+        return;
+      }
+
+      const posicaoAtual = Number(agraciado["Posição"]);
+
+      if(posicaoAtual >= dados.length){
+        return;
+      }
+
+      await mover(id, posicaoAtual + 1);
+    }
+
+    async function mover(id, novaPosicao){
+      definirEstado(
+        elementos.estadoLista,
+        "Alterando posição...",
+        "info"
+      );
+
+      bloquearAcoes(true);
+
+      try{
+        const json = await enviarPost({
+          action:"moverAgraciado",
+          id:id,
+          novaPosicao:novaPosicao
+        });
+
+        if(!json.ok){
+          throw new Error(json.erro || "Não foi possível alterar a posição.");
+        }
+
+        await carregarAgraciados();
+
+      }catch(erro){
+        console.error(erro);
+        definirEstado(
+          elementos.estadoLista,
+          "Erro ao alterar a posição.",
+          "erro"
+        );
+      }finally{
+        bloquearAcoes(false);
+      }
+    }
+
+    async function enviarPost(conteudo){
+      const resposta = await fetch(API_URL, {
         method:"POST",
+        headers:{
+          "Content-Type":"text/plain;charset=utf-8"
+        },
+        body:JSON.stringify(conteudo)
+      });
 
-        body:JSON.stringify({
+      if(!resposta.ok){
+        throw new Error("Falha HTTP " + resposta.status);
+      }
 
-            action:"excluirAgraciado",
+      return resposta.json();
+    }
 
-            id:id
+    function bloquearAcoes(bloquear){
+      elementos.btnNovo.disabled = bloquear;
+      elementos.btnInserir.disabled = bloquear;
+      elementos.btnCancelar.disabled = bloquear;
 
-        })
+      document
+        .querySelectorAll(".acoes button")
+        .forEach(botao => {
+          botao.disabled = bloquear;
+        });
+    }
 
-    });
+    function definirEstado(elemento, mensagem, tipo){
+      elemento.textContent = mensagem;
+      elemento.className = "estado visivel " + tipo;
+    }
 
-    carregarAgraciados();
+    function ocultarEstado(elemento){
+      elemento.textContent = "";
+      elemento.className = "estado";
+    }
 
-}
-
-function editar(id){
-
-    const a=dados.find(x=>x.ID==id);
-
-    if(!a)return;
-
-    const novoNome=prompt("Nome:",a["Nome"]);
-
-    if(novoNome===null)return;
-
-    const novaMensagem=prompt(
-
-        "Mensagem Individual:",
-
-        a["Mensagem Individual"]||""
-
-    );
-
-    fetch(API_URL,{
-
-        method:"POST",
-
-        body:JSON.stringify({
-
-            action:"editarAgraciado",
-
-            id:id,
-
-            nome:novoNome,
-
-            mensagem:novaMensagem
-
-        })
-
-    }).then(()=>carregarAgraciados());
-
-}
-
-function subir(id){
-
-    const a=dados.find(x=>x.ID==id);
-
-    if(!a)return;
-
-    if(a["Posição"]==1)return;
-
-    fetch(API_URL,{
-
-        method:"POST",
-
-        body:JSON.stringify({
-
-            action:"moverAgraciado",
-
-            id:id,
-
-            novaPosicao:Number(a["Posição"])-1
-
-        })
-
-    }).then(()=>carregarAgraciados());
-
-}
-
-function descer(id){
-
-    const a=dados.find(x=>x.ID==id);
-
-    if(!a)return;
-
-    fetch(API_URL,{
-
-        method:"POST",
-
-        body:JSON.stringify({
-
-            action:"moverAgraciado",
-
-            id:id,
-
-            novaPosicao:Number(a["Posição"])+1
-
-        })
-
-    }).then(()=>carregarAgraciados());
-
-}
-</script>
+    function texto(valor){
+      return valor === null || valor === undefined
+        ? ""
+        : String(valor).trim();
+    }
+  </script>
 </body>
 </html>
