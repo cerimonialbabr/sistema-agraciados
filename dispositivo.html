@@ -1,22 +1,948 @@
-<!DOCTYPE html>
-<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Editor do Dispositivo</title>
-<style>
-body{font-family:Arial;background:#f3f5f8;margin:0}.container{max-width:980px;margin:auto;padding:16px}.topo-sistema{display:flex;align-items:center;justify-content:center;gap:18px;background:#071b33;border-radius:16px;padding:20px;color:#fff}.card,.caixa-formatura{background:#fff;border-radius:14px;padding:16px;margin:16px 0;box-shadow:0 4px 12px rgba(0,0,0,.08)}table{width:100%;border-collapse:collapse}th{background:#0b3a75;color:#fff;padding:8px}td{padding:8px;border-bottom:1px solid #ddd}input,select{width:100%;padding:8px;box-sizing:border-box}button{padding:10px 16px;background:#0b3a75;color:#fff;border:none;border-radius:8px;margin:4px;cursor:pointer}
-</style></head>
 <body>
+
 <div class="container">
-<div class="topo-sistema"><div><h2>SISTEMA DE GERENCIAMENTO DE AGRACIADOS</h2><div>BASE AÉREA DE BRASÍLIA</div></div></div>
-<div class="caixa-formatura"><div id="solenidade">Carregando solenidade...</div><div id="dataFormatura"></div><div id="localFormatura"></div></div>
-<div class="card">
-<h1>EDITOR DO DISPOSITIVO</h1>
-<p>Estrutura inicial para integração com o Apps Script.</p>
-<table><thead><tr><th>Ordem</th><th>Bloco</th><th>Fileira</th><th>Posições</th></tr></thead><tbody id="layout"></tbody></table>
-<button>Adicionar Linha</button><button>Salvar Layout</button>
-</div></div>
+
+    <div class="topo-sistema">
+
+        <img src="babr.png" alt="BABR">
+
+        <div>
+
+            <div style="font-size:22px;font-weight:800;">
+                SISTEMA DE GERENCIAMENTO DE AGRACIADOS
+            </div>
+
+            <div style="margin-top:6px;font-size:14px;color:#dbeafe;font-weight:bold;">
+                BASE AÉREA DE BRASÍLIA
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="caixa-formatura">
+
+        <div class="solenidade" id="solenidade">
+            Carregando solenidade...
+        </div>
+
+        <div id="dataFormatura"
+             style="margin-top:6px;font-weight:bold;color:#374151;">
+        </div>
+
+        <div id="localFormatura"
+             style="margin-top:4px;font-weight:bold;color:#374151;">
+        </div>
+
+    </div>
+
+
+
+    <div class="card">
+
+        <h1 style="text-align:center;">
+            EDITOR DO DISPOSITIVO
+        </h1>
+
+        <p style="text-align:center;color:#4b5563;margin-bottom:25px;">
+
+            Configure o dispositivo automático ou
+            edite manualmente o layout utilizado
+            na cerimônia.
+
+        </p>
+
+
+
+        <div style="display:flex;gap:20px;align-items:center;justify-content:center;margin-bottom:25px;">
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="modo"
+                    id="modoAutomatico"
+                    onchange="trocarModo()">
+
+                Automático
+
+            </label>
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="modo"
+                    id="modoManual"
+                    onchange="trocarModo()">
+
+                Manual
+
+            </label>
+
+        </div>
+
+
+
+        <div id="painelAutomatico">
+
+            <table>
+
+                <tr>
+
+                    <td>
+
+                        <label>
+                            Quantidade de Blocos
+                        </label>
+
+                        <input
+                            id="Quantidade_Blocos"
+                            type="number">
+
+                    </td>
+
+                    <td>
+
+                        <label>
+                            Linhas por Bloco
+                        </label>
+
+                        <input
+                            id="Linhas_Por_Bloco"
+                            type="number">
+
+                    </td>
+
+                    <td>
+
+                        <label>
+                            Colunas por Bloco
+                        </label>
+
+                        <input
+                            id="Colunas_Por_Bloco"
+                            type="number">
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <label>
+                            Título Superior
+                        </label>
+
+                        <input
+                            id="Titulo_Superior">
+
+                    </td>
+
+                    <td>
+
+                        <label>
+                            Título Inferior
+                        </label>
+
+                        <input
+                            id="Titulo_Inferior">
+
+                    </td>
+
+                    <td
+                        style="vertical-align:bottom;">
+
+                        <button onclick="salvarConfiguracao()">
+
+                            Salvar Configuração
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+
+
+
+        <div
+            id="painelManual"
+            style="display:none;">
+
+            <div
+                style="margin-bottom:15px;">
+
+                <button
+                    onclick="novaFileira()">
+
+                    ➕ Nova Fileira
+
+                </button>
+
+                <button
+                    onclick="salvarLayout()">
+
+                    💾 Salvar Layout
+
+                </button>
+
+            </div>
+
+
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th style="width:70px;">
+                            Ordem
+                        </th>
+
+                        <th style="width:90px;">
+                            Bloco
+                        </th>
+
+                        <th style="width:90px;">
+                            Fileira
+                        </th>
+
+                        <th>
+                            Posições
+                        </th>
+
+                        <th style="width:170px;">
+                            Ações
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="layout">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+  
 <script>
-for(let i=1;i<=12;i++){
-document.getElementById('layout').innerHTML+=`<tr><td>${i}</td><td><input value="1"></td><td><input value="${i}"></td><td><input></td></tr>`;
+  
+const API_URL="https://script.google.com/macros/s/AKfycby_Oeki-w1mFC8VPSPuszOpsRvPVfZ1fuCyvvz1cYkXogwll6jO051eh0R9y3ibWr8A/exec";
+
+let dadosSistema={};
+let layout=[];
+
+async function carregarDados(){
+
+    const resposta=await fetch(API_URL+"?action=dados&_="+Date.now());
+
+    dadosSistema=await resposta.json();
+
+    carregarConfiguracao();
+
+    carregarLayout();
+
 }
+
+function carregarConfiguracao(){
+
+    const c=dadosSistema.config;
+
+    document.getElementById("solenidade").innerHTML=c.Solenidade;
+
+    document.getElementById("dataFormatura").innerHTML="Data: "+c.Data;
+
+    document.getElementById("localFormatura").innerHTML="Local: "+c.Local;
+
+    document.getElementById("Quantidade_Blocos").value=c.Quantidade_Blocos;
+
+    document.getElementById("Linhas_Por_Bloco").value=c.Linhas_Por_Bloco;
+
+    document.getElementById("Colunas_Por_Bloco").value=c.Colunas_Por_Bloco;
+
+    document.getElementById("Titulo_Superior").value=c.Titulo_Superior;
+
+    document.getElementById("Titulo_Inferior").value=c.Titulo_Inferior;
+
+    if(c.Modo_Layout=="Automático"){
+
+        document.getElementById("modoAutomatico").checked=true;
+
+    }else{
+
+        document.getElementById("modoManual").checked=true;
+
+    }
+
+    trocarModo();
+
+}
+
+function trocarModo(){
+
+    const automatico=document.getElementById("modoAutomatico").checked;
+
+    document.getElementById("painelAutomatico").style.display=
+        automatico ? "block" : "none";
+
+    document.getElementById("painelManual").style.display=
+        automatico ? "none" : "block";
+
+    atualizarPreview();
+
+}
+
+function carregarLayout(){
+
+    layout=[];
+
+    dadosSistema.layout.forEach(l=>{
+
+        layout.push({
+
+            Ordem:Number(l.Ordem),
+
+            Bloco:l.Bloco,
+
+            Fileira:Number(l.Fileira),
+
+            Posições:Number(l.Posições)
+
+        });
+
+    });
+
+    renderLayout();
+
+}
+
+function renderLayout(){
+
+    const tbody=document.getElementById("layout");
+
+    tbody.innerHTML="";
+
+    layout.forEach((l,i)=>{
+
+        tbody.innerHTML+=`
+
+<tr>
+
+<td style="text-align:center;">
+${l.Ordem}
+</td>
+
+<td>
+
+<input
+value="${l.Bloco}"
+oninput="
+layout[${i}].Bloco=this.value.toUpperCase();
+atualizarPreview();
+">
+
+</td>
+
+<td>
+
+<input
+type="number"
+value="${l.Fileira}"
+oninput="
+layout[${i}].Fileira=Number(this.value);
+atualizarPreview();
+">
+
+</td>
+
+<td>
+
+<input
+type="number"
+value="${l.Posições}"
+oninput="
+layout[${i}].Posições=Number(this.value);
+atualizarPreview();
+">
+
+</td>
+
+<td style="white-space:nowrap;">
+
+<button onclick="subir(${i})">
+
+▲
+
+</button>
+
+<button onclick="descer(${i})">
+
+▼
+
+</button>
+
+<button onclick="novaAbaixo(${i})">
+
++
+
+</button>
+
+<button onclick="excluir(${i})">
+
+🗑
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+    });
+
+    atualizarPreview();
+
+}
+
+function renumerar(){
+
+    layout.forEach((l,i)=>{
+
+        l.Ordem=i+1;
+
+    });
+
+}
+
+function subir(indice){
+
+    if(indice==0) return;
+
+    let aux=layout[indice];
+
+    layout[indice]=layout[indice-1];
+
+    layout[indice-1]=aux;
+
+    renumerar();
+
+    renderLayout();
+
+}
+
+function descer(indice){
+
+    if(indice>=layout.length-1) return;
+
+    let aux=layout[indice];
+
+    layout[indice]=layout[indice+1];
+
+    layout[indice+1]=aux;
+
+    renumerar();
+
+    renderLayout();
+
+}
+
+function excluir(indice){
+
+    if(!confirm("Excluir esta fileira?")) return;
+
+    layout.splice(indice,1);
+
+    renumerar();
+
+    renderLayout();
+
+}
+
+function novaAbaixo(indice){
+
+    let atual=layout[indice];
+
+    layout.splice(indice+1,0,{
+
+        Ordem:0,
+
+        Bloco:atual.Bloco,
+
+        Fileira:atual.Fileira+1,
+
+        Posições:atual.Posições
+
+    });
+
+    reajustarFileiras();
+
+    renumerar();
+
+    renderLayout();
+
+}
+
+function novaFileira(){
+
+    if(layout.length==0){
+
+        layout.push({
+
+            Ordem:1,
+
+            Bloco:"A",
+
+            Fileira:1,
+
+            Posições:1
+
+        });
+
+    }else{
+
+        let ultima=layout[layout.length-1];
+
+        layout.push({
+
+            Ordem:layout.length+1,
+
+            Bloco:ultima.Bloco,
+
+            Fileira:ultima.Fileira+1,
+
+            Posições:ultima.Posições
+
+        });
+
+    }
+
+    renderLayout();
+
+}
+
+function reajustarFileiras(){
+
+    let mapa={};
+
+    layout.forEach(l=>{
+
+        if(!mapa[l.Bloco])
+
+            mapa[l.Bloco]=1;
+
+        else
+
+            mapa[l.Bloco]++;
+
+        l.Fileira=mapa[l.Bloco];
+
+    });
+
+}
+
+function salvarConfiguracao(){
+
+    const dados={
+
+        action:"salvarConfiguracao",
+
+        Modo_Layout:
+
+            document.getElementById("modoAutomatico").checked
+
+            ? "Automático"
+
+            : "Manual",
+
+        Quantidade_Blocos:
+
+            Number(document.getElementById("Quantidade_Blocos").value),
+
+        Linhas_Por_Bloco:
+
+            Number(document.getElementById("Linhas_Por_Bloco").value),
+
+        Colunas_Por_Bloco:
+
+            Number(document.getElementById("Colunas_Por_Bloco").value),
+
+        Titulo_Superior:
+
+            document.getElementById("Titulo_Superior").value,
+
+        Titulo_Inferior:
+
+            document.getElementById("Titulo_Inferior").value
+
+    };
+
+    fetch(API_URL,{
+
+        method:"POST",
+
+        body:JSON.stringify(dados)
+
+    })
+
+    .then(r=>r.json())
+
+    .then(()=>{
+
+        alert("Configuração salva com sucesso.");
+
+    });
+
+}
+
+function salvarLayout(){
+
+    renumerar();
+
+    fetch(API_URL,{
+
+        method:"POST",
+
+        body:JSON.stringify({
+
+            action:"salvarLayout",
+
+            layout:layout
+
+        })
+
+    })
+
+    .then(r=>r.json())
+
+    .then(()=>{
+
+        alert("Layout salvo com sucesso.");
+
+    });
+
+}
+
+let preview;
+
+function criarPreview(){
+
+    if(document.getElementById("preview")) return;
+
+    const card=document.createElement("div");
+
+    card.className="card";
+
+    card.innerHTML=`
+
+<h2 style="text-align:center;">
+Pré-visualização do Dispositivo
+</h2>
+
+<div id="preview"></div>
+
+`;
+
+    document.querySelector(".container").appendChild(card);
+
+    preview=document.getElementById("preview");
+
+}
+
+function atualizarPreview(){
+
+    criarPreview();
+
+    preview.innerHTML="";
+
+    if(document.getElementById("modoAutomatico").checked){
+
+        desenharAutomatico();
+
+    }else{
+
+        desenharManual();
+
+    }
+
+}
+
+function desenharAutomatico(){
+
+    const qtdBlocos=
+        Number(document.getElementById("Quantidade_Blocos").value);
+
+    const linhas=
+        Number(document.getElementById("Linhas_Por_Bloco").value);
+
+    const colunas=
+        Number(document.getElementById("Colunas_Por_Bloco").value);
+
+    const tituloSuperior=
+        document.getElementById("Titulo_Superior").value;
+
+    const tituloInferior=
+        document.getElementById("Titulo_Inferior").value;
+
+    preview.innerHTML+=`
+
+<div style="
+text-align:center;
+font-weight:bold;
+font-size:22px;
+margin-bottom:25px;
+">
+
+${tituloSuperior}
+
+</div>
+
+`;
+
+    const area=document.createElement("div");
+
+    area.style.display="flex";
+
+    area.style.justifyContent="center";
+
+    area.style.gap="35px";
+
+    area.style.flexWrap="wrap";
+
+    for(let b=1;b<=qtdBlocos;b++){
+
+        const bloco=document.createElement("div");
+
+        bloco.style.display="flex";
+
+        bloco.style.flexDirection="column";
+
+        bloco.style.gap="6px";
+
+        for(let l=1;l<=linhas;l++){
+
+            const linha=document.createElement("div");
+
+            linha.style.display="flex";
+
+            linha.style.gap="5px";
+
+            for(let c=1;c<=colunas;c++){
+
+                const cadeira=document.createElement("div");
+
+                cadeira.style.width="28px";
+
+                cadeira.style.height="28px";
+
+                cadeira.style.background="#dbeafe";
+
+                cadeira.style.border="1px solid #93c5fd";
+
+                cadeira.style.borderRadius="4px";
+
+                cadeira.style.display="flex";
+
+                cadeira.style.alignItems="center";
+
+                cadeira.style.justifyContent="center";
+
+                cadeira.style.fontSize="11px";
+
+                cadeira.innerHTML=c;
+
+                linha.appendChild(cadeira);
+
+            }
+
+            bloco.appendChild(linha);
+
+        }
+
+        area.appendChild(bloco);
+
+    }
+
+    preview.appendChild(area);
+
+    preview.innerHTML+=`
+
+<div style="
+text-align:center;
+font-weight:bold;
+font-size:22px;
+margin-top:25px;
+">
+
+${tituloInferior}
+
+</div>
+
+`;
+
+}
+
+function desenharManual(){
+
+    const tituloSuperior=
+        document.getElementById("Titulo_Superior").value;
+
+    const tituloInferior=
+        document.getElementById("Titulo_Inferior").value;
+
+    preview.innerHTML+=`
+
+<div style="
+text-align:center;
+font-size:22px;
+font-weight:bold;
+margin-bottom:25px;
+">
+
+${tituloSuperior}
+
+</div>
+
+`;
+
+    const area=document.createElement("div");
+
+    area.style.display="flex";
+
+    area.style.justifyContent="center";
+
+    area.style.gap="35px";
+
+    area.style.flexWrap="wrap";
+
+    let blocos={};
+
+    layout.forEach(item=>{
+
+        if(!blocos[item.Bloco]){
+
+            blocos[item.Bloco]=[];
+
+        }
+
+        blocos[item.Bloco].push(item);
+
+    });
+
+    Object.keys(blocos).forEach(nome=>{
+
+        const bloco=document.createElement("div");
+
+        bloco.style.display="flex";
+
+        bloco.style.flexDirection="column";
+
+        bloco.style.gap="6px";
+
+        blocos[nome].forEach(f=>{
+
+            const linha=document.createElement("div");
+
+            linha.style.display="flex";
+
+            linha.style.gap="5px";
+
+            for(let i=1;i<=Number(f.Posições);i++){
+
+                const cadeira=document.createElement("div");
+
+                cadeira.style.width="28px";
+
+                cadeira.style.height="28px";
+
+                cadeira.style.background="#dbeafe";
+
+                cadeira.style.border="1px solid #93c5fd";
+
+                cadeira.style.borderRadius="4px";
+
+                cadeira.style.display="flex";
+
+                cadeira.style.alignItems="center";
+
+                cadeira.style.justifyContent="center";
+
+                cadeira.style.fontSize="10px";
+
+                cadeira.innerHTML=i;
+
+                linha.appendChild(cadeira);
+
+            }
+
+            bloco.appendChild(linha);
+
+        });
+
+        area.appendChild(bloco);
+
+    });
+
+    preview.appendChild(area);
+
+    preview.innerHTML+=`
+
+<div style="
+text-align:center;
+font-size:22px;
+font-weight:bold;
+margin-top:25px;
+">
+
+${tituloInferior}
+
+</div>
+
+`;
+
+}
+
+document
+.getElementById("Quantidade_Blocos")
+.addEventListener("input",atualizarPreview);
+
+document
+.getElementById("Linhas_Por_Bloco")
+.addEventListener("input",atualizarPreview);
+
+document
+.getElementById("Colunas_Por_Bloco")
+.addEventListener("input",atualizarPreview);
+
+document
+.getElementById("Titulo_Superior")
+.addEventListener("input",atualizarPreview);
+
+document
+.getElementById("Titulo_Inferior")
+.addEventListener("input",atualizarPreview);
+
+  window.onload=()=>{
+
+    carregarDados();
+
+};
+  
 </script>
 </body></html>
+
