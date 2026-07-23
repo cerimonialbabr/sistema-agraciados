@@ -46,50 +46,274 @@ button{background:#0b3a75;color:#fff;border:none;border-radius:8px;padding:8px 1
 <label>Mensagem Individual</label>
 <input id="msg" type="text">
 <br><br>
-<button onclick="alert('Na próxima etapa enviará ao Apps Script.')">Inserir</button>
+<button onclick="inserir()">
+Inserir
+</button>
 <button onclick="fecharNovo()">Cancelar</button>
 </div>
 </div>
 
 <script>
-
+    
 const API_URL =
 "https://script.google.com/macros/s/AKfycby_Oeki-w1mFC8VPSPuszOpsRvPVfZ1fuCyvvz1cYkXogwll6jO051eh0R9y3ibWr8A/exec";
 
+let dados=[];
+
 async function carregarAgraciados(){
 
-    const r = await fetch(API_URL + "?action=dados&_=" + Date.now());
+    try{
 
-    const dados = await r.json();
+        const r=await fetch(API_URL+"?action=dados&_="+Date.now());
 
-    render(dados.agraciados);
+        const json=await r.json();
+
+        dados=json.agraciados.sort((a,b)=>
+            Number(a["Posição"])-Number(b["Posição"])
+        );
+
+        render(dados);
+
+    }catch(e){
+
+        alert("Erro ao carregar dados.");
+
+        console.log(e);
+
+    }
 
 }
 
-carregarAgraciados();
- 
+window.onload=carregarAgraciados;
+
 function render(lista){
- tb.innerHTML="";
- lista.forEach(a=>{
- tb.innerHTML+=`<tr>
- <td>${a.pos}</td>
- <td>${a.nome}</td>
- <td class='acoes'>
- <button title='Subir'>▲</button>
- <button title='Descer'>▼</button>
- <button title='Editar'>✎</button>
- <button title='Excluir'>🗑</button>
- </td>
- </tr>`;
- });
+
+    const tbody=document.getElementById("tb");
+
+    tbody.innerHTML="";
+
+    lista.forEach(a=>{
+
+        tbody.innerHTML+=`
+
+        <tr>
+
+        <td>${a["Posição"]}</td>
+
+        <td>${a["Nome"]}</td>
+
+        <td class="acoes">
+
+        <button onclick="subir('${a.ID}')">▲</button>
+
+        <button onclick="descer('${a.ID}')">▼</button>
+
+        <button onclick="editar('${a.ID}')">✎</button>
+
+        <button onclick="excluirAgraciado('${a.ID}')">🗑</button>
+
+        </td>
+
+        </tr>
+
+        `;
+
+    });
+
 }
+
 function filtrar(){
- const t=pesquisa.value.toLowerCase();
- render(dados.filter(x=>x.nome.toLowerCase().includes(t)));
+
+    const texto=document
+        .getElementById("pesquisa")
+        .value
+        .toLowerCase();
+
+    render(
+
+        dados.filter(x=>
+
+            x["Nome"]
+            .toLowerCase()
+            .includes(texto)
+
+        )
+
+    );
+
 }
-function abrirNovo(){novo.style.display="block";}
-function fecharNovo(){novo.style.display="none";}
-render(dados);
+
+function abrirNovo(){
+
+    document.getElementById("novo").style.display="block";
+
+    document.getElementById("nome").value="";
+
+    document.getElementById("msg").value="";
+
+    document.getElementById("pos").value=dados.length+1;
+
+}
+
+function fecharNovo(){
+
+    document.getElementById("novo").style.display="none";
+
+}
+
+async function inserir(){
+
+    const nome=document.getElementById("nome").value.trim();
+
+    const pos=document.getElementById("pos").value;
+
+    const msg=document.getElementById("msg").value;
+
+    if(nome==""){
+
+        alert("Informe o nome.");
+
+        return;
+
+    }
+
+    await fetch(API_URL,{
+
+        method:"POST",
+
+        body:JSON.stringify({
+
+            action:"inserirAgraciado",
+
+            nome:nome,
+
+            posicao:Number(pos),
+
+            mensagem:msg,
+
+            confirmacao:"PENDENTE"
+
+        })
+
+    });
+
+    fecharNovo();
+
+    carregarAgraciados();
+
+}
+
+async function excluirAgraciado(id){
+
+    if(!confirm("Excluir este agraciado?"))
+
+        return;
+
+    await fetch(API_URL,{
+
+        method:"POST",
+
+        body:JSON.stringify({
+
+            action:"excluirAgraciado",
+
+            id:id
+
+        })
+
+    });
+
+    carregarAgraciados();
+
+}
+
+function editar(id){
+
+    const a=dados.find(x=>x.ID==id);
+
+    if(!a)return;
+
+    const novoNome=prompt("Nome:",a["Nome"]);
+
+    if(novoNome===null)return;
+
+    const novaMensagem=prompt(
+
+        "Mensagem Individual:",
+
+        a["Mensagem Individual"]||""
+
+    );
+
+    fetch(API_URL,{
+
+        method:"POST",
+
+        body:JSON.stringify({
+
+            action:"editarAgraciado",
+
+            id:id,
+
+            nome:novoNome,
+
+            mensagem:novaMensagem
+
+        })
+
+    }).then(()=>carregarAgraciados());
+
+}
+
+function subir(id){
+
+    const a=dados.find(x=>x.ID==id);
+
+    if(!a)return;
+
+    if(a["Posição"]==1)return;
+
+    fetch(API_URL,{
+
+        method:"POST",
+
+        body:JSON.stringify({
+
+            action:"moverAgraciado",
+
+            id:id,
+
+            novaPosicao:Number(a["Posição"])-1
+
+        })
+
+    }).then(()=>carregarAgraciados());
+
+}
+
+function descer(id){
+
+    const a=dados.find(x=>x.ID==id);
+
+    if(!a)return;
+
+    fetch(API_URL,{
+
+        method:"POST",
+
+        body:JSON.stringify({
+
+            action:"moverAgraciado",
+
+            id:id,
+
+            novaPosicao:Number(a["Posição"])+1
+
+        })
+
+    }).then(()=>carregarAgraciados());
+
+}
 </script>
 </body>
 </html>
