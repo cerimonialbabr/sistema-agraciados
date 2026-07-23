@@ -1,61 +1,1356 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>Editor do Dispositivo</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root{--a9:#071b33;--a8:#0b2f5f;--a7:#123f7c;--bg:#eef2f7;--tx:#1f2937;--sec:#4b5563;--bd:#d7dee8;--wh:#fff;--gy:#6b7280;--red:#b42318;--green:#067647;--sh:0 4px 14px rgba(15,23,42,.08)}
-    *{box-sizing:border-box;margin:0;padding:0}body{min-height:100vh;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--tx)}button,input{font:inherit}.container{width:min(1450px,calc(100% - 24px));margin:auto;padding:16px 0 28px}.head{display:flex;align-items:center;gap:18px;padding:18px 20px;margin-bottom:16px;border-radius:16px;background:var(--a9);color:#fff;box-shadow:var(--sh)}.head img{width:76px;height:76px;object-fit:contain}.head h1{font-size:clamp(18px,2vw,25px);font-weight:800}.head p{margin-top:6px;color:#d9e7ff;font-size:14px;font-weight:700}.card{margin-bottom:16px;padding:20px;border-radius:16px;background:#fff;box-shadow:var(--sh)}.evt{color:var(--a7);font-size:clamp(20px,3vw,28px);font-weight:800}.det{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:8px;font-size:14px;font-weight:600}.title{text-align:center;font-size:clamp(26px,4vw,42px);font-weight:800}.desc{max-width:920px;margin:10px auto 24px;text-align:center;color:var(--sec);line-height:1.55}.modes{display:flex;justify-content:center;gap:42px;margin-bottom:26px}.mode{display:flex;align-items:center;gap:9px;font-size:18px;font-weight:800;cursor:pointer}.mode input{width:20px;height:20px;accent-color:var(--a7)}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.field label{display:block;margin-bottom:7px;font-size:14px;font-weight:800}.field input{width:100%;min-height:46px;padding:11px 12px;border:1px solid var(--bd);border-radius:10px;outline:none}.field input[readonly]{background:#f3f4f6}.manual{display:none}.manual.on{display:block}.bar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:16px}.buttons,.actions,.footer{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}.btn{min-height:42px;padding:10px 16px;border:0;border-radius:10px;background:var(--a7);color:#fff;font-weight:800;cursor:pointer}.btn:hover{background:var(--a8)}.btn:disabled{opacity:.55}.sec{background:var(--gy)}.danger{background:var(--red)}.small{min-height:34px;padding:7px 10px;font-size:13px}.tw{width:100%;overflow:auto;border:1px solid var(--bd);border-radius:12px}table{width:100%;min-width:720px;border-collapse:collapse}thead{background:var(--a7);color:#fff}th,td{padding:10px;border-bottom:1px solid #e5e7eb;text-align:center}tbody tr:nth-child(even){background:#f8fafc}td input{width:100%;min-width:78px;padding:8px;border:1px solid var(--bd);border-radius:8px;text-align:center}.preview{min-height:330px;padding:24px 18px;overflow:auto;border:2px dashed #c7d3e3;border-radius:14px;background:#fafcff}.pc{width:max-content;min-width:100%;margin:auto}.dt{min-width:max-content;text-align:center;font-size:20px;font-weight:800}.sup{margin-bottom:20px}.inf{margin-top:20px}.device{display:flex;flex-direction:column;align-items:center;gap:14px;min-width:max-content}.row{display:flex;flex-direction:row-reverse;align-items:center;justify-content:center;gap:34px;min-width:max-content}.segment{display:flex;flex-direction:row-reverse;gap:10px;min-width:max-content}.seat{width:44px;height:44px;flex:0 0 44px;display:flex;align-items:center;justify-content:center;border:2px solid #64748b;border-radius:50%;background:#fff;font-size:13px;font-weight:800}.state{display:none;margin-top:12px;padding:12px;border-radius:10px;text-align:center;font-size:14px;font-weight:700}.state.show{display:block}.info{background:#eff6ff;color:#1d4ed8}.ok{background:#ecfdf3;color:var(--green)}.err{background:#fef3f2;color:var(--red)}.back{display:flex;justify-content:center;margin-top:18px}.back a{padding:11px 19px;border-radius:10px;background:var(--gy);color:#fff;text-decoration:none;font-weight:800}@media(max-width:900px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:680px){.container{width:calc(100% - 16px);padding-top:8px}.head{padding:14px;gap:12px}.head img{width:58px;height:58px}.card{padding:16px}.modes{flex-direction:column;align-items:flex-start;gap:12px}.grid{grid-template-columns:1fr}.bar{align-items:flex-start;flex-direction:column}.preview{padding:18px 10px}.seat{width:38px;height:38px;flex-basis:38px;font-size:12px}.segment{gap:7px}.row{gap:24px}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Editor do Dispositivo | Sistema de Gerenciamento de Agraciados</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#f3f5f8;
+    margin:0;
+    color:#1f2937;
+}
+
+.container{
+    max-width:760px;
+    margin:auto;
+    padding:16px;
+}
+
+.topo-sistema{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+    background:#071b33;
+    border-radius:16px;
+    padding:20px 18px;
+    margin-bottom:16px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.18);
+    text-align:left;
+}
+
+.topo-sistema img{
+    width:78px;
+    height:78px;
+    object-fit:contain;
+    flex-shrink:0;
+}
+
+.titulo-sistema{
+    font-size:22px;
+    font-weight:800;
+    color:white;
+    line-height:1.15;
+}
+
+.subtitulo-sistema{
+    font-size:14px;
+    font-weight:700;
+    color:#dbeafe;
+    margin-top:6px;
+}
+
+.caixa-formatura{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    background:white;
+    border-radius:16px;
+    padding:14px;
+    margin-bottom:16px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.caixa-formatura img{
+    width:58px;
+    height:58px;
+    object-fit:contain;
+    flex-shrink:0;
+}
+
+.solenidade{
+    color:#0b3a75;
+    font-size:18px;
+    font-weight:800;
+    line-height:1.2;
+}
+
+.detalhes-formatura{
+    color:#374151;
+    font-size:14px;
+    font-weight:600;
+    margin-top:4px;
+    line-height:1.4;
+}
+
+.card{
+    background:white;
+    border-radius:14px;
+    padding:18px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    margin-bottom:16px;
+}
+
+h1,h2,h3{
+    text-align:center;
+    margin:8px 0;
+}
+
+.orientacao{
+    text-align:center;
+    color:#4b5563;
+    font-size:15px;
+    line-height:1.4;
+    margin:10px auto 18px;
+}
+
+.modos{
+    display:flex;
+    justify-content:center;
+    gap:28px;
+    margin:18px 0;
+}
+
+.modo-opcao{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    color:#374151;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.modo-opcao input{
+    width:18px;
+    height:18px;
+    accent-color:#0b3a75;
+}
+
+.config-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.campo label{
+    display:block;
+    color:#374151;
+    font-size:14px;
+    font-weight:700;
+    margin-bottom:6px;
+}
+
+.campo input{
+    width:100%;
+    padding:10px 11px;
+    border:1px solid #cbd5e1;
+    border-radius:9px;
+    box-sizing:border-box;
+    color:#1f2937;
+    background:white;
+    font-size:15px;
+}
+
+.campo input:focus{
+    outline:none;
+    border-color:#0b3a75;
+    box-shadow:0 0 0 3px rgba(11,58,117,.12);
+}
+
+.campo input:read-only{
+    background:#f1f5f9;
+    color:#475569;
+}
+
+.ajuda-campo{
+    color:#64748b;
+    font-size:12px;
+    margin-top:5px;
+}
+
+.manual-area{
+    display:none;
+}
+
+.manual-area.ativo{
+    display:block;
+}
+
+.barra-manual{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin-bottom:12px;
+}
+
+.barra-manual h2{
+    text-align:left;
+    font-size:19px;
+    margin:0;
+}
+
+.grupo-botoes{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+}
+
+.botao{
+    border:none;
+    border-radius:9px;
+    padding:10px 14px;
+    background:#0b3a75;
+    color:white;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.botao:hover{
+    background:#092f5f;
+}
+
+.botao:disabled{
+    background:#9ca3af;
+    cursor:not-allowed;
+}
+
+.botao-secundario{
+    background:#6b7280;
+}
+
+.botao-perigo{
+    background:#b91c1c;
+}
+
+.botao-pequeno{
+    padding:7px 9px;
+    font-size:12px;
+}
+
+.tabela-area{
+    width:100%;
+    overflow-x:auto;
+    border:1px solid #dbe2ea;
+    border-radius:10px;
+}
+
+table{
+    width:100%;
+    min-width:680px;
+    border-collapse:collapse;
+    background:white;
+}
+
+thead{
+    background:#0b3a75;
+    color:white;
+}
+
+th,td{
+    padding:8px;
+    border-bottom:1px solid #e5e7eb;
+    text-align:center;
+    vertical-align:middle;
+}
+
+th{
+    font-size:13px;
+}
+
+tbody tr:nth-child(even){
+    background:#f8fafc;
+}
+
+td input{
+    width:100%;
+    min-width:70px;
+    padding:7px;
+    border:1px solid #cbd5e1;
+    border-radius:7px;
+    box-sizing:border-box;
+    text-align:center;
+}
+
+.acoes-linha{
+    display:flex;
+    justify-content:center;
+    gap:5px;
+    white-space:nowrap;
+}
+
+/* PREVIEW: mesma lógica visual do mini dispositivo do check-in */
+.mini-dispositivo-card{
+    background:#f8fafc;
+    border:1px solid #dbeafe;
+    border-radius:14px;
+    padding:12px;
+    margin-top:12px;
+}
+
+.mini-titulo{
+    text-align:center;
+    color:#0b3a75;
+    font-size:18px;
+    font-weight:800;
+    letter-spacing:1px;
+    margin-bottom:8px;
+}
+
+.mini-referencia{
+    text-align:center;
+    color:#374151;
+    font-weight:800;
+    letter-spacing:1px;
+    border:1px solid #cbd5e1;
+    border-radius:10px;
+    padding:6px;
+    margin:8px auto;
+    width:170px;
+    background:white;
+}
+
+.mini-area{
+    width:100%;
+    overflow-x:auto;
+    padding:8px 0;
+}
+
+.mini-grade{
+    display:flex;
+    flex-direction:column;
+    gap:var(--mini-gap-linhas,6px);
+    align-items:center;
+    justify-content:center;
+    min-width:max-content;
+}
+
+.mini-linha-global{
+    display:flex;
+    gap:var(--mini-gap-blocos,20px);
+    justify-content:center;
+    align-items:center;
+}
+
+.mini-bloco-linha{
+    display:flex;
+    gap:var(--mini-gap-circulos,4px);
+}
+
+.mini-circulo{
+    width:var(--mini-circle-size,28px);
+    height:var(--mini-circle-size,28px);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    font-size:calc(var(--mini-circle-size,28px) * .34);
+    border:2px solid rgba(11,58,117,.25);
+    box-sizing:border-box;
+    background:#dbeafe;
+    color:#0b3a75;
+}
+
+.mini-vazio{
+    visibility:hidden;
+}
+
+.estado{
+    display:none;
+    text-align:center;
+    font-size:14px;
+    font-weight:700;
+    padding:10px 12px;
+    border-radius:9px;
+    margin-top:12px;
+}
+
+.estado.visivel{
+    display:block;
+}
+
+.estado.info{
+    color:#1d4ed8;
+    background:#eff6ff;
+}
+
+.estado.sucesso{
+    color:#15803d;
+    background:#ecfdf3;
+}
+
+.estado.erro{
+    color:#b91c1c;
+    background:#fef2f2;
+}
+
+.acoes-principais{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.voltar-menu{
+    display:block;
+    text-align:center;
+    background:#6b7280;
+    color:white;
+    text-decoration:none;
+    padding:12px 20px;
+    border-radius:10px;
+    font-weight:bold;
+    font-size:16px;
+    margin-top:20px;
+}
+
+@media(max-width:620px){
+    .config-grid{
+        grid-template-columns:1fr;
+    }
+
+    .modos{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
+    }
+
+    .barra-manual{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+}
+
+@media(max-width:520px){
+    .container{
+        padding:12px;
+    }
+
+    .topo-sistema{
+        justify-content:flex-start;
+        padding:16px 14px;
+    }
+
+    .topo-sistema img{
+        width:64px;
+        height:64px;
+    }
+
+    .titulo-sistema{
+        font-size:16px;
+    }
+
+    .subtitulo-sistema{
+        font-size:12px;
+    }
+
+    .caixa-formatura{
+        align-items:flex-start;
+        padding:12px;
+    }
+
+    .caixa-formatura img{
+        width:48px;
+        height:48px;
+    }
+
+    .solenidade{
+        font-size:15px;
+    }
+
+    .detalhes-formatura{
+        font-size:12px;
+    }
+
+    .card{
+        padding:14px;
+    }
+
+    .mini-dispositivo-card{
+        padding:9px;
+    }
+}
+</style>
 </head>
+
 <body>
-<main class="container">
-  <header class="head"><img src="babr.png" alt="BABR"><div><h1>SISTEMA DE GERENCIAMENTO DE AGRACIADOS</h1><p>BASE AÉREA DE BRASÍLIA</p></div></header>
-  <section class="card"><div id="evt" class="evt">Carregando solenidade...</div><div class="det"><span id="date"></span><span id="place"></span></div></section>
-  <section class="card">
-    <h2 class="title">EDITOR DO DISPOSITIVO</h2><p class="desc">Configure o dispositivo usado nas telas do sistema. No modo automático, o layout é gerado pelos campos gerais. No modo manual, cada fileira pode ser ajustada.</p>
-    <div class="modes"><label class="mode"><input id="auto" type="radio" name="modo">Modo Automático</label><label class="mode"><input id="manual" type="radio" name="modo">Modo Manual</label></div>
-    <div class="grid">
-      <div class="field"><label>Total de Agraciados</label><input id="total" type="number" readonly></div>
-      <div class="field"><label>Quantidade de Blocos</label><input id="blocks" type="number" min="1"></div>
-      <div class="field"><label>Linhas por Bloco</label><input id="rows" type="number" min="1"></div>
-      <div class="field"><label>Colunas por Bloco</label><input id="cols" type="number" min="1"></div>
-      <div class="field"><label>Título Superior</label><input id="topTitle" type="text"></div>
-      <div class="field"><label>Título Inferior</label><input id="bottomTitle" type="text"></div>
+<div class="container">
+
+    <div class="topo-sistema">
+        <img src="babr.png" alt="Logo BABR">
+        <div>
+            <div class="titulo-sistema">SISTEMA DE GERENCIAMENTO DE AGRACIADOS</div>
+            <div class="subtitulo-sistema">BASE AÉREA DE BRASÍLIA</div>
+        </div>
     </div>
-  </section>
-  <section id="manualArea" class="card manual"><div class="bar"><h2>Layout Manual</h2><div class="buttons"><button id="newRow" class="btn" type="button">Nova Fileira</button><button id="makeBase" class="btn sec" type="button">Gerar Base Automática</button></div></div><div class="tw"><table><thead><tr><th>Ordem</th><th>Bloco</th><th>Fileira</th><th>Posições</th><th>Ações</th></tr></thead><tbody id="tbody"></tbody></table></div></section>
-  <section class="card"><h2 style="text-align:center;margin-bottom:16px">Pré-visualização</h2><div class="preview"><div id="preview" class="pc"></div></div></section>
-  <section class="card"><div class="footer"><button id="save" class="btn" type="button">Salvar Alterações</button><button id="reload" class="btn sec" type="button">Recarregar Dados</button></div><div id="state" class="state"></div></section>
-  <div class="back"><a href="index.html">Voltar ao Menu Principal</a></div>
-</main>
+
+    <div class="caixa-formatura">
+        <img src="medalha.png" alt="Medalha">
+        <div>
+            <div class="solenidade" id="solenidade">Carregando solenidade...</div>
+            <div class="detalhes-formatura">
+                <div id="dataFormatura"></div>
+                <div id="localFormatura"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h1>Editor do Dispositivo</h1>
+
+        <p class="orientacao">
+            Configure os dados gerais e escolha o modo de montagem do dispositivo.
+            No modo manual, as posições são calculadas pela tabela de layout.
+        </p>
+
+        <div class="modos">
+            <label class="modo-opcao">
+                <input id="modoAutomatico" type="radio" name="modo" value="AUTOMATICO">
+                Modo Automático
+            </label>
+
+            <label class="modo-opcao">
+                <input id="modoManual" type="radio" name="modo" value="MANUAL">
+                Modo Manual
+            </label>
+        </div>
+
+        <div class="config-grid">
+            <div class="campo">
+                <label for="totalAgraciados">Total de Agraciados</label>
+                <input id="totalAgraciados" type="number" min="1" step="1">
+                <div id="ajudaTotal" class="ajuda-campo"></div>
+            </div>
+
+            <div class="campo">
+                <label for="quantidadeBlocos">Quantidade de Blocos</label>
+                <input id="quantidadeBlocos" type="number" min="1" step="1">
+            </div>
+
+            <div class="campo">
+                <label for="linhasPorBloco">Linhas por Bloco</label>
+                <input id="linhasPorBloco" type="number" min="1" step="1">
+            </div>
+
+            <div class="campo">
+                <label for="colunasPorBloco">Colunas por Bloco</label>
+                <input id="colunasPorBloco" type="number" min="1" step="1">
+            </div>
+
+            <div class="campo">
+                <label for="tituloSuperior">Título Superior</label>
+                <input id="tituloSuperior" type="text" maxlength="100">
+            </div>
+
+            <div class="campo">
+                <label for="tituloInferior">Título Inferior</label>
+                <input id="tituloInferior" type="text" maxlength="100">
+            </div>
+        </div>
+    </div>
+
+    <div id="areaManual" class="card manual-area">
+        <div class="barra-manual">
+            <h2>Layout Manual</h2>
+
+            <div class="grupo-botoes">
+                <button id="btnNovaFileira" class="botao" type="button">Nova Fileira</button>
+                <button id="btnGerarBase" class="botao botao-secundario" type="button">Gerar Base Automática</button>
+            </div>
+        </div>
+
+        <div class="tabela-area">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ordem</th>
+                        <th>Bloco</th>
+                        <th>Fileira</th>
+                        <th>Posições</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyLayout"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Pré-visualização</h2>
+
+        <div class="mini-dispositivo-card">
+            <div class="mini-titulo">DISPOSITIVO</div>
+            <div class="mini-referencia" id="previewTituloSuperior">TRIBUNA</div>
+
+            <div class="mini-area" id="previewArea">
+                <div class="mini-grade" id="previewGrade"></div>
+            </div>
+
+            <div class="mini-referencia" id="previewTituloInferior">TROPA</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="acoes-principais">
+            <button id="btnSalvar" class="botao" type="button">Salvar Alterações</button>
+            <button id="btnRecarregar" class="botao botao-secundario" type="button">Recarregar Dados</button>
+        </div>
+
+        <div id="estado" class="estado"></div>
+
+        <a href="index.html" class="voltar-menu">Voltar ao Menu Principal</a>
+    </div>
+
+</div>
+
 <script>
 "use strict";
-const API_URL="https://script.google.com/macros/s/AKfycby_Oeki-w1mFC8VPSPuszOpsRvPVfZ1fuCyvvz1cYkXogwll6jO051eh0R9y3ibWr8A/exec";
-const $=id=>document.getElementById(id);let config={},layout=[];
-document.addEventListener("DOMContentLoaded",start);
-function start(){bind();load()}
-function bind(){["auto","manual"].forEach(id=>$(id).addEventListener("change",modeChanged));["blocks","rows","cols","topTitle","bottomTitle"].forEach(id=>$(id).addEventListener("input",draw));$("newRow").onclick=addRow;$("makeBase").onclick=makeBase;$("save").onclick=save;$("reload").onclick=load}
-async function load(){msg("Carregando dados...","info");lock(true);try{const r=await fetch(API_URL+"?action=dados&_="+Date.now(),{cache:"no-store"});if(!r.ok)throw Error("Falha HTTP "+r.status);const j=await r.json();if(!j.ok)throw Error(j.erro||"Falha ao carregar");config=j.config||{};layout=normalize(j.layout||[]);fill();renderTable();draw();hideMsg()}catch(e){console.error(e);msg("Erro ao carregar: "+e.message,"err")}finally{lock(false)}}
-function fill(){$("evt").textContent=text(config.Solenidade)||"Solenidade";$("date").textContent=config.Data?"Data: "+text(config.Data):"";$("place").textContent=config.Local?"Local: "+text(config.Local):"";$("blocks").value=positive(config.Quantidade_Blocos,1);$("rows").value=positive(config.Linhas_Por_Bloco,1);$("cols").value=positive(config.Colunas_Por_Bloco,1);$("topTitle").value=text(config.Titulo_Superior);$("bottomTitle").value=text(config.Titulo_Inferior);const m=mode(config.Modo_Layout);$("manual").checked=m==="MANUAL";$("auto").checked=m!=="MANUAL";applyMode()}
-function modeChanged(){if($("manual").checked&&!layout.length)layout=autoLayout();applyMode();renderTable();draw()}
-function applyMode(){$("manualArea").classList.toggle("on",$("manual").checked)}
-function capacity(){return int($("blocks").value)*int($("rows").value)*int($("cols").value)}
-function autoLayout(){const b=Math.max(1,int($("blocks").value)),r=Math.max(1,int($("rows").value)),c=Math.max(1,int($("cols").value)),a=[];let o=1;for(let f=1;f<=r;f++)for(let x=1;x<=b;x++)a.push({Ordem:o++,Bloco:blockName(x),Fileira:f,"Posições":c,Posicoes:c});return a}
-function makeBase(){layout=autoLayout();renderTable();draw()}
-function addRow(){const last=layout.at(-1),bl=last?text(last.Bloco)||"A":"A",max=layout.filter(x=>text(x.Bloco)===bl).reduce((m,x)=>Math.max(m,int(x.Fileira)),0),q=Math.max(1,int($("cols").value));layout.push({Ordem:layout.length+1,Bloco:bl,Fileira:max+1,"Posições":q,Posicoes:q});renderTable();draw()}
-function renderTable(){$("tbody").innerHTML="";layout.forEach((x,i)=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${i+1}</td><td><input data-i="${i}" data-f="b" value="${esc(x.Bloco)}"></td><td><input data-i="${i}" data-f="r" type="number" min="1" value="${int(x.Fileira)||1}"></td><td><input data-i="${i}" data-f="p" type="number" min="1" value="${positions(x)}"></td><td><div class="actions"><button class="btn small" data-a="up" data-i="${i}">Subir</button><button class="btn small" data-a="down" data-i="${i}">Descer</button><button class="btn small sec" data-a="copy" data-i="${i}">Duplicar</button><button class="btn small danger" data-a="del" data-i="${i}">Excluir</button></div></td>`;tr.querySelectorAll("input").forEach(n=>n.oninput=edit);tr.querySelectorAll("button").forEach(n=>n.onclick=act);$("tbody").appendChild(tr)})}
-function edit(e){const i=int(e.target.dataset.i),f=e.target.dataset.f;if(!layout[i])return;if(f==="b")layout[i].Bloco=text(e.target.value).toUpperCase();if(f==="r")layout[i].Fileira=Math.max(1,int(e.target.value));if(f==="p"){const v=Math.max(1,int(e.target.value));layout[i]["Posições"]=v;layout[i].Posicoes=v}draw()}
-function act(e){e.preventDefault();const i=int(e.currentTarget.dataset.i),a=e.currentTarget.dataset.a;if(a==="up"&&i>0)[layout[i-1],layout[i]]=[layout[i],layout[i-1]];if(a==="down"&&i<layout.length-1)[layout[i+1],layout[i]]=[layout[i],layout[i+1]];if(a==="copy"&&layout[i])layout.splice(i+1,0,JSON.parse(JSON.stringify(layout[i])));if(a==="del"&&layout[i])layout.splice(i,1);layout.forEach((x,n)=>x.Ordem=n+1);renderTable();draw()}
-function draw(){const l=$("auto").checked?autoLayout():normalize(layout),t=$("auto").checked?capacity():totalLayout(l);$("total").value=t;renderDevice(l,t)}
-function renderDevice(l,total){const box=$("preview");box.innerHTML="";if(text($("topTitle").value)){const d=document.createElement("div");d.className="dt sup";d.textContent=text($("topTitle").value);box.appendChild(d)}const dev=document.createElement("div");dev.className="device";let n=1;group(l).forEach(fr=>{const row=document.createElement("div");row.className="row";fr.blocks.forEach(bl=>{const seg=document.createElement("div");seg.className="segment";bl.items.forEach(item=>{for(let k=0;k<positions(item);k++){const s=document.createElement("div");s.className="seat";s.textContent=n<=total?n++:"";seg.appendChild(s)}});row.appendChild(seg)});dev.appendChild(row)});box.appendChild(dev);if(text($("bottomTitle").value)){const d=document.createElement("div");d.className="dt inf";d.textContent=text($("bottomTitle").value);box.appendChild(d)}}
-function group(l){const m=new Map;normalize(l).forEach(x=>{const f=Math.max(1,int(x.Fileira)),b=text(x.Bloco)||"A";if(!m.has(f))m.set(f,new Map);if(!m.get(f).has(b))m.get(f).set(b,[]);m.get(f).get(b).push(x)});return[...m.entries()].sort((a,b)=>a[0]-b[0]).map(([f,bs])=>({fileira:f,blocks:[...bs.entries()].sort((a,b)=>text(a[0]).localeCompare(text(b[0]),"pt-BR",{numeric:true})).map(([b,items])=>({bloco:b,items:items.sort((a,b)=>int(a.Ordem)-int(b.Ordem))}))}))}
-async function save(){const m=$("manual").checked?"MANUAL":"AUTOMATICO",l=m==="AUTOMATICO"?autoLayout():normalize(layout),total=m==="AUTOMATICO"?capacity():totalLayout(l);if(total<1)return msg("O total deve ser maior que zero.","err");msg("Salvando alterações...","info");lock(true);try{const cfg={Modo_Layout:m,Total_Agraciados:total,Quantidade_Blocos:Math.max(1,int($("blocks").value)),Linhas_Por_Bloco:Math.max(1,int($("rows").value)),Colunas_Por_Bloco:Math.max(1,int($("cols").value)),Titulo_Superior:text($("topTitle").value),Titulo_Inferior:text($("bottomTitle").value)};const r=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action:"salvarDispositivo",modo:m,config:cfg,layout:l})});if(!r.ok)throw Error("Falha HTTP "+r.status);const j=await r.json();if(!j.ok)throw Error(j.erro||"Falha ao salvar");msg("Dispositivo salvo com sucesso.","ok");await load()}catch(e){console.error(e);msg("Erro ao salvar: "+e.message,"err")}finally{lock(false)}}
-function normalize(a){return(Array.isArray(a)?a:[]).filter(Boolean).map((x,i)=>{const p=Math.max(1,positions(x));return{Ordem:i+1,Bloco:text(x.Bloco)||"A",Fileira:Math.max(1,int(x.Fileira)),"Posições":p,Posicoes:p}})}function totalLayout(a){return normalize(a).reduce((s,x)=>s+positions(x),0)}function positions(x){return Math.max(0,int(x&&(x["Posições"]??x.Posicoes)))}function lock(v){["save","reload","newRow","makeBase"].forEach(id=>$(id).disabled=v)}function msg(s,t){$("state").textContent=s;$("state").className="state show "+t}function hideMsg(){$("state").className="state"}function mode(v){return text(v).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toUpperCase()==="MANUAL"?"MANUAL":"AUTOMATICO"}function blockName(n){let s="";while(n>0){n--;s=String.fromCharCode(65+n%26)+s;n=Math.floor(n/26)}return s}function int(v){const n=parseInt(v,10);return Number.isFinite(n)?n:0}function positive(v,d){const n=int(v);return n>0?n:d}function text(v){return v==null?"":String(v).trim()}function esc(v){return text(v).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+
+const API_URL = "https://script.google.com/macros/s/AKfycby_Oeki-w1mFC8VPSPuszOpsRvPVfZ1fuCyvvz1cYkXogwll6jO051eh0R9y3ibWr8A/exec";
+
+const elementos = {
+    solenidade: document.getElementById("solenidade"),
+    dataFormatura: document.getElementById("dataFormatura"),
+    localFormatura: document.getElementById("localFormatura"),
+    modoAutomatico: document.getElementById("modoAutomatico"),
+    modoManual: document.getElementById("modoManual"),
+    totalAgraciados: document.getElementById("totalAgraciados"),
+    quantidadeBlocos: document.getElementById("quantidadeBlocos"),
+    linhasPorBloco: document.getElementById("linhasPorBloco"),
+    colunasPorBloco: document.getElementById("colunasPorBloco"),
+    tituloSuperior: document.getElementById("tituloSuperior"),
+    tituloInferior: document.getElementById("tituloInferior"),
+    ajudaTotal: document.getElementById("ajudaTotal"),
+    areaManual: document.getElementById("areaManual"),
+    tbodyLayout: document.getElementById("tbodyLayout"),
+    previewArea: document.getElementById("previewArea"),
+    previewGrade: document.getElementById("previewGrade"),
+    previewTituloSuperior: document.getElementById("previewTituloSuperior"),
+    previewTituloInferior: document.getElementById("previewTituloInferior"),
+    btnNovaFileira: document.getElementById("btnNovaFileira"),
+    btnGerarBase: document.getElementById("btnGerarBase"),
+    btnSalvar: document.getElementById("btnSalvar"),
+    btnRecarregar: document.getElementById("btnRecarregar"),
+    estado: document.getElementById("estado")
+};
+
+let configAtual = {};
+let layoutAtual = [];
+let eventosRegistrados = false;
+
+window.addEventListener("DOMContentLoaded", iniciar);
+window.addEventListener("resize", function(){
+    desenharPreview();
+});
+
+async function iniciar(){
+    registrarEventos();
+    await carregarDados();
+}
+
+function registrarEventos(){
+    if(eventosRegistrados) return;
+    eventosRegistrados = true;
+
+    elementos.modoAutomatico.addEventListener("change", alterarModo);
+    elementos.modoManual.addEventListener("change", alterarModo);
+
+    elementos.totalAgraciados.addEventListener("input", desenharPreview);
+    elementos.quantidadeBlocos.addEventListener("input", desenharPreview);
+    elementos.linhasPorBloco.addEventListener("input", desenharPreview);
+    elementos.colunasPorBloco.addEventListener("input", desenharPreview);
+    elementos.tituloSuperior.addEventListener("input", desenharPreview);
+    elementos.tituloInferior.addEventListener("input", desenharPreview);
+
+    elementos.btnNovaFileira.addEventListener("click", adicionarFileira);
+    elementos.btnGerarBase.addEventListener("click", gerarBaseManual);
+    elementos.btnSalvar.addEventListener("click", salvarDispositivo);
+    elementos.btnRecarregar.addEventListener("click", carregarDados);
+}
+
+async function carregarDados(){
+    mostrarEstado("Carregando dados...", "info");
+    bloquearBotoes(true);
+
+    try{
+        const resposta = await fetch(
+            API_URL + "?action=dados&_=" + Date.now(),
+            { cache:"no-store" }
+        );
+
+        if(!resposta.ok){
+            throw new Error("Falha HTTP " + resposta.status + ".");
+        }
+
+        const dados = await resposta.json();
+
+        if(!dados.ok){
+            throw new Error(dados.erro || "Não foi possível carregar os dados.");
+        }
+
+        configAtual = dados.config || {};
+        layoutAtual = normalizarLayout(dados.layout || []);
+
+        preencherCampos(dados);
+        renderizarTabela();
+        desenharPreview();
+        ocultarEstado();
+
+    }catch(erro){
+        console.error(erro);
+        mostrarEstado("Erro ao carregar: " + erro.message, "erro");
+    }finally{
+        bloquearBotoes(false);
+    }
+}
+
+function preencherCampos(dados){
+    elementos.solenidade.innerText =
+        texto(configAtual.Solenidade) || "Solenidade não informada";
+
+    elementos.dataFormatura.innerText =
+        configAtual.Data ? "Data: " + texto(configAtual.Data) : "";
+
+    elementos.localFormatura.innerText =
+        configAtual.Local ? "Local: " + texto(configAtual.Local) : "";
+
+    elementos.quantidadeBlocos.value =
+        numeroPositivo(configAtual.Quantidade_Blocos, 1);
+
+    elementos.linhasPorBloco.value =
+        numeroPositivo(configAtual.Linhas_Por_Bloco, 1);
+
+    elementos.colunasPorBloco.value =
+        numeroPositivo(configAtual.Colunas_Por_Bloco, 1);
+
+    elementos.tituloSuperior.value =
+        texto(configAtual.Titulo_Superior) || "TRIBUNA";
+
+    elementos.tituloInferior.value =
+        texto(configAtual.Titulo_Inferior) || "TROPA";
+
+    const totalConfigurado = inteiro(configAtual.Total_Agraciados);
+    const totalLista = Array.isArray(dados.agraciados) ? dados.agraciados.length : 0;
+    elementos.totalAgraciados.value =
+        totalConfigurado > 0 ? totalConfigurado : Math.max(1, totalLista);
+
+    const modo = normalizarModo(configAtual.Modo_Layout);
+    elementos.modoManual.checked = modo === "MANUAL";
+    elementos.modoAutomatico.checked = modo !== "MANUAL";
+
+    aplicarModo();
+}
+
+function alterarModo(){
+    if(elementos.modoManual.checked && layoutAtual.length === 0){
+        layoutAtual = gerarLayoutAutomaticoLocal();
+        renderizarTabela();
+    }
+
+    aplicarModo();
+    desenharPreview();
+}
+
+function aplicarModo(){
+    const manual = elementos.modoManual.checked;
+
+    elementos.areaManual.classList.toggle("ativo", manual);
+    elementos.totalAgraciados.readOnly = manual;
+
+    if(manual){
+        elementos.totalAgraciados.value = calcularTotalLayout(layoutAtual);
+        elementos.ajudaTotal.innerText = "Calculado automaticamente pela tabela manual.";
+    }else{
+        elementos.ajudaTotal.innerText = "Pode ser menor que a capacidade total do dispositivo.";
+    }
+}
+
+function gerarLayoutAutomaticoLocal(){
+    const blocos = Math.max(1, inteiro(elementos.quantidadeBlocos.value));
+    const linhas = Math.max(1, inteiro(elementos.linhasPorBloco.value));
+    const colunas = Math.max(1, inteiro(elementos.colunasPorBloco.value));
+
+    const novoLayout = [];
+    let ordem = 1;
+
+    for(let fileira = 1; fileira <= linhas; fileira++){
+        for(let bloco = 1; bloco <= blocos; bloco++){
+            novoLayout.push({
+                Ordem: ordem++,
+                Bloco: nomeBloco(bloco),
+                Fileira: fileira,
+                "Posições": colunas,
+                Posicoes: colunas
+            });
+        }
+    }
+
+    return novoLayout;
+}
+
+function gerarBaseManual(){
+    layoutAtual = gerarLayoutAutomaticoLocal();
+    renderizarTabela();
+    atualizarTotalManual();
+    desenharPreview();
+}
+
+function adicionarFileira(){
+    let bloco = "A";
+    let fileira = 1;
+
+    if(layoutAtual.length){
+        const ultima = layoutAtual[layoutAtual.length - 1];
+        bloco = texto(ultima.Bloco) || "A";
+
+        fileira = layoutAtual
+            .filter(function(item){
+                return texto(item.Bloco) === bloco;
+            })
+            .reduce(function(maior, item){
+                return Math.max(maior, inteiro(item.Fileira));
+            }, 0) + 1;
+    }
+
+    const posicoes = Math.max(1, inteiro(elementos.colunasPorBloco.value));
+
+    layoutAtual.push({
+        Ordem: layoutAtual.length + 1,
+        Bloco: bloco,
+        Fileira: fileira,
+        "Posições": posicoes,
+        Posicoes: posicoes
+    });
+
+    renumerarLayout();
+    renderizarTabela();
+    atualizarTotalManual();
+    desenharPreview();
+}
+
+function renderizarTabela(){
+    elementos.tbodyLayout.innerHTML = "";
+
+    layoutAtual.forEach(function(item, indice){
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+            <td>${indice + 1}</td>
+            <td>
+                <input
+                    type="text"
+                    maxlength="12"
+                    data-indice="${indice}"
+                    data-campo="Bloco"
+                    value="${escaparAtributo(item.Bloco)}">
+            </td>
+            <td>
+                <input
+                    type="number"
+                    min="1"
+                    step="1"
+                    data-indice="${indice}"
+                    data-campo="Fileira"
+                    value="${Math.max(1, inteiro(item.Fileira))}">
+            </td>
+            <td>
+                <input
+                    type="number"
+                    min="1"
+                    step="1"
+                    data-indice="${indice}"
+                    data-campo="Posicoes"
+                    value="${quantidadePosicoes(item)}">
+            </td>
+            <td>
+                <div class="acoes-linha">
+                    <button class="botao botao-pequeno" type="button" data-acao="subir" data-indice="${indice}">Subir</button>
+                    <button class="botao botao-pequeno" type="button" data-acao="descer" data-indice="${indice}">Descer</button>
+                    <button class="botao botao-secundario botao-pequeno" type="button" data-acao="duplicar" data-indice="${indice}">Duplicar</button>
+                    <button class="botao botao-perigo botao-pequeno" type="button" data-acao="excluir" data-indice="${indice}">Excluir</button>
+                </div>
+            </td>
+        `;
+
+        tr.querySelectorAll("input").forEach(function(input){
+            input.addEventListener("input", editarLinhaManual);
+        });
+
+        tr.querySelectorAll("button").forEach(function(botao){
+            botao.addEventListener("click", executarAcaoLinha);
+        });
+
+        elementos.tbodyLayout.appendChild(tr);
+    });
+}
+
+function editarLinhaManual(evento){
+    const input = evento.currentTarget;
+    const indice = inteiro(input.dataset.indice);
+    const campo = input.dataset.campo;
+
+    if(!layoutAtual[indice]) return;
+
+    if(campo === "Bloco"){
+        layoutAtual[indice].Bloco = texto(input.value).toUpperCase();
+    }
+
+    if(campo === "Fileira"){
+        layoutAtual[indice].Fileira = Math.max(1, inteiro(input.value));
+    }
+
+    if(campo === "Posicoes"){
+        const valor = Math.max(1, inteiro(input.value));
+        layoutAtual[indice]["Posições"] = valor;
+        layoutAtual[indice].Posicoes = valor;
+    }
+
+    atualizarTotalManual();
+    desenharPreview();
+}
+
+function executarAcaoLinha(evento){
+    const botao = evento.currentTarget;
+    const indice = inteiro(botao.dataset.indice);
+    const acao = botao.dataset.acao;
+
+    if(acao === "subir" && indice > 0){
+        const anterior = layoutAtual[indice - 1];
+        layoutAtual[indice - 1] = layoutAtual[indice];
+        layoutAtual[indice] = anterior;
+    }
+
+    if(acao === "descer" && indice < layoutAtual.length - 1){
+        const seguinte = layoutAtual[indice + 1];
+        layoutAtual[indice + 1] = layoutAtual[indice];
+        layoutAtual[indice] = seguinte;
+    }
+
+    if(acao === "duplicar" && layoutAtual[indice]){
+        const copia = JSON.parse(JSON.stringify(layoutAtual[indice]));
+        layoutAtual.splice(indice + 1, 0, copia);
+    }
+
+    if(acao === "excluir" && layoutAtual[indice]){
+        layoutAtual.splice(indice, 1);
+    }
+
+    renumerarLayout();
+    renderizarTabela();
+    atualizarTotalManual();
+    desenharPreview();
+}
+
+function renumerarLayout(){
+    layoutAtual.forEach(function(item, indice){
+        item.Ordem = indice + 1;
+    });
+}
+
+function atualizarTotalManual(){
+    if(elementos.modoManual.checked){
+        elementos.totalAgraciados.value = calcularTotalLayout(layoutAtual);
+    }
+}
+
+function desenharPreview(){
+    elementos.previewTituloSuperior.innerText =
+        texto(elementos.tituloSuperior.value) || "TRIBUNA";
+
+    elementos.previewTituloInferior.innerText =
+        texto(elementos.tituloInferior.value) || "TROPA";
+
+    elementos.previewGrade.innerHTML = "";
+
+    if(elementos.modoManual.checked){
+        elementos.totalAgraciados.value = calcularTotalLayout(layoutAtual);
+
+        desenharMiniManual(
+            elementos.previewGrade,
+            layoutAtual,
+            calcularTotalLayout(layoutAtual),
+            null
+        );
+    }else{
+        const configPreview = {
+            Quantidade_Blocos: Math.max(1, inteiro(elementos.quantidadeBlocos.value)),
+            Linhas_Por_Bloco: Math.max(1, inteiro(elementos.linhasPorBloco.value)),
+            Colunas_Por_Bloco: Math.max(1, inteiro(elementos.colunasPorBloco.value))
+        };
+
+        desenharMiniAutomatico(
+            elementos.previewGrade,
+            configPreview,
+            Math.max(1, inteiro(elementos.totalAgraciados.value)),
+            null
+        );
+    }
+}
+
+/* Mesmas funções de desenho usadas pelo check-in */
+function desenharMiniAutomatico(grade, config, total, posicaoSelecionada){
+    const qtdBlocos = Number(config["Quantidade_Blocos"]) || 1;
+    const linhas = Number(config["Linhas_Por_Bloco"]) || 1;
+    const colunas = Number(config["Colunas_Por_Bloco"]) || total;
+
+    const tamanho = calcularTamanhoMiniCirculo(qtdBlocos, colunas);
+    aplicarEstiloMiniGrade(grade, tamanho);
+
+    for(let linha = 0; linha < linhas; linha++){
+        const linhaGlobal = document.createElement("div");
+        linhaGlobal.className = "mini-linha-global";
+
+        const inicioLinhaGlobal = (linha * qtdBlocos * colunas) + 1;
+
+        for(let bloco = qtdBlocos; bloco >= 1; bloco--){
+            const blocoLinha = document.createElement("div");
+            blocoLinha.className = "mini-bloco-linha";
+
+            const inicioBlocoNaLinha = inicioLinhaGlobal + ((bloco - 1) * colunas);
+            const fimBlocoNaLinha = inicioBlocoNaLinha + colunas - 1;
+
+            for(let posicao = fimBlocoNaLinha; posicao >= inicioBlocoNaLinha; posicao--){
+                blocoLinha.appendChild(
+                    criarMiniCirculo(posicao, total, posicaoSelecionada)
+                );
+            }
+
+            linhaGlobal.appendChild(blocoLinha);
+        }
+
+        grade.appendChild(linhaGlobal);
+    }
+}
+
+function desenharMiniManual(grade, layoutManual, total, posicaoSelecionada){
+    const linhasMap = {};
+    const linhasOrdem = [];
+    let contador = 1;
+
+    layoutManual
+        .slice()
+        .sort(function(a,b){
+            return Number(a.Ordem) - Number(b.Ordem);
+        })
+        .forEach(function(item){
+            const fileira = String(item["Fileira"] || "").trim();
+            const bloco = String(item["Bloco"] || "").trim();
+            const qtd = Number(item["Posicoes"] || item["Posições"] || 0);
+
+            if(!fileira || !bloco || !qtd) return;
+
+            if(!linhasMap[fileira]){
+                linhasMap[fileira] = [];
+                linhasOrdem.push(fileira);
+            }
+
+            const posicoes = [];
+
+            for(let i = 0; i < qtd; i++){
+                posicoes.push(contador <= total ? contador : null);
+                contador++;
+            }
+
+            linhasMap[fileira].push({
+                bloco: bloco,
+                posicoes: posicoes
+            });
+        });
+
+    const todosBlocos = [];
+
+    linhasOrdem.forEach(function(fileira){
+        linhasMap[fileira].forEach(function(bloco){
+            if(!todosBlocos.includes(bloco.bloco)){
+                todosBlocos.push(bloco.bloco);
+            }
+        });
+    });
+
+    todosBlocos.sort().reverse();
+
+    const maxPorBloco = {};
+
+    todosBlocos.forEach(function(bloco){
+        maxPorBloco[bloco] = 0;
+    });
+
+    linhasOrdem.forEach(function(fileira){
+        linhasMap[fileira].forEach(function(bloco){
+            maxPorBloco[bloco.bloco] = Math.max(
+                maxPorBloco[bloco.bloco],
+                bloco.posicoes.length
+            );
+        });
+    });
+
+    const qtdBlocos = todosBlocos.length || 1;
+    const colunasMedia = Math.ceil(
+        todosBlocos.reduce(function(soma, bloco){
+            return soma + maxPorBloco[bloco];
+        }, 0) / qtdBlocos
+    ) || 1;
+
+    const tamanho = calcularTamanhoMiniCirculo(qtdBlocos, colunasMedia);
+    aplicarEstiloMiniGrade(grade, tamanho);
+
+    linhasOrdem.forEach(function(fileira){
+        const linhaGlobal = document.createElement("div");
+        linhaGlobal.className = "mini-linha-global";
+
+        todosBlocos.forEach(function(blocoNome){
+            const blocoLinha = document.createElement("div");
+            blocoLinha.className = "mini-bloco-linha";
+
+            const blocoEncontrado = linhasMap[fileira].find(function(bloco){
+                return bloco.bloco === blocoNome;
+            });
+
+            const posicoes = blocoEncontrado
+                ? blocoEncontrado.posicoes.slice()
+                : [];
+
+            while(posicoes.length < maxPorBloco[blocoNome]){
+                posicoes.push(null);
+            }
+
+            posicoes
+                .slice()
+                .reverse()
+                .forEach(function(posicao){
+                    blocoLinha.appendChild(
+                        criarMiniCirculo(posicao, total, posicaoSelecionada)
+                    );
+                });
+
+            linhaGlobal.appendChild(blocoLinha);
+        });
+
+        grade.appendChild(linhaGlobal);
+    });
+}
+
+function criarMiniCirculo(posicao, total, posicaoSelecionada){
+    const circulo = document.createElement("div");
+    circulo.className = "mini-circulo";
+
+    if(!posicao || posicao > total){
+        circulo.classList.add("mini-vazio");
+        circulo.innerText = "";
+    }else{
+        circulo.innerText = posicao;
+    }
+
+    return circulo;
+}
+
+function aplicarEstiloMiniGrade(grade, tamanho){
+    grade.style.setProperty("--mini-circle-size", tamanho + "px");
+    grade.style.setProperty(
+        "--mini-gap-circulos",
+        Math.max(3, Math.floor(tamanho * 0.15)) + "px"
+    );
+    grade.style.setProperty(
+        "--mini-gap-linhas",
+        Math.max(4, Math.floor(tamanho * 0.18)) + "px"
+    );
+    grade.style.setProperty(
+        "--mini-gap-blocos",
+        Math.max(16, Math.floor(tamanho * 0.75)) + "px"
+    );
+}
+
+function calcularTamanhoMiniCirculo(qtdBlocos, colunas){
+    const largura = elementos.previewArea.clientWidth * 0.9;
+    const totalColunas = qtdBlocos * colunas;
+
+    let tamanho = Math.floor(largura / (totalColunas + 4));
+
+    if(tamanho > 32) tamanho = 32;
+    if(tamanho < 14) tamanho = 14;
+
+    return tamanho;
+}
+
+async function salvarDispositivo(){
+    const modo = elementos.modoManual.checked ? "MANUAL" : "AUTOMATICO";
+
+    const quantidadeBlocos = Math.max(1, inteiro(elementos.quantidadeBlocos.value));
+    const linhasPorBloco = Math.max(1, inteiro(elementos.linhasPorBloco.value));
+    const colunasPorBloco = Math.max(1, inteiro(elementos.colunasPorBloco.value));
+    const capacidadeAutomatica = quantidadeBlocos * linhasPorBloco * colunasPorBloco;
+
+    const layoutSalvar = modo === "MANUAL"
+        ? normalizarLayout(layoutAtual)
+        : gerarLayoutAutomaticoLocal();
+
+    const total = modo === "MANUAL"
+        ? calcularTotalLayout(layoutSalvar)
+        : Math.max(1, inteiro(elementos.totalAgraciados.value));
+
+    if(modo === "MANUAL" && layoutSalvar.length === 0){
+        mostrarEstado("Inclua ao menos uma linha no layout manual.", "erro");
+        return;
+    }
+
+    if(modo === "AUTOMATICO" && total > capacidadeAutomatica){
+        mostrarEstado(
+            "O total de agraciados não pode ultrapassar a capacidade automática de " +
+            capacidadeAutomatica + " posições.",
+            "erro"
+        );
+        return;
+    }
+
+    const configSalvar = {
+        Modo_Layout: modo,
+        Total_Agraciados: total,
+        Quantidade_Blocos: quantidadeBlocos,
+        Linhas_Por_Bloco: linhasPorBloco,
+        Colunas_Por_Bloco: colunasPorBloco,
+        Titulo_Superior: texto(elementos.tituloSuperior.value),
+        Titulo_Inferior: texto(elementos.tituloInferior.value)
+    };
+
+    mostrarEstado("Salvando alterações...", "info");
+    bloquearBotoes(true);
+
+    try{
+        const resposta = await fetch(API_URL, {
+            method:"POST",
+            body:JSON.stringify({
+                action:"salvarDispositivo",
+                modo:modo,
+                config:configSalvar,
+                layout:layoutSalvar
+            })
+        });
+
+        if(!resposta.ok){
+            throw new Error("Falha HTTP " + resposta.status + ".");
+        }
+
+        const resultado = await resposta.json();
+
+        if(!resultado.ok){
+            throw new Error(resultado.erro || "O Apps Script recusou a gravação.");
+        }
+
+        await carregarDados();
+        mostrarEstado("Dispositivo salvo com sucesso.", "sucesso");
+
+    }catch(erro){
+        console.error(erro);
+        mostrarEstado("Erro ao salvar: " + erro.message, "erro");
+    }finally{
+        bloquearBotoes(false);
+    }
+}
+
+function normalizarLayout(lista){
+    if(!Array.isArray(lista)) return [];
+
+    return lista
+        .filter(Boolean)
+        .map(function(item, indice){
+            const posicoes = Math.max(1, quantidadePosicoes(item));
+
+            return {
+                Ordem: indice + 1,
+                Bloco: texto(item.Bloco) || "A",
+                Fileira: Math.max(1, inteiro(item.Fileira)),
+                "Posições": posicoes,
+                Posicoes: posicoes
+            };
+        });
+}
+
+function calcularTotalLayout(lista){
+    return normalizarLayout(lista).reduce(function(total, item){
+        return total + quantidadePosicoes(item);
+    }, 0);
+}
+
+function quantidadePosicoes(item){
+    if(!item) return 0;
+
+    const valor = item["Posições"] !== undefined
+        ? item["Posições"]
+        : item.Posicoes;
+
+    return Math.max(0, inteiro(valor));
+}
+
+function normalizarModo(valor){
+    const modo = texto(valor)
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toUpperCase();
+
+    return modo === "MANUAL" ? "MANUAL" : "AUTOMATICO";
+}
+
+function nomeBloco(numero){
+    let n = numero;
+    let nome = "";
+
+    while(n > 0){
+        n--;
+        nome = String.fromCharCode(65 + (n % 26)) + nome;
+        n = Math.floor(n / 26);
+    }
+
+    return nome;
+}
+
+function bloquearBotoes(bloquear){
+    elementos.btnSalvar.disabled = bloquear;
+    elementos.btnRecarregar.disabled = bloquear;
+    elementos.btnNovaFileira.disabled = bloquear;
+    elementos.btnGerarBase.disabled = bloquear;
+}
+
+function mostrarEstado(mensagem, tipo){
+    elementos.estado.innerText = mensagem;
+    elementos.estado.className = "estado visivel " + tipo;
+}
+
+function ocultarEstado(){
+    elementos.estado.innerText = "";
+    elementos.estado.className = "estado";
+}
+
+function inteiro(valor){
+    const numero = parseInt(valor, 10);
+    return Number.isFinite(numero) ? numero : 0;
+}
+
+function numeroPositivo(valor, padrao){
+    const numero = inteiro(valor);
+    return numero > 0 ? numero : padrao;
+}
+
+function texto(valor){
+    return valor === null || valor === undefined
+        ? ""
+        : String(valor).trim();
+}
+
+function escaparAtributo(valor){
+    return texto(valor)
+        .replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+}
 </script>
+
 </body>
 </html>
