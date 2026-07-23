@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gerenciar Agraciados</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f3f5f8;margin:0;color:#1f2937}
+.container{max-width:900px;margin:auto;padding:16px}
+.topo{background:#071b33;color:#fff;padding:18px;border-radius:16px;text-align:center;font-size:22px;font-weight:bold}
+.card{background:#fff;border-radius:14px;padding:16px;margin-top:16px;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+input[type=text],input[type=number]{width:100%;padding:8px;box-sizing:border-box}
+table{width:100%;border-collapse:collapse;margin-top:16px}
+th,td{border:1px solid #ddd;padding:8px}
+button{background:#0b3a75;color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer}
+.acoes button{margin-right:4px}
+#novo{display:none}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="topo">GERENCIAR AGRACIADOS</div>
+
+<div class="card">
+<label>Pesquisar</label>
+<input type="text" id="pesquisa" placeholder="Digite o nome..." onkeyup="filtrar()">
+</div>
+
+<div class="card">
+<button onclick="abrirNovo()">+ Novo Agraciado</button>
+
+<table id="tabela">
+<thead>
+<tr><th>Posição</th><th>Nome</th><th>Ações</th></tr>
+</thead>
+<tbody id="tb"></tbody>
+</table>
+</div>
+
+<div class="card" id="novo">
+<h3>Novo Agraciado</h3>
+<label>Nome</label>
+<input id="nome" type="text">
+<label>Posição</label>
+<input id="pos" type="number">
+<label>Mensagem Individual</label>
+<input id="msg" type="text">
+<br><br>
+<button onclick="alert('Na próxima etapa enviará ao Apps Script.')">Inserir</button>
+<button onclick="fecharNovo()">Cancelar</button>
+</div>
+</div>
+
+<script>
+const dados=[];
+for(let i=1;i<=25;i++){
+ dados.push({pos:i,nome:"Agraciado "+i});
+}
+function render(lista){
+ tb.innerHTML="";
+ lista.forEach(a=>{
+ tb.innerHTML+=`<tr>
+ <td>${a.pos}</td>
+ <td>${a.nome}</td>
+ <td class='acoes'>
+ <button title='Subir'>▲</button>
+ <button title='Descer'>▼</button>
+ <button title='Editar'>✎</button>
+ <button title='Excluir'>🗑</button>
+ </td>
+ </tr>`;
+ });
+}
+function filtrar(){
+ const t=pesquisa.value.toLowerCase();
+ render(dados.filter(x=>x.nome.toLowerCase().includes(t)));
+}
+function abrirNovo(){novo.style.display="block";}
+function fecharNovo(){novo.style.display="none";}
+render(dados);
+</script>
+</body>
+</html>
