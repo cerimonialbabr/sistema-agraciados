@@ -1,88 +1,22 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Check-in | Sistema de Gerenciamento de Agraciados</title>
-
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Editor do Dispositivo</title>
 <style>
-body{
-    font-family:Arial,sans-serif;
-    background:#f3f5f8;
-    margin:0;
-    color:#1f2937;
+body{font-family:Arial;background:#f3f5f8;margin:0}.container{max-width:980px;margin:auto;padding:16px}.topo-sistema{display:flex;align-items:center;justify-content:center;gap:18px;background:#071b33;border-radius:16px;padding:20px;color:#fff}.card,.caixa-formatura{background:#fff;border-radius:14px;padding:16px;margin:16px 0;box-shadow:0 4px 12px rgba(0,0,0,.08)}table{width:100%;border-collapse:collapse}th{background:#0b3a75;color:#fff;padding:8px}td{padding:8px;border-bottom:1px solid #ddd}input,select{width:100%;padding:8px;box-sizing:border-box}button{padding:10px 16px;background:#0b3a75;color:#fff;border:none;border-radius:8px;margin:4px;cursor:pointer}
+</style></head>
+<body>
+<div class="container">
+<div class="topo-sistema"><div><h2>SISTEMA DE GERENCIAMENTO DE AGRACIADOS</h2><div>BASE AÉREA DE BRASÍLIA</div></div></div>
+<div class="caixa-formatura"><div id="solenidade">Carregando solenidade...</div><div id="dataFormatura"></div><div id="localFormatura"></div></div>
+<div class="card">
+<h1>EDITOR DO DISPOSITIVO</h1>
+<p>Estrutura inicial para integração com o Apps Script.</p>
+<table><thead><tr><th>Ordem</th><th>Bloco</th><th>Fileira</th><th>Posições</th></tr></thead><tbody id="layout"></tbody></table>
+<button>Adicionar Linha</button><button>Salvar Layout</button>
+</div></div>
+<script>
+for(let i=1;i<=12;i++){
+document.getElementById('layout').innerHTML+=`<tr><td>${i}</td><td><input value="1"></td><td><input value="${i}"></td><td><input></td></tr>`;
 }
-
-.container{
-    max-width:760px;
-    margin:auto;
-    padding:16px;
-}
-
-.topo-sistema{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:18px;
-    background:#071b33;
-    border-radius:16px;
-    padding:20px 18px;
-    margin-bottom:16px;
-    box-shadow:0 4px 14px rgba(0,0,0,0.18);
-    text-align:left;
-}
-
-.topo-sistema img{
-    width:78px;
-    height:78px;
-    object-fit:contain;
-    flex-shrink:0;
-}
-
-.titulo-sistema{
-    font-size:22px;
-    font-weight:800;
-    color:white;
-    line-height:1.15;
-}
-
-.subtitulo-sistema{
-    font-size:14px;
-    font-weight:700;
-    color:#dbeafe;
-    margin-top:6px;
-}
-
-.caixa-formatura{
-    display:block;
-    background:white;
-    border-radius:16px;
-    padding:14px;
-    margin-bottom:16px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.08);
-}
-
-.caixa-formatura img{
-    width:58px;
-    height:58px;
-    object-fit:contain;
-    flex-shrink:0;
-}
-
-.solenidade{
-    color:#0b3a75;
-    font-size:18px;
-    font-weight:800;
-    line-height:1.2;
-}
-
-.detalhes-formatura{
-    color:#374151;
-    font-size:14px;
-    font-weight:600;
-    margin-top:4px;
-    line-height:1.4;
-}
-  
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Editor do Dispositivo</title><style>body{font-family:Arial;background:#f3f5f8;margin:0}.container{max-width:900px;margin:auto;padding:16px}.topo{background:#071b33;color:#fff;padding:18px;border-radius:16px;text-align:center;font-weight:bold;font-size:22px}.card{background:#fff;padding:18px;border-radius:14px;margin-top:16px;box-shadow:0 4px 12px rgba(0,0,0,.08)}label{display:block;margin-top:12px;font-weight:bold}input[type=text],input[type=number]{width:100%;padding:8px;box-sizing:border-box}button{margin-top:16px;padding:12px 18px;background:#0b3a75;color:#fff;border:none;border-radius:10px;cursor:pointer}.hidden{display:none}table{width:100%;border-collapse:collapse;margin-top:16px}th,td{border:1px solid #ddd;padding:6px}</style></head><body><div class="container"><div class="topo">EDITOR DO DISPOSITIVO</div><div class="card"><label><input type="radio" name="m" value="A" checked onclick="t()"> Automático</label><label><input type="radio" name="m" value="M" onclick="t()"> Manual</label><label>Quantidade de Blocos</label><input type="number" value="3"><label>Linhas por Bloco</label><input type="number" value="12"><label>Colunas por Bloco</label><input type="number" value="5"><label>Título Superior</label><input type="text" value="TRIBUNA"><label>Título Inferior</label><input type="text" value="TELÃO"><button>Salvar Configuração</button></div><div id="man" class="card hidden"><h3>Layout Manual</h3><table><tr><th>Ordem</th><th>Bloco</th><th>Fileira</th><th>Posições</th></tr><tbody id="tb"></tbody></table><button>Salvar Layout</button></div></div><script>function t(){man.classList.toggle("hidden",document.querySelector("input[value=M]").checked==false)};for(let i=1;i<=12;i++){tb.innerHTML+=`<tr><td>${i}</td><td><input value="1"></td><td><input value="${i}"></td><td><input></td></tr>`}</script></body></html>
+</script>
+</body></html>
