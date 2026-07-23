@@ -7,20 +7,9 @@
 
 <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0">
+    content="width=device-width, initial-scale=1">
 
-<title>
-Editor do Dispositivo | Sistema de Gerenciamento de Agraciados
-</title>
-
-<link
-rel="preconnect"
-href="https://fonts.googleapis.com">
-
-<link
-rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
+<title>Editor do Dispositivo</title>
 
 <link
 href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
@@ -36,103 +25,17 @@ rel="stylesheet">
 
 body{
 
-    font-family:'Inter',sans-serif;
-    background:#f3f5f8;
+    font-family:Inter,sans-serif;
+    background:#eef2f7;
     color:#1f2937;
 
 }
 
 .container{
 
-    max-width:1400px;
+    width:min(1450px,96%);
     margin:auto;
-    padding:16px;
-
-}
-
-.topo-sistema{
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:18px;
-
-    background:#071b33;
-
-    border-radius:16px;
-
-    padding:20px 18px;
-
-    margin-bottom:16px;
-
-    box-shadow:0 4px 14px rgba(0,0,0,.18);
-
-    text-align:left;
-
-}
-
-.topo-sistema img{
-
-    width:78px;
-    height:78px;
-    object-fit:contain;
-    flex-shrink:0;
-
-}
-
-.titulo-sistema{
-
-    font-size:22px;
-    font-weight:800;
-    color:white;
-    line-height:1.15;
-
-}
-
-.subtitulo-sistema{
-
-    font-size:14px;
-    font-weight:700;
-    color:#dbeafe;
-    margin-top:6px;
-
-}
-
-.caixa-formatura{
-
-    background:white;
-
-    border-radius:16px;
-
-    padding:14px;
-
-    margin-bottom:16px;
-
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
-
-}
-
-.solenidade{
-
-    color:#0b3a75;
-
-    font-size:18px;
-
-    font-weight:800;
-
-}
-
-.detalhes-formatura{
-
-    color:#374151;
-
-    font-size:14px;
-
-    font-weight:600;
-
-    margin-top:6px;
-
-    line-height:1.5;
+    padding:18px;
 
 }
 
@@ -140,37 +43,101 @@ body{
 
     background:white;
 
-    border-radius:14px;
+    border-radius:16px;
 
     padding:20px;
 
     margin-bottom:18px;
 
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
+    box-shadow:0 4px 14px rgba(0,0,0,.08);
 
 }
 
-h1{
+header{
 
-    text-align:center;
+    background:#071b33;
 
-    color:#1f2937;
+    color:white;
+
+    border-radius:16px;
+
+    padding:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    margin-bottom:18px;
+
+}
+
+header img{
+
+    width:74px;
+
+}
+
+header h1{
+
+    font-size:24px;
+
+    margin-bottom:4px;
+
+}
+
+header h2{
+
+    font-size:15px;
+
+    font-weight:600;
+
+    color:#d9e7ff;
+
+}
+
+.infoEvento{
+
+    display:grid;
+
+    grid-template-columns:1fr;
+
+    gap:6px;
+
+}
+
+.infoEvento strong{
 
     font-size:28px;
 
-    margin-bottom:10px;
+    color:#0b3a75;
 
 }
 
-.descricao{
+h3{
 
     text-align:center;
 
+    font-size:42px;
+
+    color:#1f2937;
+
+    margin-bottom:18px;
+
+}
+
+.texto{
+
+    text-align:center;
+
+    font-size:20px;
+
     color:#4b5563;
 
-    line-height:1.5;
+    margin-bottom:28px;
 
-    margin-bottom:24px;
+    line-height:1.5;
 
 }
 
@@ -180,21 +147,15 @@ h1{
 
     justify-content:center;
 
-    gap:40px;
+    gap:60px;
 
-    margin-bottom:26px;
+    margin-bottom:30px;
 
 }
 
 .modos label{
 
-    display:flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    font-size:18px;
+    font-size:28px;
 
     font-weight:700;
 
@@ -202,104 +163,75 @@ h1{
 
 }
 
-input[type=text],
-input[type=number],
-select{
-
-    width:100%;
-
-    padding:12px;
-
-    border:1px solid #d1d5db;
-
-    border-radius:10px;
-
-    font-size:15px;
-
-}
-
-label{
-
-    display:block;
-
-    margin-bottom:6px;
-
-    font-weight:700;
-
-    color:#374151;
-
-}
-
-button{
-
-    background:#0b3a75;
-
-    color:white;
-
-    border:none;
-
-    border-radius:10px;
-
-    padding:12px 18px;
-
-    font-size:15px;
-
-    font-weight:700;
-
-    cursor:pointer;
-
-    transition:.2s;
-
-}
-
-button:hover{
-
-    background:#082a54;
-
-}
-
-.voltar-menu{
-
-    display:inline-block;
-
-    margin-top:18px;
-
-    text-decoration:none;
-
-    background:#6b7280;
-
-    color:white;
-
-    padding:12px 20px;
-
-    border-radius:10px;
-
-    font-weight:700;
-
-}
-
-.grid-config{
+.config{
 
     display:grid;
 
-    grid-template-columns:
-        repeat(3,1fr);
+    grid-template-columns:repeat(3,1fr);
 
     gap:18px;
 
 }
 
-.oculto{
+.config label{
+
+    display:block;
+
+    font-weight:700;
+
+    margin-bottom:8px;
+
+}
+
+.config input{
+
+    width:100%;
+
+    padding:14px;
+
+    border:1px solid #d5d8df;
+
+    border-radius:12px;
+
+    font-size:17px;
+
+}
+
+button{
+
+    background:#123f7c;
+
+    color:white;
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:14px 22px;
+
+    cursor:pointer;
+
+    font-size:17px;
+
+    font-weight:700;
+
+}
+
+button:hover{
+
+    background:#0b2f5f;
+
+}
+
+#areaManual{
 
     display:none;
 
 }
 
-.table-responsive{
+.table-wrapper{
 
-    overflow-x:auto;
-
-    width:100%;
+    overflow:auto;
 
 }
 
@@ -309,13 +241,13 @@ table{
 
     border-collapse:collapse;
 
-    min-width:760px;
+    min-width:900px;
 
 }
 
 thead{
 
-    background:#0b3a75;
+    background:#123f7c;
 
     color:white;
 
@@ -323,9 +255,7 @@ thead{
 
 th{
 
-    padding:12px;
-
-    text-align:center;
+    padding:14px;
 
 }
 
@@ -335,11 +265,15 @@ td{
 
     padding:8px;
 
+    text-align:center;
+
 }
 
-tbody tr:nth-child(even){
+td input{
 
-    background:#f9fafb;
+    width:100%;
+
+    padding:8px;
 
 }
 
@@ -347,77 +281,157 @@ tbody tr:nth-child(even){
 
     display:flex;
 
-    gap:6px;
-
     justify-content:center;
+
+    gap:6px;
 
 }
 
 .preview{
 
-    margin-top:20px;
+    background:#fafafa;
 
-    border:2px dashed #cbd5e1;
+    border:2px dashed #cdd9ea;
 
     border-radius:14px;
 
-    padding:20px;
-
-    background:#fafafa;
+    padding:22px;
 
     overflow:auto;
+
+    min-height:350px;
+
+}
+
+#previewDispositivo{
+
+    display:flex;
+
+    justify-content:center;
+
+}
+
+.dispositivo{
+
+    display:flex;
+
+    gap:42px;
+
+    align-items:flex-start;
+
+}
+
+.bloco{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+.fileira{
+
+    display:flex;
+
+    gap:10px;
+
+}
+
+.posicao{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    border:2px solid #6b7280;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:14px;
+
+    font-weight:700;
+
+    background:white;
+
+}
+
+.tituloSuperior{
+
+    text-align:center;
+
+    font-weight:800;
+
+    font-size:24px;
+
+    margin-bottom:18px;
+
+}
+
+.tituloInferior{
+
+    text-align:center;
+
+    font-weight:800;
+
+    font-size:24px;
+
+    margin-top:18px;
+
+}
+
+.voltar{
+
+    text-align:center;
+
+    margin-top:18px;
+
+}
+
+.voltar a{
+
+    text-decoration:none;
+
+    background:#6b7280;
+
+    color:white;
+
+    padding:12px 22px;
+
+    border-radius:10px;
+
+    font-weight:700;
 
 }
 
 @media(max-width:900px){
 
-    .grid-config{
+.config{
 
-        grid-template-columns:1fr;
-
-    }
+grid-template-columns:1fr;
 
 }
 
-@media(max-width:700px){
+.modos{
 
-    .container{
+flex-direction:column;
 
-        padding:12px;
+gap:18px;
 
-    }
-
-    .topo-sistema{
-
-        justify-content:flex-start;
-
-    }
-
-    .titulo-sistema{
-
-        font-size:18px;
-
-    }
-
-    .subtitulo-sistema{
-
-        font-size:12px;
-
-    }
-
-    .modos{
-
-        flex-direction:column;
-
-        align-items:flex-start;
-
-        gap:12px;
-
-    }
+align-items:flex-start;
 
 }
 
-    </style>
+}
+
+</style>
 
 </head>
 
@@ -425,326 +439,247 @@ tbody tr:nth-child(even){
 
 <div class="container">
 
-    <div class="topo-sistema">
+<header>
 
-        <img
-            src="babr.png"
-            alt="BABR">
+<img src="babr.png">
 
-        <div>
+<div>
 
-            <div class="titulo-sistema">
+<h1>SISTEMA DE GERENCIAMENTO DE AGRACIADOS</h1>
 
-                SISTEMA DE GERENCIAMENTO DE AGRACIADOS
+<h2>BASE AÉREA DE BRASÍLIA</h2>
 
-            </div>
+</div>
 
-            <div class="subtitulo-sistema">
+</header>
 
-                BASE AÉREA DE BRASÍLIA
+<div class="card">
 
-            </div>
+<div class="infoEvento">
 
-        </div>
+<strong id="tituloEvento"></strong>
 
-    </div>
+<div id="dataEvento"></div>
 
+<div id="localEvento"></div>
 
+</div>
 
+</div>
 
+<div class="card">
 
-    <div class="caixa-formatura">
+<h3>EDITOR DO DISPOSITIVO</h3>
 
-        <div
-            id="solenidade"
-            class="solenidade">
+<div class="texto">
 
-            Carregando solenidade...
+Nesta página é possível configurar completamente o dispositivo utilizado em todas as telas do sistema.
 
-        </div>
+</div>
 
-        <div
-            class="detalhes-formatura">
+<div class="modos">
 
-            <div id="dataFormatura"></div>
+<label>
 
-            <div id="localFormatura"></div>
+<input
+type="radio"
+name="modo"
+id="modoAutomatico">
 
-        </div>
+Modo Automático
 
-    </div>
+</label>
 
+<label>
 
+<input
+type="radio"
+name="modo"
+id="modoManual">
 
+Modo Manual
 
+</label>
 
-    <div class="card">
+</div>
 
-        <h1>
+<div class="config">
 
-            EDITOR DO DISPOSITIVO
+<div>
 
-        </h1>
+<label>Total de Agraciados</label>
 
-        <div class="descricao">
+<input
+id="Total_Agraciados"
+type="number">
 
-            Nesta página é possível configurar completamente o
-            dispositivo utilizado em todas as telas do sistema.
-            As alterações realizadas aqui serão refletidas
-            automaticamente no Check-in, Acompanhamento,
-            Dashboard e demais páginas.
+</div>
 
-        </div>
+<div>
 
+<label>Quantidade de Blocos</label>
 
+<input
+id="Quantidade_Blocos"
+type="number">
 
+</div>
 
+<div>
 
-        <div class="modos">
+<label>Linhas por Bloco</label>
 
-            <label>
+<input
+id="Linhas_Por_Bloco"
+type="number">
 
-                <input
-                    id="modoAutomatico"
-                    type="radio"
-                    name="modo">
+</div>
 
-                Modo Automático
+<div>
 
-            </label>
+<label>Colunas por Bloco</label>
 
-            <label>
+<input
+id="Colunas_Por_Bloco"
+type="number">
 
-                <input
-                    id="modoManual"
-                    type="radio"
-                    name="modo">
+</div>
 
-                Modo Manual
+<div>
 
-            </label>
+<label>Título Superior</label>
 
-        </div>
+<input
+id="Titulo_Superior"
+type="text">
 
+</div>
 
+<div>
 
+<label>Título Inferior</label>
 
+<input
+id="Titulo_Inferior"
+type="text">
 
-        <div
-            id="painelAutomatico">
+</div>
 
-            <div class="grid-config">
-
-                <div>
-
-                    <label>
-
-                        Quantidade de Blocos
-
-                    </label>
-
-                    <input
-                        id="Quantidade_Blocos"
-                        type="number"
-                        min="1">
-
-                </div>
-
-                <div>
-
-                    <label>
-
-                        Linhas por Bloco
-
-                    </label>
-
-                    <input
-                        id="Linhas_Por_Bloco"
-                        type="number"
-                        min="1">
-
-                </div>
-
-                <div>
-
-                    <label>
-
-                        Colunas por Bloco
-
-                    </label>
-
-                    <input
-                        id="Colunas_Por_Bloco"
-                        type="number"
-                        min="1">
-
-                </div>
-
-                <div>
-
-                    <label>
-
-                        Título Superior
-
-                    </label>
-
-                    <input
-                        id="Titulo_Superior"
-                        type="text">
-
-                </div>
-
-                <div>
-
-                    <label>
-
-                        Título Inferior
-
-                    </label>
-
-                    <input
-                        id="Titulo_Inferior"
-                        type="text">
-
-                </div>
-
-                <div
-                    style="display:flex;align-items:flex-end;">
-
-                    <button
-                        id="btnSalvarAutomatico">
-
-                        Salvar Configuração
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-
-
-        <div
-            id="painelManual"
-            class="oculto">
-
-            <div
-                style="display:flex;
-                       gap:10px;
-                       margin-bottom:18px;
-                       flex-wrap:wrap;">
-
-                <button
-                    id="btnNovaLinha">
-
-                    Nova Fileira
-
-                </button>
-
-                <button
-                    id="btnSalvarManual">
-
-                    Salvar Layout
-
-                </button>
-
-            </div>
-
-            <div class="table-responsive">
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-
-                            <th style="width:70px">
-
-                                Ordem
-
-                            </th>
-
-                            <th style="width:90px">
-
-                                Bloco
-
-                            </th>
-
-                            <th style="width:90px">
-
-                                Fileira
-
-                            </th>
-
-                            <th style="width:120px">
-
-                                Posições
-
-                            </th>
-
-                            <th style="width:170px">
-
-                                Ações
-
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody
-                        id="tbodyLayout">
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-
-
-    <div class="card">
-
-        <h1>
-
-            PRÉ-VISUALIZAÇÃO
-
-        </h1>
-
-        <div
-            id="preview"
-            class="preview">
-
-        </div>
-
-    </div>
-
-
-
-
+</div>
 
     <div
-        style="text-align:center;">
+id="areaManual"
+class="card">
 
-        <a
-            href="index.html"
-            class="voltar-menu">
+<div
+style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px;">
 
-            Voltar ao Menu Principal
+<h2>Layout Manual</h2>
 
-        </a>
+<div>
 
-    </div>
+<button
+id="btnNovaLinha">
+
+Nova Fileira
+
+</button>
+
+</div>
+
+</div>
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th style="width:80px;">
+Ordem
+</th>
+
+<th style="width:120px;">
+Bloco
+</th>
+
+<th style="width:120px;">
+Fileira
+</th>
+
+<th style="width:160px;">
+Posições
+</th>
+
+<th style="width:220px;">
+Ações
+</th>
+
+</tr>
+
+</thead>
+
+<tbody id="tbodyLayout">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2
+style="
+text-align:center;
+margin-bottom:20px;">
+
+Pré-visualização
+
+</h2>
+
+<div
+class="preview">
+
+<div id="previewDispositivo">
+
+</div>
+
+</div>
+
+</div>
+
+<div
+class="card"
+style="
+text-align:center;">
+
+<button
+id="btnSalvar">
+
+Salvar Alterações
+
+</button>
+
+</div>
+
+<div class="voltar">
+
+<a href="index.html">
+
+Voltar ao Menu Principal
+
+</a>
+
+</div>
 
 </div>
 
@@ -758,263 +693,264 @@ let config={};
 
 let layout=[];
 
-let totalAgraciados=0;
-    document.addEventListener("DOMContentLoaded",inicializar);
+document.addEventListener(
+
+"DOMContentLoaded",
+
+inicializar
+
+);
 
 async function inicializar(){
 
-    configurarEventos();
+await carregar();
 
-    await carregarDados();
-
-}
-
-function configurarEventos(){
-
-    document
-        .getElementById("modoAutomatico")
-        .addEventListener("change",trocarModo);
-
-    document
-        .getElementById("modoManual")
-        .addEventListener("change",trocarModo);
-
-    document
-        .getElementById("btnNovaLinha")
-        .addEventListener("click",novaLinha);
-
-    document
-        .getElementById("btnSalvarAutomatico")
-        .addEventListener("click",salvarAutomatico);
-
-    document
-        .getElementById("btnSalvarManual")
-        .addEventListener("click",salvarManual);
-
-    [
-
-        "Quantidade_Blocos",
-
-        "Linhas_Por_Bloco",
-
-        "Colunas_Por_Bloco",
-
-        "Titulo_Superior",
-
-        "Titulo_Inferior"
-
-    ].forEach(id=>{
-
-        document
-            .getElementById(id)
-            .addEventListener("input",atualizarPreview);
-
-    });
+registrarEventos();
 
 }
 
-async function carregarDados(){
+async function carregar(){
 
-    const resposta=await fetch(
+const resposta=
 
-        API_URL+
+await fetch(
 
-        "?action=dados&_="+
+API_URL+
 
-        Date.now()
+"?action=dados&_="+
 
-    );
+Date.now()
 
-    dados=await resposta.json();
+);
 
-    config=dados.config || {};
+dados=
 
-    layout=Array.isArray(dados.layout)
-        ? structuredClone(dados.layout)
-        : [];
+await resposta.json();
 
-    totalAgraciados=
+config=dados.config||{};
 
-        Number(config.Total_Agraciados)
+layout=dados.layout||[];
 
-        ||
+preencherCampos();
 
-        (dados.agraciados || []).length;
+renderTabela();
 
-    preencherCabecalho();
-
-    preencherConfiguracao();
-
-    renderTabela();
-
-    atualizarPreview();
+desenharPreview();
 
 }
 
-function preencherCabecalho(){
+function preencherCampos(){
 
-    document
-        .getElementById("solenidade")
-        .innerText=
+tituloEvento.innerHTML=
 
-        config.Solenidade
+config.Solenidade||"";
 
-        ||
+dataEvento.innerHTML=
 
-        "Solenidade";
+config.Data
+?
 
-    document
-        .getElementById("dataFormatura")
-        .innerText=
+"Data: "+config.Data
 
-        config.Data
+:"";
 
-        ? "Data: "+config.Data
+localEvento.innerHTML=
 
-        : "";
+config.Local
+?
 
-    document
-        .getElementById("localFormatura")
-        .innerText=
+"Local: "+config.Local
 
-        config.Local
+:"";
 
-        ? "Local: "+config.Local
+Total_Agraciados.value=
 
-        : "";
+config.Total_Agraciados||"";
 
-}
+Quantidade_Blocos.value=
 
-function preencherConfiguracao(){
+config.Quantidade_Blocos||1;
 
-    document
-        .getElementById("Quantidade_Blocos")
-        .value=
+Linhas_Por_Bloco.value=
 
-        config.Quantidade_Blocos || 1;
+config.Linhas_Por_Bloco||1;
 
-    document
-        .getElementById("Linhas_Por_Bloco")
-        .value=
+Colunas_Por_Bloco.value=
 
-        config.Linhas_Por_Bloco || 1;
+config.Colunas_Por_Bloco||1;
 
-    document
-        .getElementById("Colunas_Por_Bloco")
-        .value=
+Titulo_Superior.value=
 
-        config.Colunas_Por_Bloco || totalAgraciados;
+config.Titulo_Superior||"";
 
-    document
-        .getElementById("Titulo_Superior")
-        .value=
+Titulo_Inferior.value=
 
-        config.Titulo_Superior || "TRIBUNA";
+config.Titulo_Inferior||"";
 
-    document
-        .getElementById("Titulo_Inferior")
-        .value=
+const modo=
 
-        config.Titulo_Inferior || "TROPA";
+String(
 
-    const modo=
+config.Modo_Layout||
 
-        String(config.Modo_Layout || "AUTOMATICO")
+"AUTOMATICO"
 
-        .normalize("NFD")
+);
 
-        .replace(/[\u0300-\u036f]/g,"")
+if(
 
-        .toUpperCase();
+modo=="MANUAL"
 
-    if(modo==="MANUAL"){
+){
 
-        document
-            .getElementById("modoManual")
-            .checked=true;
+modoManual.checked=true;
 
-    }else{
+areaManual.style.display="block";
 
-        document
-            .getElementById("modoAutomatico")
-            .checked=true;
+}else{
 
-    }
+modoAutomatico.checked=true;
 
-    trocarModo();
+areaManual.style.display="none";
 
 }
 
-function trocarModo(){
+}
 
-    const automatico=
+    function registrarEventos(){
 
-        document
-            .getElementById("modoAutomatico")
-            .checked;
+modoAutomatico.addEventListener(
 
-    document
-        .getElementById("painelAutomatico")
-        .classList
-        .toggle("oculto",!automatico);
+"change",
 
-    document
-        .getElementById("painelManual")
-        .classList
-        .toggle("oculto",automatico);
+()=>{
 
-    atualizarPreview();
+areaManual.style.display="none";
+
+desenharPreview();
 
 }
-    function renderTabela(){
 
-    const tbody=document.getElementById("tbodyLayout");
+);
 
-    tbody.innerHTML="";
+modoManual.addEventListener(
 
-    layout
+"change",
 
-        .slice()
+()=>{
 
-        .sort((a,b)=>Number(a.Ordem)-Number(b.Ordem))
+areaManual.style.display="block";
 
-        .forEach((item,index)=>{
+desenharPreview();
 
-            const tr=document.createElement("tr");
+}
 
-            tr.innerHTML=`
+);
 
-<td style="text-align:center;">
-${item.Ordem}
-</td>
+[
+Total_Agraciados,
+Quantidade_Blocos,
+Linhas_Por_Bloco,
+Colunas_Por_Bloco,
+Titulo_Superior,
+Titulo_Inferior
+].forEach(campo=>{
+
+campo.addEventListener(
+
+"input",
+
+desenharPreview
+
+);
+
+});
+
+btnNovaLinha.addEventListener(
+
+"click",
+
+novaLinha
+
+);
+
+btnSalvar.addEventListener(
+
+"click",
+
+salvar
+
+);
+
+}
+
+function renderTabela(){
+
+tbodyLayout.innerHTML="";
+
+layout
+
+.sort(
+
+(a,b)=>
+
+Number(a.Ordem)-
+
+Number(b.Ordem)
+
+)
+
+.forEach((linha,indice)=>{
+
+tbodyLayout.innerHTML+=`
+
+<tr>
 
 <td>
 
-<input
-type="text"
-value="${item.Bloco}"
-
-oninput="editarBloco(${index},this.value)">
+${linha.Ordem}
 
 </td>
 
 <td>
 
 <input
+
+value="${linha.Bloco}"
+
+oninput="editarBloco(${indice},this.value)">
+
+</td>
+
+<td>
+
+<input
+
 type="number"
-value="${item.Fileira}"
 
-oninput="editarFileira(${index},this.value)">
+value="${linha.Fileira}"
+
+oninput="editarFileira(${indice},this.value)">
 
 </td>
 
 <td>
 
 <input
-type="number"
-value="${item.Posições || item.Posicoes}"
 
-oninput="editarPosicoes(${index},this.value)">
+type="number"
+
+value="${
+
+linha["Posições"]
+
+||
+
+linha.Posicoes
+
+}"
+
+oninput="editarPosicoes(${indice},this.value)">
 
 </td>
 
@@ -1022,25 +958,33 @@ oninput="editarPosicoes(${index},this.value)">
 
 <div class="acoes">
 
-<button onclick="subirLinha(${index})">
+<button
+
+onclick="subir(${indice})">
 
 ▲
 
 </button>
 
-<button onclick="descerLinha(${index})">
+<button
+
+onclick="descer(${indice})">
 
 ▼
 
 </button>
 
-<button onclick="duplicarLinha(${index})">
+<button
 
-+
+onclick="duplicar(${indice})">
+
+Duplicar
 
 </button>
 
-<button onclick="excluirLinha(${index})">
+<button
+
+onclick="excluir(${indice})">
 
 Excluir
 
@@ -1050,1160 +994,619 @@ Excluir
 
 </td>
 
+</tr>
+
 `;
 
-            tbody.appendChild(tr);
-
-        });
+});
 
 }
 
-function editarBloco(indice,valor){
+function editarBloco(i,v){
 
-    layout[indice].Bloco=
+layout[i].Bloco=v.toUpperCase();
 
-        valor
-
-        .trim()
-
-        .toUpperCase();
-
-    atualizarPreview();
+desenharPreview();
 
 }
 
-function editarFileira(indice,valor){
+function editarFileira(i,v){
 
-    layout[indice].Fileira=
+layout[i].Fileira=
 
-        Number(valor);
+Number(v);
 
-    atualizarPreview();
-
-}
-
-function editarPosicoes(indice,valor){
-
-    layout[indice]["Posições"]=
-
-        Number(valor);
-
-    layout[indice]["Posicoes"]=
-
-        Number(valor);
-
-    atualizarPreview();
+desenharPreview();
 
 }
 
-function renumerar(){
+function editarPosicoes(i,v){
 
-    layout.forEach((item,i)=>{
+layout[i]["Posições"]=
 
-        item.Ordem=i+1;
+Number(v);
 
-    });
+layout[i].Posicoes=
 
-}
+Number(v);
 
-function subirLinha(indice){
-
-    if(indice===0)return;
-
-    [
-
-        layout[indice],
-
-        layout[indice-1]
-
-    ]=[
-
-        layout[indice-1],
-
-        layout[indice]
-
-    ];
-
-    renumerar();
-
-    renderTabela();
-
-    atualizarPreview();
-
-}
-
-function descerLinha(indice){
-
-    if(indice===layout.length-1)return;
-
-    [
-
-        layout[indice],
-
-        layout[indice+1]
-
-    ]=[
-
-        layout[indice+1],
-
-        layout[indice]
-
-    ];
-
-    renumerar();
-
-    renderTabela();
-
-    atualizarPreview();
-
-}
-
-function excluirLinha(indice){
-
-    if(!confirm("Excluir esta fileira?"))
-
-        return;
-
-    layout.splice(indice,1);
-
-    renumerar();
-
-    renderTabela();
-
-    atualizarPreview();
-
-}
-
-function duplicarLinha(indice){
-
-    const linha=
-
-        structuredClone(layout[indice]);
-
-    layout.splice(indice+1,0,linha);
-
-    renumerar();
-
-    reorganizarFileiras();
-
-    renderTabela();
-
-    atualizarPreview();
+desenharPreview();
 
 }
 
 function novaLinha(){
 
-    if(layout.length===0){
+layout.push({
 
-        layout.push({
+Ordem:
 
-            Ordem:1,
+layout.length+1,
 
-            Bloco:"A",
+Bloco:"A",
 
-            Fileira:1,
+Fileira:1,
 
-            "Posições":10,
-
-            "Posicoes":10
-
-        });
-
-    }else{
-
-        const ultima=
-
-            layout[layout.length-1];
-
-        layout.push({
-
-            Ordem:layout.length+1,
-
-            Bloco:ultima.Bloco,
-
-            Fileira:Number(ultima.Fileira)+1,
-
-            "Posições":
-
-                Number(
-
-                    ultima["Posições"]
-
-                    ||
-
-                    ultima["Posicoes"]
-
-                ),
-
-            "Posicoes":
-
-                Number(
-
-                    ultima["Posições"]
-
-                    ||
-
-                    ultima["Posicoes"]
-
-                )
-
-        });
-
-    }
-
-    renderTabela();
-
-    atualizarPreview();
-
-}
-
-function reorganizarFileiras(){
-
-    const mapa={};
-
-    layout.forEach(item=>{
-
-        if(!mapa[item.Bloco])
-
-            mapa[item.Bloco]=1;
-
-        else
-
-            mapa[item.Bloco]++;
-
-        item.Fileira=mapa[item.Bloco];
-
-    });
-
-}
-    function atualizarPreview(){
-
-    const automatico=
-
-        document
-            .getElementById("modoAutomatico")
-            .checked;
-
-    if(automatico){
-
-        desenharAutomatico();
-
-    }else{
-
-        desenharManual();
-
-    }
-
-}
-
-function desenharAutomatico(){
-
-    const blocos=
-
-        Number(
-
-            document
-                .getElementById("Quantidade_Blocos")
-                .value
-
-        );
-
-    const linhas=
-
-        Number(
-
-            document
-                .getElementById("Linhas_Por_Bloco")
-                .value
-
-        );
-
-    const colunas=
-
-        Number(
-
-            document
-                .getElementById("Colunas_Por_Bloco")
-                .value
-
-        );
-
-    const tituloSuperior=
-
-        document
-            .getElementById("Titulo_Superior")
-            .value;
-
-    const tituloInferior=
-
-        document
-            .getElementById("Titulo_Inferior")
-            .value;
-
-    const preview=
-
-        document.getElementById("preview");
-
-    preview.innerHTML="";
-
-    let numero=1;
-
-    const tabela=document.createElement("table");
-
-    tabela.style.borderCollapse="collapse";
-
-    tabela.style.margin="auto";
-
-    tabela.style.background="white";
-
-    tabela.style.fontWeight="700";
-
-    tabela.style.fontSize="14px";
-
-    const tbody=document.createElement("tbody");
-
-    for(let linha=0;linha<linhas;linha++){
-
-        const tr=document.createElement("tr");
-
-        for(let bloco=0;bloco<blocos;bloco++){
-
-            for(let coluna=0;coluna<colunas;coluna++){
-
-                const td=document.createElement("td");
-
-                td.style.border="1px solid #9ca3af";
-
-                td.style.width="48px";
-
-                td.style.height="42px";
-
-                td.style.textAlign="center";
-
-                td.style.verticalAlign="middle";
-
-                td.style.background="white";
-
-                if(numero<=totalAgraciados){
-
-                    td.innerHTML=numero;
-
-                    numero++;
-
-                }
-
-                tr.appendChild(td);
-
-            }
-
-            if(bloco<blocos-1){
-
-                const espaco=document.createElement("td");
-
-                espaco.style.width="36px";
-
-                espaco.style.border="none";
-
-                tr.appendChild(espaco);
-
-            }
-
-        }
-
-        tbody.appendChild(tr);
-
-    }
-
-    tabela.appendChild(tbody);
-
-    if(tituloSuperior){
-
-        const sup=document.createElement("div");
-
-        sup.style.textAlign="center";
-
-        sup.style.fontWeight="800";
-
-        sup.style.marginBottom="12px";
-
-        sup.innerHTML=tituloSuperior;
-
-        preview.appendChild(sup);
-
-    }
-
-    preview.appendChild(tabela);
-
-    if(tituloInferior){
-
-        const inf=document.createElement("div");
-
-        inf.style.textAlign="center";
-
-        inf.style.fontWeight="800";
-
-        inf.style.marginTop="12px";
-
-        inf.innerHTML=tituloInferior;
-
-        preview.appendChild(inf);
-
-    }
-
-}
-    function desenharManual(){
-
-    const preview=document.getElementById("preview");
-
-    preview.innerHTML="";
-
-    const tituloSuperior=
-
-        document
-            .getElementById("Titulo_Superior")
-            .value;
-
-    const tituloInferior=
-
-        document
-            .getElementById("Titulo_Inferior")
-            .value;
-
-    if(tituloSuperior){
-
-        const sup=document.createElement("div");
-
-        sup.style.textAlign="center";
-
-        sup.style.fontWeight="800";
-
-        sup.style.marginBottom="12px";
-
-        sup.innerHTML=tituloSuperior;
-
-        preview.appendChild(sup);
-
-    }
-
-    const tabela=document.createElement("table");
-
-    tabela.style.borderCollapse="collapse";
-
-    tabela.style.margin="auto";
-
-    tabela.style.background="white";
-
-    tabela.style.fontWeight="700";
-
-    tabela.style.fontSize="14px";
-
-    const tbody=document.createElement("tbody");
-
-    let numero=1;
-
-    layout
-        .slice()
-        .sort((a,b)=>Number(a.Ordem)-Number(b.Ordem))
-        .forEach(item=>{
-
-            const tr=document.createElement("tr");
-
-            const quantidade=
-
-                Number(
-
-                    item["Posições"]
-
-                    ||
-
-                    item["Posicoes"]
-
-                    ||
-
-                    0
-
-                );
-
-            for(let i=0;i<quantidade;i++){
-
-                const td=document.createElement("td");
-
-                td.style.width="48px";
-
-                td.style.height="42px";
-
-                td.style.border="1px solid #9ca3af";
-
-                td.style.textAlign="center";
-
-                td.style.verticalAlign="middle";
-
-                td.style.background="white";
-
-                if(numero<=totalAgraciados){
-
-                    td.innerHTML=numero;
-
-                    numero++;
-
-                }
-
-                tr.appendChild(td);
-
-            }
-
-            tbody.appendChild(tr);
-
-        });
-
-    tabela.appendChild(tbody);
-
-    preview.appendChild(tabela);
-
-    if(tituloInferior){
-
-        const inf=document.createElement("div");
-
-        inf.style.textAlign="center";
-
-        inf.style.fontWeight="800";
-
-        inf.style.marginTop="12px";
-
-        inf.innerHTML=tituloInferior;
-
-        preview.appendChild(inf);
-
-    }
-
-}
-
-function calcularTotalAutomatico(){
-
-    return layout.reduce((soma,item)=>{
-
-        return soma+
-
-            Number(
-
-                item["Posições"]
-
-                ||
-
-                item["Posicoes"]
-
-                ||
-
-                0
-
-            );
-
-    },0);
-
-}
-    async function salvarAutomatico(){
-
-    const corpo={
-
-        action:"salvarAutomatico",
-
-        config:{
-
-            Modo_Layout:"AUTOMATICO",
-
-            Quantidade_Blocos:Number(
-                document.getElementById("Quantidade_Blocos").value
-            ),
-
-            Linhas_Por_Bloco:Number(
-                document.getElementById("Linhas_Por_Bloco").value
-            ),
-
-            Colunas_Por_Bloco:Number(
-                document.getElementById("Colunas_Por_Bloco").value
-            ),
-
-            Titulo_Superior:
-                document.getElementById("Titulo_Superior").value,
-
-            Titulo_Inferior:
-                document.getElementById("Titulo_Inferior").value
-
-        }
-
-    };
-
-    try{
-
-        const resposta=await fetch(API_URL,{
-
-            method:"POST",
-
-            headers:{
-                "Content-Type":"application/json"
-            },
-
-            body:JSON.stringify(corpo)
-
-        });
-
-        const json=await resposta.json();
-
-        if(!json.ok){
-
-            alert("Erro ao salvar.");
-
-            return;
-
-        }
-
-        await carregarDados();
-
-        alert("Configuração salva com sucesso.");
-
-    }catch(e){
-
-        console.error(e);
-
-        alert("Erro de comunicação.");
-
-    }
-
-}
-
-async function salvarManual(){
-
-    totalAgraciados=calcularTotalAutomatico();
-
-    const corpo={
-
-        action:"salvarManual",
-
-        config:{
-
-            Modo_Layout:"MANUAL",
-
-            Titulo_Superior:
-                document.getElementById("Titulo_Superior").value,
-
-            Titulo_Inferior:
-                document.getElementById("Titulo_Inferior").value,
-
-            Total_Agraciados:totalAgraciados
-
-        },
-
-        layout:layout
-
-    };
-
-    try{
-
-        const resposta=await fetch(API_URL,{
-
-            method:"POST",
-
-            headers:{
-                "Content-Type":"application/json"
-            },
-
-            body:JSON.stringify(corpo)
-
-        });
-
-        const json=await resposta.json();
-
-        if(!json.ok){
-
-            alert("Erro ao salvar.");
-
-            return;
-
-        }
-
-        await carregarDados();
-
-        alert("Layout salvo com sucesso.");
-
-    }catch(e){
-
-        console.error(e);
-
-        alert("Erro de comunicação.");
-
-    }
-
-}
-
-function gerarLayoutAutomatico(){
-
-    const blocos=Number(
-        document.getElementById("Quantidade_Blocos").value
-    );
-
-    const linhas=Number(
-        document.getElementById("Linhas_Por_Bloco").value
-    );
-
-    const colunas=Number(
-        document.getElementById("Colunas_Por_Bloco").value
-    );
-
-    const novo=[];
-
-    let ordem=1;
-
-    for(let bloco=1;bloco<=blocos;bloco++){
-
-        const letra=String.fromCharCode(64+bloco);
-
-        for(let linha=1;linha<=linhas;linha++){
-
-            novo.push({
-
-                Ordem:ordem++,
-
-                Bloco:letra,
-
-                Fileira:linha,
-
-                "Posições":colunas,
-
-                "Posicoes":colunas
-
-            });
-
-        }
-
-    }
-
-    return novo;
-
-}
-    function sincronizarLayoutAutomatico(){
-
-    layout=gerarLayoutAutomatico();
-
-    totalAgraciados=calcularTotalAutomatico();
-
-    renderTabela();
-
-    atualizarPreview();
-
-}
-
-document
-    .getElementById("Quantidade_Blocos")
-    .addEventListener("change",sincronizarLayoutAutomatico);
-
-document
-    .getElementById("Linhas_Por_Bloco")
-    .addEventListener("change",sincronizarLayoutAutomatico);
-
-document
-    .getElementById("Colunas_Por_Bloco")
-    .addEventListener("change",sincronizarLayoutAutomatico);
-
-function exportarLayout(){
-
-    return layout.map(item=>({
-
-        Ordem:Number(item.Ordem),
-
-        Bloco:String(item.Bloco),
-
-        Fileira:Number(item.Fileira),
-
-        Posições:Number(
-
-            item["Posições"]
-
-            ||
-
-            item["Posicoes"]
-
-            ||
-
-            0
-
-        )
-
-    }));
-
-}
-
-function atualizarConfigLocal(){
-
-    config.Modo_Layout=
-
-        document
-            .getElementById("modoAutomatico")
-            .checked
-
-            ?
-
-            "AUTOMATICO"
-
-            :
-
-            "MANUAL";
-
-    config.Quantidade_Blocos=
-
-        Number(
-
-            document
-                .getElementById("Quantidade_Blocos")
-                .value
-
-        );
-
-    config.Linhas_Por_Bloco=
-
-        Number(
-
-            document
-                .getElementById("Linhas_Por_Bloco")
-                .value
-
-        );
-
-    config.Colunas_Por_Bloco=
-
-        Number(
-
-            document
-                .getElementById("Colunas_Por_Bloco")
-                .value
-
-        );
-
-    config.Titulo_Superior=
-
-        document
-            .getElementById("Titulo_Superior")
-            .value;
-
-    config.Titulo_Inferior=
-
-        document
-            .getElementById("Titulo_Inferior")
-            .value;
-
-    config.Total_Agraciados=
-
-        totalAgraciados;
-
-}
-
-function atualizarTudo(){
-
-    atualizarConfigLocal();
-
-    renderTabela();
-
-    atualizarPreview();
-
-}
-
-window.addEventListener(
-
-    "resize",
-
-    atualizarPreview
-
-);
-
-["Quantidade_Blocos",
-
- "Linhas_Por_Bloco",
-
- "Colunas_Por_Bloco",
-
- "Titulo_Superior",
-
- "Titulo_Inferior"
-
-].forEach(id=>{
-
-    document
-
-        .getElementById(id)
-
-        .addEventListener(
-
-            "keyup",
-
-            atualizarTudo
-
-        );
+"Posições":10
 
 });
 
-    function validarConfiguracao(){
+renderTabela();
 
-    if(
+desenharPreview();
 
-        document.getElementById("modoAutomatico").checked
+}
 
-    ){
+function subir(i){
 
-        if(
+if(i==0)return;
 
-            Number(
+[
 
-                document.getElementById("Quantidade_Blocos").value
+layout[i],
 
-            )<=0
+layout[i-1]
 
-        ){
+]=[
 
-            alert("Informe a quantidade de blocos.");
+layout[i-1],
 
-            return false;
+layout[i]
 
-        }
+];
 
-        if(
+renumerar();
 
-            Number(
+renderTabela();
 
-                document.getElementById("Linhas_Por_Bloco").value
+desenharPreview();
 
-            )<=0
+}
 
-        ){
+function descer(i){
 
-            alert("Informe a quantidade de linhas.");
+if(i>=layout.length-1)return;
 
-            return false;
+[
 
-        }
+layout[i],
 
-        if(
+layout[i+1]
 
-            Number(
+]=[
 
-                document.getElementById("Colunas_Por_Bloco").value
+layout[i+1],
 
-            )<=0
+layout[i]
 
-        ){
+];
 
-            alert("Informe a quantidade de colunas.");
+renumerar();
 
-            return false;
+renderTabela();
 
-        }
+desenharPreview();
 
-    }
+}
 
-    if(
+function duplicar(i){
 
-        document.getElementById("modoManual").checked
+layout.splice(
 
-    ){
+i+1,
 
-        if(layout.length===0){
+0,
 
-            alert("O layout manual está vazio.");
+structuredClone(
 
-            return false;
+layout[i]
 
-        }
+function desenharPreview(){
 
-    }
+previewDispositivo.innerHTML="";
 
-    return true;
+const tituloSup=
+
+Titulo_Superior.value;
+
+const tituloInf=
+
+Titulo_Inferior.value;
+
+let html="";
+
+if(tituloSup){
+
+html+=`
+
+<div class="tituloSuperior">
+
+${tituloSup}
+
+</div>
+
+`;
+
+}
+
+html+=`
+
+<div class="dispositivo">
+
+`;
+
+if(modoAutomatico.checked){
+
+const blocos=
+
+Number(
+
+Quantidade_Blocos.value
+
+);
+
+const linhas=
+
+Number(
+
+Linhas_Por_Bloco.value
+
+);
+
+const colunas=
+
+Number(
+
+Colunas_Por_Bloco.value
+
+);
+
+const total=
+
+Number(
+
+Total_Agraciados.value
+
+);
+
+let numero=1;
+
+for(
+
+let b=0;
+
+b<blocos;
+
+b++
+
+){
+
+html+=`
+
+<div class="bloco">
+
+`;
+
+for(
+
+let l=0;
+
+l<linhas;
+
+l++
+
+){
+
+html+=`
+
+<div class="fileira">
+
+`;
+
+for(
+
+let c=0;
+
+c<colunas;
+
+c++
+
+){
+
+if(numero<=total){
+
+html+=`
+
+<div class="posicao">
+
+${numero}
+
+</div>
+
+`;
+
+numero++;
+
+}else{
+
+html+=`
+
+<div class="posicao">
+
+&nbsp;
+
+</div>
+
+`;
+
+}
+
+}
+
+html+=`
+
+</div>
+
+`;
+
+}
+
+html+=`
+
+</div>
+
+`;
+
+}
+
+}else{
+
+const grupos={};
+
+layout.forEach(l=>{
+
+if(!grupos[l.Bloco])
+
+grupos[l.Bloco]=[];
+
+grupos[l.Bloco].push(l);
+
+});
+
+let numero=1;
+
+const total=
+
+Number(
+
+Total_Agraciados.value
+
+);
+
+Object.keys(grupos)
+
+.sort()
+
+.forEach(bloco=>{
+
+html+=`
+
+<div class="bloco">
+
+`;
+
+grupos[bloco]
+
+.sort(
+
+(a,b)=>
+
+Number(a.Fileira)-
+
+Number(b.Fileira)
+
+)
+
+.forEach(fileira=>{
+
+html+=`
+
+<div class="fileira">
+
+`;
+
+const qtd=
+
+Number(
+
+fileira["Posições"]
+
+||
+
+fileira.Posicoes
+
+);
+
+for(
+
+let i=0;
+
+i<qtd;
+
+i++
+
+){
+
+if(numero<=total){
+
+html+=`
+
+<div class="posicao">
+
+${numero}
+
+</div>
+
+`;
+
+numero++;
+
+}else{
+
+html+=`
+
+<div class="posicao">
+
+&nbsp;
+
+</div>
+
+`;
+
+}
+
+}
+
+html+=`
+
+</div>
+
+`;
+
+});
+
+html+=`
+
+</div>
+
+`;
+
+});
+
+}
+
+html+=`
+
+</div>
+
+`;
+
+if(tituloInf){
+
+html+=`
+
+<div class="tituloInferior">
+
+${tituloInf}
+
+</div>
+
+`;
+
+}
+
+previewDispositivo.innerHTML=
+
+html;
+
+}
+
+    function calcularTotalLayout(){
+
+let total=0;
+
+layout.forEach(l=>{
+
+total+=Number(
+
+l["Posições"]
+
+||
+
+l.Posicoes
+
+||
+
+0
+
+);
+
+});
+
+return total;
 
 }
 
 async function salvar(){
 
-    if(!validarConfiguracao()){
+const modo=
 
-        return;
+modoAutomatico.checked
 
-    }
+?
 
-    if(
+"AUTOMATICO"
 
-        document.getElementById("modoAutomatico").checked
+:
 
-    ){
+"MANUAL";
 
-        layout=gerarLayoutAutomatico();
+const configSalvar={
 
-        totalAgraciados=calcularTotalAutomatico();
+Modo_Layout:modo,
 
-        await salvarAutomatico();
+Total_Agraciados:Number(
 
-    }else{
+Total_Agraciados.value
 
-        totalAgraciados=calcularTotalAutomatico();
+),
 
-        await salvarManual();
+Quantidade_Blocos:Number(
 
-    }
+Quantidade_Blocos.value
 
-}
+),
 
-document
+Linhas_Por_Bloco:Number(
 
-    .getElementById("btnSalvarAutomatico")
+Linhas_Por_Bloco.value
 
-    .removeEventListener("click",salvarAutomatico);
+),
 
-document
+Colunas_Por_Bloco:Number(
 
-    .getElementById("btnSalvarManual")
+Colunas_Por_Bloco.value
 
-    .removeEventListener("click",salvarManual);
+),
 
-document
+Titulo_Superior:
 
-    .getElementById("btnSalvarAutomatico")
+Titulo_Superior.value,
 
-    .addEventListener("click",salvar);
+Titulo_Inferior:
 
-document
+Titulo_Inferior.value
 
-    .getElementById("btnSalvarManual")
+};
 
-    .addEventListener("click",salvar);
+if(modo=="MANUAL"){
 
-function limparPreview(){
+configSalvar.Total_Agraciados=
 
-    document
+calcularTotalLayout();
 
-        .getElementById("preview")
+Total_Agraciados.value=
 
-        .innerHTML="";
-
-}
-
-function reconstruirTela(){
-
-    limparPreview();
-
-    atualizarTudo();
+configSalvar.Total_Agraciados;
 
 }
 
-setInterval(function(){
+const resposta=
 
-    if(
+await fetch(
 
-        document.hidden
+API_URL,
 
-    )return;
+{
 
-    reconstruirTela();
+method:"POST",
 
-},30000);
+headers:{
 
-    function normalizarLayout(){
+"Content-Type":"application/json"
 
-    layout=layout
+},
 
-        .filter(item=>item)
+body:JSON.stringify({
 
-        .map((item,index)=>{
+action:"salvarDispositivo",
 
-            return{
+modo:modo,
 
-                Ordem:index+1,
+config:configSalvar,
 
-                Bloco:String(item.Bloco||"A").trim().toUpperCase(),
+layout:layout
 
-                Fileira:Number(item.Fileira)||1,
-
-                "Posições":
-
-                    Number(
-
-                        item["Posições"]
-
-                        ||
-
-                        item["Posicoes"]
-
-                        ||
-
-                        0
-
-                    ),
-
-                "Posicoes":
-
-                    Number(
-
-                        item["Posições"]
-
-                        ||
-
-                        item["Posicoes"]
-
-                        ||
-
-                        0
-
-                    )
-
-            };
-
-        });
-
-    reorganizarFileiras();
-
-    renderTabela();
-
-    atualizarPreview();
+})
 
 }
-
-function recalcularTotais(){
-
-    totalAgraciados=calcularTotalAutomatico();
-
-    config.Total_Agraciados=totalAgraciados;
-
-}
-
-function atualizarInterface(){
-
-    normalizarLayout();
-
-    recalcularTotais();
-
-}
-
-window.editarBloco=editarBloco;
-window.editarFileira=editarFileira;
-window.editarPosicoes=editarPosicoes;
-window.subirLinha=subirLinha;
-window.descerLinha=descerLinha;
-window.duplicarLinha=duplicarLinha;
-window.excluirLinha=excluirLinha;
-
-window.addEventListener("beforeunload",function(e){
-
-    if(document.getElementById("modoManual").checked){
-
-        e.preventDefault();
-
-        e.returnValue="";
-
-    }
-
-});
-
-console.log(
-
-    "Editor do Dispositivo carregado."
 
 );
+
+const json=
+
+await resposta.json();
+
+if(!json.ok){
+
+alert(
+
+json.erro||
+
+"Erro ao salvar."
+
+);
+
+return;
+
+}
+
+await carregar();
+
+alert(
+
+"Dispositivo salvo com sucesso."
+
+);
+
+}
+
+window.editarBloco=
+
+editarBloco;
+
+window.editarFileira=
+
+editarFileira;
+
+window.editarPosicoes=
+
+editarPosicoes;
+
+window.subir=
+
+subir;
+
+window.descer=
+
+descer;
+
+window.duplicar=
+
+duplicar;
+
+window.excluir=
+
+excluir;
 
 </script>
 
