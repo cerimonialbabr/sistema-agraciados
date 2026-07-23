@@ -1,83 +1,541 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width,initial-scale=1.0">
+
+<title>
+Editor do Dispositivo
+</title>
+
+<link
+rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link
+rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:'Inter',sans-serif;
+    background:#eef2f7;
+    color:#1f2937;
+
+}
+
+.container{
+
+    width:min(1700px,96%);
+    margin:30px auto;
+
+}
+
+.topo-sistema{
+
+    background:#0f4c81;
+    color:white;
+
+    border-radius:14px;
+
+    padding:20px 28px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+    margin-bottom:20px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+
+}
+
+.topo-sistema img{
+
+    width:72px;
+    height:72px;
+    object-fit:contain;
+
+}
+
+.caixa-formatura{
+
+    background:white;
+
+    border-radius:12px;
+
+    padding:20px;
+
+    margin-bottom:20px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+
+}
+
+.solenidade{
+
+    font-size:28px;
+
+    font-weight:800;
+
+    color:#0f4c81;
+
+}
+
+.card{
+
+    background:white;
+
+    border-radius:14px;
+
+    padding:24px;
+
+    margin-bottom:24px;
+
+    box-shadow:0 2px 12px rgba(0,0,0,.08);
+
+}
+
+.card h1{
+
+    color:#0f4c81;
+
+    margin-bottom:8px;
+
+}
+
+.card h2{
+
+    color:#0f4c81;
+
+    margin-bottom:20px;
+
+}
+
+label{
+
+    display:block;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    margin-bottom:6px;
+
+    color:#374151;
+
+}
+
+input,
+select{
+
+    width:100%;
+
+    height:40px;
+
+    border:1px solid #d1d5db;
+
+    border-radius:8px;
+
+    padding:0 12px;
+
+    font-size:14px;
+
+}
+
+input:focus,
+select:focus{
+
+    outline:none;
+
+    border-color:#0f4c81;
+
+}
+
+button{
+
+    background:#0f4c81;
+
+    color:white;
+
+    border:none;
+
+    border-radius:8px;
+
+    padding:10px 18px;
+
+    cursor:pointer;
+
+    font-weight:700;
+
+    transition:.2s;
+
+}
+
+button:hover{
+
+    background:#0b3a62;
+
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+th{
+
+    background:#0f4c81;
+
+    color:white;
+
+    padding:12px;
+
+    text-align:center;
+
+    font-size:14px;
+
+}
+
+td{
+
+    border:1px solid #e5e7eb;
+
+    padding:8px;
+
+    vertical-align:middle;
+
+}
+
+tbody tr:nth-child(even){
+
+    background:#f9fafb;
+
+}
+
+.barra-acoes{
+
+    display:flex;
+
+    gap:10px;
+
+    align-items:center;
+
+    margin-bottom:20px;
+
+}
+
+.barra-acoes button{
+
+    padding:10px 16px;
+
+}
+
+.modos{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:40px;
+
+    margin:25px 0;
+
+}
+
+.modos label{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+}
+
+.modos input{
+
+    width:auto;
+
+    height:auto;
+
+}
+
+.grid-auto{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:18px;
+
+    margin-top:20px;
+
+}
+
+.preview{
+
+    margin-top:20px;
+
+    border:2px dashed #cbd5e1;
+
+    border-radius:12px;
+
+    background:#fafafa;
+
+    padding:30px;
+
+    overflow:auto;
+
+    min-height:450px;
+
+}
+
+.preview h3{
+
+    text-align:center;
+
+    color:#0f4c81;
+
+    margin-bottom:25px;
+
+}
+
+.area-dispositivo{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:60px;
+
+    align-items:flex-start;
+
+    flex-wrap:wrap;
+
+}
+
+.bloco{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+.fileira{
+
+    display:flex;
+
+    gap:6px;
+
+}
+
+.cadeira{
+
+    width:34px;
+
+    height:34px;
+
+    border-radius:6px;
+
+    border:1px solid #93c5fd;
+
+    background:#dbeafe;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:11px;
+
+    font-weight:700;
+
+}
+
+.titulo-superior{
+
+    text-align:center;
+
+    font-size:22px;
+
+    font-weight:800;
+
+    color:#0f4c81;
+
+    margin-bottom:30px;
+
+}
+
+.titulo-inferior{
+
+    text-align:center;
+
+    font-size:22px;
+
+    font-weight:800;
+
+    color:#0f4c81;
+
+    margin-top:30px;
+
+}
+
+.oculto{
+
+    display:none;
+
+}
+
+@media(max-width:1100px){
+
+.grid-auto{
+
+grid-template-columns:1fr;
+
+}
+
+.area-dispositivo{
+
+gap:30px;
+
+}
+
+}
+</style>
+
+</head>
+
 <body>
 
 <div class="container">
 
     <div class="topo-sistema">
 
-        <img src="babr.png" alt="BABR">
+        <img
+            src="babr.png"
+            alt="BABR">
 
         <div>
 
-            <div style="font-size:22px;font-weight:800;">
+            <div style="font-size:24px;font-weight:800;">
+
                 SISTEMA DE GERENCIAMENTO DE AGRACIADOS
+
             </div>
 
-            <div style="margin-top:6px;font-size:14px;color:#dbeafe;font-weight:bold;">
+            <div style="margin-top:6px;font-size:15px;font-weight:600;opacity:.9;">
+
                 BASE AÉREA DE BRASÍLIA
+
             </div>
 
         </div>
 
     </div>
+
+
+
 
 
     <div class="caixa-formatura">
 
-        <div class="solenidade" id="solenidade">
-            Carregando solenidade...
+        <div
+            id="solenidade"
+            class="solenidade">
+
+            Carregando...
+
         </div>
 
-        <div id="dataFormatura"
-             style="margin-top:6px;font-weight:bold;color:#374151;">
+        <div
+            id="dataFormatura"
+            style="margin-top:10px;font-weight:600;">
+
         </div>
 
-        <div id="localFormatura"
-             style="margin-top:4px;font-weight:bold;color:#374151;">
+        <div
+            id="localFormatura"
+            style="margin-top:4px;font-weight:600;">
+
         </div>
 
     </div>
+
+
 
 
 
     <div class="card">
 
-        <h1 style="text-align:center;">
-            EDITOR DO DISPOSITIVO
+        <h1>
+
+            Editor do Dispositivo
+
         </h1>
 
-        <p style="text-align:center;color:#4b5563;margin-bottom:25px;">
+        <p style="margin-bottom:25px;color:#6b7280;">
 
-            Configure o dispositivo automático ou
-            edite manualmente o layout utilizado
-            na cerimônia.
+            Configure automaticamente ou personalize manualmente
+            o dispositivo utilizado durante a cerimônia.
 
         </p>
 
 
 
-        <div style="display:flex;gap:20px;align-items:center;justify-content:center;margin-bottom:25px;">
+
+
+        <div class="modos">
 
             <label>
 
                 <input
-                    type="radio"
-                    name="modo"
                     id="modoAutomatico"
-                    onchange="trocarModo()">
+                    name="modo"
+                    type="radio">
 
-                Automático
+                Modo Automático
 
             </label>
 
             <label>
 
                 <input
-                    type="radio"
-                    name="modo"
                     id="modoManual"
-                    onchange="trocarModo()">
+                    name="modo"
+                    type="radio">
 
-                Manual
+                Modo Manual
 
             </label>
 
@@ -85,118 +543,122 @@
 
 
 
-        <div id="painelAutomatico">
 
-            <table>
 
-                <tr>
+        <div
+            id="painelAutomatico">
 
-                    <td>
+            <div class="grid-auto">
 
-                        <label>
-                            Quantidade de Blocos
-                        </label>
+                <div>
 
-                        <input
-                            id="Quantidade_Blocos"
-                            type="number">
+                    <label>
 
-                    </td>
+                        Quantidade de Blocos
 
-                    <td>
+                    </label>
 
-                        <label>
-                            Linhas por Bloco
-                        </label>
+                    <input
+                        id="Quantidade_Blocos"
+                        type="number">
 
-                        <input
-                            id="Linhas_Por_Bloco"
-                            type="number">
+                </div>
 
-                    </td>
+                <div>
 
-                    <td>
+                    <label>
 
-                        <label>
-                            Colunas por Bloco
-                        </label>
+                        Linhas por Bloco
 
-                        <input
-                            id="Colunas_Por_Bloco"
-                            type="number">
+                    </label>
 
-                    </td>
+                    <input
+                        id="Linhas_Por_Bloco"
+                        type="number">
 
-                </tr>
+                </div>
 
-                <tr>
+                <div>
 
-                    <td>
+                    <label>
 
-                        <label>
-                            Título Superior
-                        </label>
+                        Colunas por Bloco
 
-                        <input
-                            id="Titulo_Superior">
+                    </label>
 
-                    </td>
+                    <input
+                        id="Colunas_Por_Bloco"
+                        type="number">
 
-                    <td>
+                </div>
 
-                        <label>
-                            Título Inferior
-                        </label>
+                <div>
 
-                        <input
-                            id="Titulo_Inferior">
+                    <label>
 
-                    </td>
+                        Título Superior
 
-                    <td
-                        style="vertical-align:bottom;">
+                    </label>
 
-                        <button onclick="salvarConfiguracao()">
+                    <input
+                        id="Titulo_Superior">
 
-                            Salvar Configuração
+                </div>
 
-                        </button>
+                <div>
 
-                    </td>
+                    <label>
 
-                </tr>
+                        Título Inferior
 
-            </table>
+                    </label>
+
+                    <input
+                        id="Titulo_Inferior">
+
+                </div>
+
+                <div
+                    style="display:flex;align-items:flex-end;">
+
+                    <button
+                        id="btnSalvarConfiguracao">
+
+                        Salvar Configuração
+
+                    </button>
+
+                </div>
+
+            </div>
 
         </div>
+
 
 
 
 
         <div
             id="painelManual"
-            style="display:none;">
+            class="oculto">
 
-            <div
-                style="margin-bottom:15px;">
+            <div class="barra-acoes">
 
                 <button
-                    onclick="novaFileira()">
+                    id="btnNovaFileira">
 
                     ➕ Nova Fileira
 
                 </button>
 
                 <button
-                    onclick="salvarLayout()">
+                    id="btnSalvarLayout">
 
                     💾 Salvar Layout
 
                 </button>
 
             </div>
-
-
 
             <table>
 
@@ -205,30 +667,40 @@
                     <tr>
 
                         <th style="width:70px;">
+
                             Ordem
+
                         </th>
 
                         <th style="width:90px;">
+
                             Bloco
+
                         </th>
 
                         <th style="width:90px;">
+
                             Fileira
+
                         </th>
 
-                        <th>
+                        <th style="width:120px;">
+
                             Posições
+
                         </th>
 
-                        <th style="width:170px;">
+                        <th style="width:180px;">
+
                             Ações
+
                         </th>
 
                     </tr>
 
                 </thead>
 
-                <tbody id="layout">
+                <tbody id="layoutTabela">
 
                 </tbody>
 
@@ -238,48 +710,216 @@
 
     </div>
 
-</div>
-  
-<script>
-  
-const API_URL="https://script.google.com/macros/s/AKfycby_Oeki-w1mFC8VPSPuszOpsRvPVfZ1fuCyvvz1cYkXogwll6jO051eh0R9y3ibWr8A/exec";
 
-let dadosSistema={};
+
+
+
+    <div class="card">
+
+        <h2>
+
+            Pré-visualização
+
+        </h2>
+
+        <div
+            id="preview"
+            class="preview">
+
+            <div
+                class="titulo-superior"
+                id="previewSuperior">
+
+            </div>
+
+            <div
+                id="previewArea"
+                class="area-dispositivo">
+
+            </div>
+
+            <div
+                class="titulo-inferior"
+                id="previewInferior">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    const API_URL="https://script.google.com/macros/s/AKfycby_Oeki-w1mFC8VPSPuszOpsRvPVfZ1fuCyvvz1cYkXogwll6jO051eh0R9y3ibWr8A/exec";
+
+let dados={};
+
+let configuracao={};
+
 let layout=[];
 
-async function carregarDados(){
+document.addEventListener("DOMContentLoaded",inicializar);
 
-    const resposta=await fetch(API_URL+"?action=dados&_="+Date.now());
 
-    dadosSistema=await resposta.json();
 
-    carregarConfiguracao();
+async function inicializar(){
 
-    carregarLayout();
+    configurarEventos();
+
+    await carregarDados();
 
 }
 
-function carregarConfiguracao(){
 
-    const c=dadosSistema.config;
 
-    document.getElementById("solenidade").innerHTML=c.Solenidade;
 
-    document.getElementById("dataFormatura").innerHTML="Data: "+c.Data;
 
-    document.getElementById("localFormatura").innerHTML="Local: "+c.Local;
+function configurarEventos(){
 
-    document.getElementById("Quantidade_Blocos").value=c.Quantidade_Blocos;
+    document
+        .getElementById("modoAutomatico")
+        .addEventListener("change",trocarModo);
 
-    document.getElementById("Linhas_Por_Bloco").value=c.Linhas_Por_Bloco;
+    document
+        .getElementById("modoManual")
+        .addEventListener("change",trocarModo);
 
-    document.getElementById("Colunas_Por_Bloco").value=c.Colunas_Por_Bloco;
+    document
+        .getElementById("btnNovaFileira")
+        .addEventListener("click",novaFileira);
 
-    document.getElementById("Titulo_Superior").value=c.Titulo_Superior;
+    document
+        .getElementById("btnSalvarConfiguracao")
+        .addEventListener("click",salvarConfiguracao);
 
-    document.getElementById("Titulo_Inferior").value=c.Titulo_Inferior;
+    document
+        .getElementById("btnSalvarLayout")
+        .addEventListener("click",salvarLayout);
 
-    if(c.Modo_Layout=="Automático"){
+    [
+
+        "Quantidade_Blocos",
+
+        "Linhas_Por_Bloco",
+
+        "Colunas_Por_Bloco",
+
+        "Titulo_Superior",
+
+        "Titulo_Inferior"
+
+    ]
+
+    .forEach(id=>{
+
+        document
+
+            .getElementById(id)
+
+            .addEventListener("input",atualizarPreview);
+
+    });
+
+}
+
+
+
+
+
+async function carregarDados(){
+
+    const resposta=await fetch(
+
+        API_URL+
+
+        "?action=dados&_="+
+
+        Date.now()
+
+    );
+
+    dados=await resposta.json();
+
+    configuracao=dados.config;
+
+    layout=[...dados.layout];
+
+    preencherCabecalho();
+
+    preencherConfiguracao();
+
+    renderTabela();
+
+    atualizarPreview();
+
+}
+
+
+
+
+
+function preencherCabecalho(){
+
+    document.getElementById("solenidade").textContent=
+
+        configuracao.Solenidade || "";
+
+
+
+    document.getElementById("dataFormatura").textContent=
+
+        "Data: "+
+
+        (configuracao.Data || "");
+
+
+
+    document.getElementById("localFormatura").textContent=
+
+        "Local: "+
+
+        (configuracao.Local || "");
+
+}
+
+
+
+
+
+function preencherConfiguracao(){
+
+    document.getElementById("Quantidade_Blocos").value=
+
+        configuracao.Quantidade_Blocos;
+
+
+
+    document.getElementById("Linhas_Por_Bloco").value=
+
+        configuracao.Linhas_Por_Bloco;
+
+
+
+    document.getElementById("Colunas_Por_Bloco").value=
+
+        configuracao.Colunas_Por_Bloco;
+
+
+
+    document.getElementById("Titulo_Superior").value=
+
+        configuracao.Titulo_Superior;
+
+
+
+    document.getElementById("Titulo_Inferior").value=
+
+        configuracao.Titulo_Inferior;
+
+
+
+    if(configuracao.Modo_Layout==="Automático"){
 
         document.getElementById("modoAutomatico").checked=true;
 
@@ -289,84 +929,64 @@ function carregarConfiguracao(){
 
     }
 
+
+
     trocarModo();
 
 }
 
+
+
+
+
 function trocarModo(){
 
-    const automatico=document.getElementById("modoAutomatico").checked;
+    const automatico=
 
-    document.getElementById("painelAutomatico").style.display=
-        automatico ? "block" : "none";
+        document.getElementById("modoAutomatico").checked;
 
-    document.getElementById("painelManual").style.display=
-        automatico ? "none" : "block";
+
+
+    document
+
+        .getElementById("painelAutomatico")
+
+        .classList.toggle("oculto",!automatico);
+
+
+
+    document
+
+        .getElementById("painelManual")
+
+        .classList.toggle("oculto",automatico);
+
+
 
     atualizarPreview();
 
 }
+    function renderTabela(){
 
-function carregarLayout(){
-
-    layout=[];
-
-    dadosSistema.layout.forEach(l=>{
-
-        layout.push({
-
-            Ordem:Number(l.Ordem),
-
-            Bloco:l.Bloco,
-
-            Fileira:Number(l.Fileira),
-
-            Posições:Number(l.Posições)
-
-        });
-
-    });
-
-    renderLayout();
-
-}
-
-function renderLayout(){
-
-    const tbody=document.getElementById("layout");
+    const tbody=document.getElementById("layoutTabela");
 
     tbody.innerHTML="";
 
-    layout.forEach((l,i)=>{
+    layout.forEach((item,index)=>{
 
-        tbody.innerHTML+=`
+        const tr=document.createElement("tr");
 
-<tr>
+        tr.innerHTML=`
 
 <td style="text-align:center;">
-${l.Ordem}
+${item.Ordem}
 </td>
 
 <td>
 
 <input
-value="${l.Bloco}"
-oninput="
-layout[${i}].Bloco=this.value.toUpperCase();
-atualizarPreview();
-">
-
-</td>
-
-<td>
-
-<input
-type="number"
-value="${l.Fileira}"
-oninput="
-layout[${i}].Fileira=Number(this.value);
-atualizarPreview();
-">
+value="${item.Bloco}"
+oninput="alterarBloco(${index},this.value)">
 
 </td>
 
@@ -374,35 +994,41 @@ atualizarPreview();
 
 <input
 type="number"
-value="${l.Posições}"
-oninput="
-layout[${i}].Posições=Number(this.value);
-atualizarPreview();
-">
+value="${item.Fileira}"
+oninput="alterarFileira(${index},this.value)">
 
 </td>
 
-<td style="white-space:nowrap;">
+<td>
 
-<button onclick="subir(${i})">
+<input
+type="number"
+value="${item.Posições}"
+oninput="alterarPosicoes(${index},this.value)">
+
+</td>
+
+<td>
+
+<button onclick="subir(${index})">
 
 ▲
 
 </button>
 
-<button onclick="descer(${i})">
+<button onclick="descer(${index})">
 
 ▼
 
 </button>
 
-<button onclick="novaAbaixo(${i})">
+<button onclick="novaAbaixo(${index})">
 
 +
 
 </button>
 
-<button onclick="excluir(${i})">
+<button onclick="excluir(${index})">
 
 🗑
 
@@ -410,57 +1036,117 @@ atualizarPreview();
 
 </td>
 
-</tr>
-
 `;
 
+        tbody.appendChild(tr);
+
     });
+
+}
+
+
+
+
+
+
+
+function alterarBloco(indice,valor){
+
+    layout[indice].Bloco=valor.toUpperCase();
 
     atualizarPreview();
 
 }
 
+
+
+
+
+function alterarFileira(indice,valor){
+
+    layout[indice].Fileira=Number(valor);
+
+    atualizarPreview();
+
+}
+
+
+
+
+
+function alterarPosicoes(indice,valor){
+
+    layout[indice].Posições=Number(valor);
+
+    atualizarPreview();
+
+}
+
+
+
+
+
 function renumerar(){
 
-    layout.forEach((l,i)=>{
+    layout.forEach((item,i)=>{
 
-        l.Ordem=i+1;
+        item.Ordem=i+1;
 
     });
 
 }
 
+
+
+
+
 function subir(indice){
 
-    if(indice==0) return;
+    if(indice===0)return;
 
-    let aux=layout[indice];
+    [layout[indice],layout[indice-1]]=[
 
-    layout[indice]=layout[indice-1];
+        layout[indice-1],
 
-    layout[indice-1]=aux;
+        layout[indice]
+
+    ];
 
     renumerar();
 
-    renderLayout();
+    renderTabela();
+
+    atualizarPreview();
 
 }
+
+
+
+
 
 function descer(indice){
 
-    if(indice>=layout.length-1) return;
+    if(indice===layout.length-1)return;
 
-    let aux=layout[indice];
+    [layout[indice],layout[indice+1]]=[
 
-    layout[indice]=layout[indice+1];
+        layout[indice+1],
 
-    layout[indice+1]=aux;
+        layout[indice]
+
+    ];
 
     renumerar();
 
-    renderLayout();
+    renderTabela();
+
+    atualizarPreview();
 
 }
+
+
+
+
 
 function excluir(indice){
 
@@ -470,13 +1156,19 @@ function excluir(indice){
 
     renumerar();
 
-    renderLayout();
+    renderTabela();
+
+    atualizarPreview();
 
 }
 
+
+
+
+
 function novaAbaixo(indice){
 
-    let atual=layout[indice];
+    const atual=layout[indice];
 
     layout.splice(indice+1,0,{
 
@@ -490,17 +1182,23 @@ function novaAbaixo(indice){
 
     });
 
-    reajustarFileiras();
+    reorganizarFileiras();
 
     renumerar();
 
-    renderLayout();
+    renderTabela();
+
+    atualizarPreview();
 
 }
 
+
+
+
+
 function novaFileira(){
 
-    if(layout.length==0){
+    if(layout.length===0){
 
         layout.push({
 
@@ -510,13 +1208,15 @@ function novaFileira(){
 
             Fileira:1,
 
-            Posições:1
+            Posições:10
 
         });
 
-    }else{
+    }
 
-        let ultima=layout[layout.length-1];
+    else{
+
+        const ultima=layout[layout.length-1];
 
         layout.push({
 
@@ -532,157 +1232,65 @@ function novaFileira(){
 
     }
 
-    renderLayout();
+    renderTabela();
+
+    atualizarPreview();
 
 }
 
-function reajustarFileiras(){
 
-    let mapa={};
 
-    layout.forEach(l=>{
 
-        if(!mapa[l.Bloco])
 
-            mapa[l.Bloco]=1;
+function reorganizarFileiras(){
+
+    const mapa={};
+
+    layout.forEach(item=>{
+
+        if(!mapa[item.Bloco])
+
+            mapa[item.Bloco]=1;
 
         else
 
-            mapa[l.Bloco]++;
+            mapa[item.Bloco]++;
 
-        l.Fileira=mapa[l.Bloco];
-
-    });
-
-}
-
-function salvarConfiguracao(){
-
-    const dados={
-
-        action:"salvarConfiguracao",
-
-        Modo_Layout:
-
-            document.getElementById("modoAutomatico").checked
-
-            ? "Automático"
-
-            : "Manual",
-
-        Quantidade_Blocos:
-
-            Number(document.getElementById("Quantidade_Blocos").value),
-
-        Linhas_Por_Bloco:
-
-            Number(document.getElementById("Linhas_Por_Bloco").value),
-
-        Colunas_Por_Bloco:
-
-            Number(document.getElementById("Colunas_Por_Bloco").value),
-
-        Titulo_Superior:
-
-            document.getElementById("Titulo_Superior").value,
-
-        Titulo_Inferior:
-
-            document.getElementById("Titulo_Inferior").value
-
-    };
-
-    fetch(API_URL,{
-
-        method:"POST",
-
-        body:JSON.stringify(dados)
-
-    })
-
-    .then(r=>r.json())
-
-    .then(()=>{
-
-        alert("Configuração salva com sucesso.");
+        item.Fileira=mapa[item.Bloco];
 
     });
 
 }
+    function atualizarPreview(){
 
-function salvarLayout(){
+    document.getElementById("previewSuperior").textContent=
+        document.getElementById("Titulo_Superior").value;
 
-    renumerar();
+    document.getElementById("previewInferior").textContent=
+        document.getElementById("Titulo_Inferior").value;
 
-    fetch(API_URL,{
+    const area=document.getElementById("previewArea");
 
-        method:"POST",
-
-        body:JSON.stringify({
-
-            action:"salvarLayout",
-
-            layout:layout
-
-        })
-
-    })
-
-    .then(r=>r.json())
-
-    .then(()=>{
-
-        alert("Layout salvo com sucesso.");
-
-    });
-
-}
-
-let preview;
-
-function criarPreview(){
-
-    if(document.getElementById("preview")) return;
-
-    const card=document.createElement("div");
-
-    card.className="card";
-
-    card.innerHTML=`
-
-<h2 style="text-align:center;">
-Pré-visualização do Dispositivo
-</h2>
-
-<div id="preview"></div>
-
-`;
-
-    document.querySelector(".container").appendChild(card);
-
-    preview=document.getElementById("preview");
-
-}
-
-function atualizarPreview(){
-
-    criarPreview();
-
-    preview.innerHTML="";
+    area.innerHTML="";
 
     if(document.getElementById("modoAutomatico").checked){
 
-        desenharAutomatico();
+        desenharAutomatico(area);
 
     }else{
 
-        desenharManual();
+        desenharManual(area);
 
     }
 
 }
 
-function desenharAutomatico(){
+
+
+
+
+
+function desenharAutomatico(area){
 
     const qtdBlocos=
         Number(document.getElementById("Quantidade_Blocos").value);
@@ -693,84 +1301,41 @@ function desenharAutomatico(){
     const colunas=
         Number(document.getElementById("Colunas_Por_Bloco").value);
 
-    const tituloSuperior=
-        document.getElementById("Titulo_Superior").value;
-
-    const tituloInferior=
-        document.getElementById("Titulo_Inferior").value;
-
-    preview.innerHTML+=`
-
-<div style="
-text-align:center;
-font-weight:bold;
-font-size:22px;
-margin-bottom:25px;
-">
-
-${tituloSuperior}
-
-</div>
-
-`;
-
-    const area=document.createElement("div");
-
-    area.style.display="flex";
-
-    area.style.justifyContent="center";
-
-    area.style.gap="35px";
-
-    area.style.flexWrap="wrap";
-
     for(let b=1;b<=qtdBlocos;b++){
 
         const bloco=document.createElement("div");
 
-        bloco.style.display="flex";
+        bloco.className="bloco";
 
-        bloco.style.flexDirection="column";
-
-        bloco.style.gap="6px";
+        bloco.dataset.bloco=b;
 
         for(let l=1;l<=linhas;l++){
 
-            const linha=document.createElement("div");
+            const fileira=document.createElement("div");
 
-            linha.style.display="flex";
+            fileira.className="fileira";
 
-            linha.style.gap="5px";
+            fileira.dataset.fileira=l;
 
             for(let c=1;c<=colunas;c++){
 
                 const cadeira=document.createElement("div");
 
-                cadeira.style.width="28px";
+                cadeira.className="cadeira";
 
-                cadeira.style.height="28px";
+                cadeira.dataset.bloco=b;
 
-                cadeira.style.background="#dbeafe";
+                cadeira.dataset.fileira=l;
 
-                cadeira.style.border="1px solid #93c5fd";
-
-                cadeira.style.borderRadius="4px";
-
-                cadeira.style.display="flex";
-
-                cadeira.style.alignItems="center";
-
-                cadeira.style.justifyContent="center";
-
-                cadeira.style.fontSize="11px";
+                cadeira.dataset.posicao=c;
 
                 cadeira.innerHTML=c;
 
-                linha.appendChild(cadeira);
+                fileira.appendChild(cadeira);
 
             }
 
-            bloco.appendChild(linha);
+            bloco.appendChild(fileira);
 
         }
 
@@ -778,171 +1343,383 @@ ${tituloSuperior}
 
     }
 
-    preview.appendChild(area);
-
-    preview.innerHTML+=`
-
-<div style="
-text-align:center;
-font-weight:bold;
-font-size:22px;
-margin-top:25px;
-">
-
-${tituloInferior}
-
-</div>
-
-`;
-
 }
 
-function desenharManual(){
 
-    const tituloSuperior=
-        document.getElementById("Titulo_Superior").value;
 
-    const tituloInferior=
-        document.getElementById("Titulo_Inferior").value;
 
-    preview.innerHTML+=`
 
-<div style="
-text-align:center;
-font-size:22px;
-font-weight:bold;
-margin-bottom:25px;
-">
 
-${tituloSuperior}
+function desenharManual(area){
 
-</div>
-
-`;
-
-    const area=document.createElement("div");
-
-    area.style.display="flex";
-
-    area.style.justifyContent="center";
-
-    area.style.gap="35px";
-
-    area.style.flexWrap="wrap";
-
-    let blocos={};
+    const grupos={};
 
     layout.forEach(item=>{
 
-        if(!blocos[item.Bloco]){
+        if(!grupos[item.Bloco]){
 
-            blocos[item.Bloco]=[];
+            grupos[item.Bloco]=[];
 
         }
 
-        blocos[item.Bloco].push(item);
+        grupos[item.Bloco].push(item);
 
     });
 
-    Object.keys(blocos).forEach(nome=>{
+    Object.keys(grupos)
 
-        const bloco=document.createElement("div");
+        .sort()
 
-        bloco.style.display="flex";
+        .forEach(nome=>{
 
-        bloco.style.flexDirection="column";
+            const bloco=document.createElement("div");
 
-        bloco.style.gap="6px";
+            bloco.className="bloco";
 
-        blocos[nome].forEach(f=>{
+            bloco.dataset.bloco=nome;
 
-            const linha=document.createElement("div");
+            grupos[nome]
 
-            linha.style.display="flex";
+                .sort((a,b)=>a.Fileira-b.Fileira)
 
-            linha.style.gap="5px";
+                .forEach(fileiraInfo=>{
 
-            for(let i=1;i<=Number(f.Posições);i++){
+                    const fileira=document.createElement("div");
 
-                const cadeira=document.createElement("div");
+                    fileira.className="fileira";
 
-                cadeira.style.width="28px";
+                    fileira.dataset.fileira=fileiraInfo.Fileira;
 
-                cadeira.style.height="28px";
+                    for(let i=1;i<=Number(fileiraInfo.Posições);i++){
 
-                cadeira.style.background="#dbeafe";
+                        const cadeira=document.createElement("div");
 
-                cadeira.style.border="1px solid #93c5fd";
+                        cadeira.className="cadeira";
 
-                cadeira.style.borderRadius="4px";
+                        cadeira.dataset.bloco=nome;
 
-                cadeira.style.display="flex";
+                        cadeira.dataset.fileira=fileiraInfo.Fileira;
 
-                cadeira.style.alignItems="center";
+                        cadeira.dataset.posicao=i;
 
-                cadeira.style.justifyContent="center";
+                        cadeira.innerHTML=i;
 
-                cadeira.style.fontSize="10px";
+                        fileira.appendChild(cadeira);
 
-                cadeira.innerHTML=i;
+                    }
 
-                linha.appendChild(cadeira);
+                    bloco.appendChild(fileira);
 
-            }
+                });
 
-            bloco.appendChild(linha);
+            area.appendChild(bloco);
 
         });
 
-        area.appendChild(bloco);
+}
+    async function salvarConfiguracao(){
 
-    });
+    const dados={
 
-    preview.appendChild(area);
+        action:"salvarConfiguracao",
 
-    preview.innerHTML+=`
+        Modo_Layout:
+            document.getElementById("modoAutomatico").checked
+            ? "Automático"
+            : "Manual",
 
-<div style="
-text-align:center;
-font-size:22px;
-font-weight:bold;
-margin-top:25px;
-">
+        Quantidade_Blocos:Number(
+            document.getElementById("Quantidade_Blocos").value
+        ),
 
-${tituloInferior}
+        Linhas_Por_Bloco:Number(
+            document.getElementById("Linhas_Por_Bloco").value
+        ),
 
-</div>
+        Colunas_Por_Bloco:Number(
+            document.getElementById("Colunas_Por_Bloco").value
+        ),
 
-`;
+        Titulo_Superior:
+            document.getElementById("Titulo_Superior").value,
+
+        Titulo_Inferior:
+            document.getElementById("Titulo_Inferior").value
+
+    };
+
+    try{
+
+        const resposta=await fetch(API_URL,{
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":"text/plain;charset=utf-8"
+            },
+
+            body:JSON.stringify(dados)
+
+        });
+
+        const retorno=await resposta.json();
+
+        if(retorno.ok){
+
+            alert("Configuração salva com sucesso.");
+
+        }else{
+
+            alert("Erro ao salvar configuração.");
+
+        }
+
+    }catch(e){
+
+        console.error(e);
+
+        alert("Falha de comunicação com o servidor.");
+
+    }
+
+}
+    async function salvarLayout(){
+
+    renumerar();
+
+    const dados={
+
+        action:"salvarLayout",
+
+        layout:layout
+
+    };
+
+    try{
+
+        const resposta=await fetch(API_URL,{
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":"text/plain;charset=utf-8"
+            },
+
+            body:JSON.stringify(dados)
+
+        });
+
+        const retorno=await resposta.json();
+
+        if(retorno.ok){
+
+            alert("Layout salvo com sucesso.");
+
+        }else{
+
+            alert("Erro ao salvar layout.");
+
+        }
+
+    }catch(e){
+
+        console.error(e);
+
+        alert("Falha de comunicação com o servidor.");
+
+    }
+
+}
+    async function atualizarSistema(){
+
+    await carregarDados();
+
+}
+    /* ============================================================
+   CONTROLE DE ALTERAÇÕES
+============================================================ */
+
+let alterado=false;
+
+function marcarAlterado(){
+
+    alterado=true;
 
 }
 
-document
-.getElementById("Quantidade_Blocos")
-.addEventListener("input",atualizarPreview);
+window.addEventListener("beforeunload",function(e){
 
-document
-.getElementById("Linhas_Por_Bloco")
-.addEventListener("input",atualizarPreview);
+    if(!alterado) return;
 
-document
-.getElementById("Colunas_Por_Bloco")
-.addEventListener("input",atualizarPreview);
+    e.preventDefault();
 
-document
-.getElementById("Titulo_Superior")
-.addEventListener("input",atualizarPreview);
+    e.returnValue="";
 
-document
-.getElementById("Titulo_Inferior")
-.addEventListener("input",atualizarPreview);
+});
 
-  window.onload=()=>{
+document.addEventListener("input",()=>{
 
-    carregarDados();
+    marcarAlterado();
 
-};
-  
+});
+
+
+
+/* ============================================================
+   ATALHOS
+============================================================ */
+
+document.addEventListener("keydown",function(e){
+
+    if(e.ctrlKey && e.key.toLowerCase()=="s"){
+
+        e.preventDefault();
+
+        if(document.getElementById("modoAutomatico").checked){
+
+            salvarConfiguracao();
+
+        }else{
+
+            salvarLayout();
+
+        }
+
+    }
+
+});
+
+
+
+/* ============================================================
+   APÓS SALVAR
+============================================================ */
+
+async function salvarConfiguracao(){
+
+    const dados={
+
+        action:"salvarConfiguracao",
+
+        Modo_Layout:
+            document.getElementById("modoAutomatico").checked
+            ?"Automático"
+            :"Manual",
+
+        Quantidade_Blocos:Number(document.getElementById("Quantidade_Blocos").value),
+
+        Linhas_Por_Bloco:Number(document.getElementById("Linhas_Por_Bloco").value),
+
+        Colunas_Por_Bloco:Number(document.getElementById("Colunas_Por_Bloco").value),
+
+        Titulo_Superior:document.getElementById("Titulo_Superior").value,
+
+        Titulo_Inferior:document.getElementById("Titulo_Inferior").value
+
+    };
+
+    try{
+
+        const resposta=await fetch(API_URL,{
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":"text/plain;charset=utf-8"
+            },
+
+            body:JSON.stringify(dados)
+
+        });
+
+        const json=await resposta.json();
+
+        if(json.ok){
+
+            alterado=false;
+
+            await atualizarSistema();
+
+            alert("Configuração salva.");
+
+        }else{
+
+            alert("Erro ao salvar.");
+
+        }
+
+    }catch(err){
+
+        console.error(err);
+
+        alert("Falha na comunicação.");
+
+    }
+
+}
+
+
+
+
+
+async function salvarLayout(){
+
+    renumerar();
+
+    try{
+
+        const resposta=await fetch(API_URL,{
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":"text/plain;charset=utf-8"
+            },
+
+            body:JSON.stringify({
+
+                action:"salvarLayout",
+
+                layout:layout
+
+            })
+
+        });
+
+        const json=await resposta.json();
+
+        if(json.ok){
+
+            alterado=false;
+
+            await atualizarSistema();
+
+            alert("Layout salvo.");
+
+        }else{
+
+            alert("Erro ao salvar.");
+
+        }
+
+    }catch(err){
+
+        console.error(err);
+
+        alert("Falha na comunicação.");
+
+    }
+
+}
+
+
+
+/* ============================================================
+   FIM DO ARQUIVO
+============================================================ */
+
 </script>
-</body></html>
 
+</body>
+
+</html>
